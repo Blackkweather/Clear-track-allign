@@ -1,0 +1,12 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "cleartrack",
+      "runtimeExecutable": "php",
+      "runtimeArgs": ["artisan", "serve", "--port=8321"],
+      "port": 8321,
+      "cwd": "C:\\Users\\OUSSAMA\\Desktop\\ClearTrack Align\\cleartrack-website"
+    }
+  ]
+}

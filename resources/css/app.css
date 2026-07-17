@@ -1,0 +1,121 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../views';
+
+@theme {
+    /* Couleur officielle ClearTrack (nuancier client : #2A9EFC) */
+    --color-brand-50: #eff8ff;
+    --color-brand-100: #daefff;
+    --color-brand-200: #bde4ff;
+    --color-brand-300: #90d4ff;
+    --color-brand-400: #5bbbfe;
+    --color-brand-500: #2a9efc;
+    --color-brand-600: #1e80f1;
+    --color-brand-700: #1667d5;
+    --color-brand-800: #1856ac;
+    --color-brand-900: #1a4a87;
+    --color-brand-950: #142e52;
+
+    --color-whatsapp: #25d366;
+
+    --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+}
+
+@layer base {
+    html {
+        scroll-behavior: smooth;
+    }
+    [x-cloak] {
+        display: none !important;
+    }
+    body {
+        @apply font-sans text-slate-700 antialiased;
+    }
+}
+
+/* Bouton pilule de base (maquettes PPT) — @utility pour être applicable */
+@utility btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+}
+
+@layer components {
+    .btn-white {
+        @apply btn bg-white text-brand-600 shadow hover:bg-brand-50 focus-visible:ring-white;
+    }
+    .btn-outline-white {
+        @apply btn border-2 border-white text-white hover:bg-white/10 focus-visible:ring-white;
+    }
+    .btn-brand {
+        @apply btn bg-brand-500 text-white shadow hover:bg-brand-600 focus-visible:ring-brand-500;
+    }
+    .btn-outline-brand {
+        @apply btn border-2 border-brand-500 text-brand-600 hover:bg-brand-50 focus-visible:ring-brand-500;
+    }
+
+    /* Titres de section */
+    .section-title {
+        @apply text-3xl font-bold text-brand-500 md:text-4xl;
+    }
+    .section-subtitle {
+        @apply mt-2 text-base text-slate-500;
+    }
+
+    /* Fond bleu à motif vagues (maquettes PPT) — blanc × multiply = #2A9EFC exact */
+    .bg-waves {
+        background-color: var(--color-brand-500);
+        background-image: url('/assets/brand/bg-waves.png');
+        background-size: cover;
+        background-position: center;
+        background-blend-mode: multiply;
+    }
+
+    /* Variante claire (sections blanches à vagues discrètes) */
+    .bg-waves-light {
+        background-color: white;
+        background-image: url('/assets/brand/bg-waves.png');
+        background-size: cover;
+        background-position: center;
+    }
+
+    /* Variante foncée pour nav/footer : texte blanc à 5.3:1 (WCAG AA) au lieu de 2.8:1 avec le bleu de marque.
+       Réservée aux zones de texte petit/fréquent (nav, footer) ; les sections héros du PPT gardent .bg-waves. */
+    .bg-waves-dark {
+        background-color: var(--color-brand-700);
+        background-image: url('/assets/brand/bg-waves.png');
+        background-size: cover;
+        background-position: center;
+        background-blend-mode: multiply;
+    }
+
+    /* Carte arrondie */
+    .card {
+        @apply rounded-2xl bg-white p-6 shadow-md;
+    }
+
+    /* Ligne d'accordéon à bordure bleue (maquettes PPT) */
+    .accordion-row {
+        @apply border border-brand-300 bg-white;
+    }
+
+    /* Flottement + légère rotation pour l'aligneur du héro — donne du mouvement à l'image statique */
+    .animate-float {
+        animation: float-rotate 6s ease-in-out infinite;
+    }
+}
+
+@keyframes float-rotate {
+    0%, 100% {
+        transform: translateY(0) rotate(-4deg);
+    }
+    50% {
+        transform: translateY(-18px) rotate(4deg);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .animate-float {
+        animation: none;
+    }
+}
