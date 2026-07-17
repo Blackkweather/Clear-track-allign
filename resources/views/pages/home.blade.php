@@ -7,10 +7,10 @@
     <section class="bg-waves relative overflow-hidden">
         <div class="mx-auto grid max-w-7xl items-center gap-8 px-4 py-16 sm:px-6 md:grid-cols-2 md:py-24">
             <div class="text-white">
-                <p class="text-2xl font-medium md:text-3xl">Optez pour la solution</p>
-                <h1 class="mt-2 text-5xl font-extrabold tracking-tight md:text-6xl">SANS FIL</h1>
-                <p class="mt-4 text-xl font-semibold md:text-2xl">Choisissez ClearTrack Align&nbsp;!</p>
-                <div class="mt-8 flex flex-wrap gap-4">
+                <p class="hero-in-1 text-2xl font-medium md:text-3xl">Optez pour la solution</p>
+                <h1 class="hero-in-2 mt-2 text-5xl font-extrabold tracking-tight md:text-6xl">SANS FIL</h1>
+                <p class="hero-in-3 mt-4 text-xl font-semibold md:text-2xl">Choisissez ClearTrack Align&nbsp;!</p>
+                <div class="hero-in-4 mt-8 flex flex-wrap gap-4">
                     <a href="{{ route('pourquoi') }}" class="btn-white">Découvrir</a>
                     <a href="{{ route('rdv') }}" class="btn-outline-white">Prendre RDV</a>
                 </div>
@@ -18,7 +18,7 @@
             <div class="flex justify-center">
                 <img src="{{ asset('assets/hero-aligner.png') }}"
                      alt="Aligneur dentaire transparent ClearTrack align"
-                     class="w-72 max-w-full drop-shadow-2xl md:w-96" fetchpriority="high">
+                     class="animate-float no-reveal w-72 max-w-full drop-shadow-2xl md:w-96" fetchpriority="high">
             </div>
         </div>
     </section>

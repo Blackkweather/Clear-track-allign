@@ -117,7 +117,7 @@
                                 <span class="text-xl font-bold text-brand-500" aria-hidden="true" x-text="ouvert ? '−' : '+'">+</span>
                             </button>
                         </h3>
-                        <div x-show="ouvert" x-cloak class="px-5 pb-5">
+                        <div x-show="ouvert" x-collapse.duration.300ms x-cloak class="px-5 pb-5">
                             @forelse ($ville->cabinets as $cabinet)
                                 <div class="mt-2 rounded-lg bg-brand-50 p-4 text-sm">
                                     <p class="font-bold text-brand-700">{{ $cabinet->medecin }}</p>

@@ -37,7 +37,7 @@
 
 /* Bouton pilule de base (maquettes PPT) — @utility pour être applicable */
 @utility btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold transition-all duration-300 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
 }
 
 @layer components {
@@ -103,6 +103,45 @@
     .animate-float {
         animation: float-rotate 6s ease-in-out infinite;
     }
+
+    /* ── Animations premium (discrètes, GPU-only) ───────────────────── */
+
+    /* Révélation douce au défilement — appliquée via JS (app.js) aux cartes,
+       titres de section et images. Sans JS, rien n'est masqué (dégradation
+       progressive : la classe .will-reveal n'est ajoutée que par le script). */
+    .will-reveal {
+        opacity: 0;
+        transform: translateY(16px);
+        transition: opacity 600ms ease-out, transform 600ms ease-out;
+    }
+    .will-reveal.is-visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* Survol des cartes : léger soulèvement + ombre accentuée (250-350ms, sans rebond) */
+    .card {
+        transition: transform 300ms ease-out, box-shadow 300ms ease-out;
+    }
+    .card:hover {
+        transform: translateY(-4px);
+        @apply shadow-lg;
+    }
+
+    /* Survol des boutons : légère élévation + micro-agrandissement (max 1.02, pas de pulsation).
+       Ciblé sur chaque variante car @apply inline les styles de .btn (la classe "btn" seule
+       n'existe jamais dans le HTML rendu). */
+    .btn-white:hover, .btn-outline-white:hover, .btn-brand:hover, .btn-outline-brand:hover {
+        transform: translateY(-2px) scale(1.02);
+    }
+    .btn-white:active, .btn-outline-white:active, .btn-brand:active, .btn-outline-brand:active {
+        transform: translateY(0) scale(0.99);
+    }
+
+    /* Transitions douces sur les champs de formulaire (focus) */
+    input, textarea, select {
+        transition: border-color 200ms ease, box-shadow 200ms ease, transform 200ms ease;
+    }
 }
 
 @keyframes float-rotate {
@@ -114,8 +153,32 @@
     }
 }
 
+/* Entrée du héro : titre → sous-titre → CTA en cascade douce (fondu + léger mouvement vers le haut) */
+@keyframes hero-in {
+    from { opacity: 0; transform: translateY(14px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.hero-in-1 { animation: hero-in 700ms ease-out both; }
+.hero-in-2 { animation: hero-in 700ms ease-out 150ms both; }
+.hero-in-3 { animation: hero-in 700ms ease-out 300ms both; }
+.hero-in-4 { animation: hero-in 700ms ease-out 450ms both; }
+
 @media (prefers-reduced-motion: reduce) {
-    .animate-float {
+    .animate-float,
+    .hero-in-1, .hero-in-2, .hero-in-3, .hero-in-4 {
         animation: none;
+    }
+    .will-reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+    .card, .btn-white, .btn-outline-white, .btn-brand, .btn-outline-brand {
+        transition: none;
+    }
+    .card:hover,
+    .btn-white:hover, .btn-outline-white:hover, .btn-brand:hover, .btn-outline-brand:hover,
+    .btn-white:active, .btn-outline-white:active, .btn-brand:active, .btn-outline-brand:active {
+        transform: none;
     }
 }
