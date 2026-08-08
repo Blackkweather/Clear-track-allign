@@ -145,7 +145,8 @@
                 <p class="mt-1 text-sm text-slate-500">Formats acceptés&nbsp;: JPG, PNG ou PDF — 15&nbsp;Mo max par fichier. Les champs marqués * sont requis.</p>
                 <div class="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                     @foreach ($typesFichiers as $type => [$label, $requis])
-                        <x-photo-drop :name="'fichier_' . $type" :label="$label . ($requis ? ' *' : '')" />
+                        <x-photo-drop :name="'fichier_' . $type" :label="$label . ($requis ? ' *' : '')"
+                                      accept="image/jpeg,image/png,application/pdf" />
                     @endforeach
                 </div>
             </fieldset>

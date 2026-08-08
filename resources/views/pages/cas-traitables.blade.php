@@ -8,7 +8,7 @@
     <section class="bg-waves">
         <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6">
             <h1 class="text-3xl font-bold text-white md:text-4xl">Cas traitables avec Cleartrack® align</h1>
-            <p class="mt-4 max-w-2xl text-white/90">Cleartrack® align peut traiter la plupart des malocclusions courantes. Chaque cas est évalué par nos orthodontistes pour en confirmer la faisabilité.</p>
+            <p class="texte-ppt mt-4 max-w-2xl text-white/90">Cleartrack® align peut traiter la plupart des malocclusions courantes. Chaque cas est évalué par nos orthodontistes pour en confirmer la faisabilité.</p>
         </div>
     </section>
 

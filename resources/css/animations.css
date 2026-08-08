@@ -1,0 +1,104 @@
+/*
+ | Couche « version animée » — chargée uniquement si config('cleartrack.animations').
+ | Ne contient que des animations : retirer ce fichier ne déplace aucun élément.
+ */
+
+/* ── 1. Écran d'ouverture au logo ────────────────────────────────────────
+   Recouvre la page au premier chargement, le logo apparaît puis l'ensemble
+   s'efface pour révéler l'accueil. Durée totale ≤ 1,4 s (contrainte client).
+   Le voile est retiré du DOM à la fin : aucun blocage d'interaction ensuite. */
+.splash {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-brand-500);
+    animation: splash-out 400ms ease-in 900ms both;
+}
+
+.splash img {
+    width: min(60vw, 18rem);
+    animation: splash-logo 800ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes splash-logo {
+    from {
+        opacity: 0;
+        transform: scale(0.88) translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+@keyframes splash-out {
+    to {
+        opacity: 0;
+        visibility: hidden;
+    }
+}
+
+/* Empêche un défilement pendant le voile (retiré par le script à la fin) */
+html.splash-actif,
+html.splash-actif body {
+    overflow: hidden;
+}
+
+/* ── 2. Apparition « machine à écrire » au défilement ────────────────────
+   Révélation mot à mot. Chaque mot est enveloppé dans un <span> par le script :
+   le texte reste donc intégralement dans le DOM (indexable, lisible par les
+   lecteurs d'écran). Un rideau clip-path a été écarté : sur un texte de
+   plusieurs lignes, il découvre toutes les lignes en même temps et la dernière
+   ligne apparaît avant que la première soit terminée. */
+[data-typing].typing-pret .typing-mot {
+    opacity: 0;
+}
+
+[data-typing].typing-lance .typing-mot {
+    animation: typing-mot 1ms steps(1, end) both;
+    animation-delay: calc(var(--i, 0) * var(--typing-pas, 55ms));
+}
+
+@keyframes typing-mot {
+    to {
+        opacity: 1;
+    }
+}
+
+/* Curseur clignotant pendant la frappe, retiré à la fin par le script */
+[data-typing].typing-lance:not(.typing-fini)::after {
+    content: '';
+    display: inline-block;
+    width: 2px;
+    height: 1em;
+    margin-left: 2px;
+    vertical-align: -0.15em;
+    background-color: currentColor;
+    animation: typing-curseur 600ms steps(2, start) infinite;
+}
+
+@keyframes typing-curseur {
+    50% {
+        opacity: 0;
+    }
+}
+
+/* ── Accessibilité et mobile ─────────────────────────────────────────────
+   prefers-reduced-motion : tout est neutralisé, le contenu s'affiche
+   immédiatement et en entier. */
+@media (prefers-reduced-motion: reduce) {
+    .splash {
+        display: none;
+    }
+    [data-typing].typing-pret .typing-mot,
+    [data-typing].typing-lance .typing-mot {
+        opacity: 1;
+        animation: none;
+    }
+    [data-typing].typing-lance::after {
+        display: none;
+    }
+}

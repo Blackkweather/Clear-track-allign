@@ -30,8 +30,17 @@
     [x-cloak] {
         display: none !important;
     }
+    /* « Casser la grille » : les images débordent volontairement de leur section.
+       overflow-x: clip coupe le débordement horizontal SANS créer de conteneur de
+       défilement — contrairement à overflow-x: hidden, qui forcerait overflow-y: auto
+       et casserait la nav sticky. À poser sur html ET body : sur body seul, c'est
+       l'élément racine qui continue de s'élargir et la barre horizontale réapparaît. */
+    html {
+        overflow-x: clip;
+    }
     body {
         @apply font-sans text-slate-700 antialiased;
+        overflow-x: clip;
     }
 }
 
@@ -54,12 +63,32 @@
         @apply btn border-2 border-brand-500 text-brand-600 hover:bg-brand-50 focus-visible:ring-brand-500;
     }
 
-    /* Titres de section */
+    /* ── Échelle typographique calée sur le PowerPoint ───────────────────
+       La diapositive fait 1280 px de large ; à 1440 px de viewport le facteur
+       est 1,125, et 1 pt = 1,333 px. Correspondances retenues :
+         titre de section  36 pt PPT → 54 px  (ici 52 px)
+         titre de page     32 pt PPT → 48 px  (ici 48 px)
+         sur-titre héro    28 pt PPT → 42 px  (ici 40 px)
+         corps de texte    16 pt PPT → 24 px  (ici 20 px — voir D22)
+       Les valeurs mobiles restent plus basses : les tailles du PPT sont pensées
+       pour un écran 16:9 vu de loin, pas pour une colonne de 375 px. */
     .section-title {
-        @apply text-3xl font-bold text-brand-500 md:text-4xl;
+        @apply text-3xl font-bold leading-tight text-brand-500 md:text-[3.25rem];
+    }
+    /* Même échelle, sur fond bleu */
+    .section-title-invert {
+        @apply text-3xl font-bold leading-tight text-white md:text-[3.25rem];
     }
     .section-subtitle {
-        @apply mt-2 text-base text-slate-500;
+        @apply mt-3 text-base text-slate-500 md:text-xl;
+    }
+    /* Titre principal d'une page intérieure */
+    .page-title {
+        @apply text-3xl font-bold leading-tight md:text-5xl;
+    }
+    /* Paragraphe courant à l'échelle du PPT */
+    .texte-ppt {
+        @apply text-base leading-relaxed md:text-xl;
     }
 
     /* Fond bleu à motif vagues (maquettes PPT) — blanc × multiply = #2A9EFC exact */
@@ -92,6 +121,31 @@
     /* Carte arrondie */
     .card {
         @apply rounded-2xl bg-white p-6 shadow-md;
+    }
+
+    /* ── « Casser la grille » (demande client) ──────────────────────────
+       Une section qui laisse déborder ses images doit peindre AU-DESSUS de la
+       section suivante : les sections sœurs se recouvrent dans l'ordre du DOM,
+       donc sans z-index le fond de la section suivante masquerait le débordement. */
+    .section-bleed {
+        position: relative;
+        z-index: 10;
+    }
+
+    /* Image qui dépasse verticalement de sa section (haut et bas).
+       Les marges négatives retirent l'image du calcul de hauteur de la section :
+       la section est dimensionnée par sa colonne de texte, et l'image, plus haute,
+       déborde visiblement au-dessus et en dessous du séparateur de section. */
+    .img-bleed {
+        position: relative;
+        margin-top: -3rem;
+        margin-bottom: -3rem;
+    }
+    @media (min-width: 768px) {
+        .img-bleed {
+            margin-top: -7rem;
+            margin-bottom: -7rem;
+        }
     }
 
     /* Ligne d'accordéon à bordure bleue (maquettes PPT) */
@@ -162,6 +216,35 @@
 .hero-in-2 { animation: hero-in 700ms ease-out 150ms both; }
 .hero-in-3 { animation: hero-in 700ms ease-out 300ms both; }
 .hero-in-4 { animation: hero-in 700ms ease-out 450ms both; }
+
+/* Version statique « copie du PowerPoint » (config/cleartrack.php → data-animations="off") :
+   mêmes neutralisations que prefers-reduced-motion. Aucune mise en page n'est modifiée. */
+html[data-animations='off'] .animate-float,
+html[data-animations='off'] .hero-in-1,
+html[data-animations='off'] .hero-in-2,
+html[data-animations='off'] .hero-in-3,
+html[data-animations='off'] .hero-in-4 {
+    animation: none;
+}
+html[data-animations='off'] .will-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+}
+html[data-animations='off'] .card,
+html[data-animations='off'] .btn-white,
+html[data-animations='off'] .btn-outline-white,
+html[data-animations='off'] .btn-brand,
+html[data-animations='off'] .btn-outline-brand {
+    transition: none;
+}
+html[data-animations='off'] .card:hover,
+html[data-animations='off'] .btn-white:hover,
+html[data-animations='off'] .btn-outline-white:hover,
+html[data-animations='off'] .btn-brand:hover,
+html[data-animations='off'] .btn-outline-brand:hover {
+    transform: none;
+}
 
 @media (prefers-reduced-motion: reduce) {
     .animate-float,

@@ -25,6 +25,7 @@ class PagesPubliquesTest extends TestCase
             'cas-traitables' => ['/cas-traitables'],
             'fabrication' => ['/fabrication'],
             'faq' => ['/faq'],
+            'instructions' => ['/instructions'],
             'a-propos' => ['/a-propos'],
             'prendre-rdv' => ['/prendre-rdv'],
             'confidentialite' => ['/politique-de-confidentialite'],
@@ -62,5 +63,55 @@ class PagesPubliquesTest extends TestCase
     public function test_admin_non_authentifie_est_redirige_vers_login(): void
     {
         $this->get('/admin')->assertRedirect('/admin/login');
+    }
+
+    public function test_la_nav_expose_accueil_et_instructions(): void
+    {
+        $response = $this->get('/');
+        $response->assertSee('Accueil');
+        $response->assertSee('Instructions');
+        // Le logo renvoie à l'accueil depuis n'importe quelle page
+        $this->get('/pourquoi')->assertSee('aria-label="ClearTrack align — Accueil"', false);
+    }
+
+    public function test_les_quatre_categories_d_instructions_sont_presentes(): void
+    {
+        $response = $this->get('/instructions');
+        foreach (['Mettre en place', 'Retirer', 'Rangement et entretien', 'Manger et boire'] as $categorie) {
+            $response->assertSee($categorie);
+        }
+        $response->assertSee('role="tablist"', false);
+    }
+
+    public function test_la_page_instructions_est_dans_le_sitemap(): void
+    {
+        $this->get('/sitemap.xml')->assertSee(route('instructions'), false);
+    }
+
+    public function test_version_animee_charge_la_couche_animations(): void
+    {
+        config(['cleartrack.animations' => true]);
+        $response = $this->get('/');
+        $response->assertSee('data-animations="on"', false);
+        $response->assertSee('data-splash', false);
+    }
+
+    public function test_version_statique_ne_charge_aucune_animation(): void
+    {
+        config(['cleartrack.animations' => false]);
+        $response = $this->get('/');
+        $response->assertSee('data-animations="off"', false);
+        $response->assertDontSee('data-splash', false);
+        $response->assertDontSee('animations.js', false);
+    }
+
+    public function test_aucune_image_de_marque_tierce_n_est_publiee(): void
+    {
+        // Les visuels concurrents (Spark/Invisalign…) et le rendu filigrané ne doivent
+        // jamais être servis depuis la racine web — voir CONTENT-DECISIONS.md D15 et D20.
+        foreach (['slide20_0.jpg', 'slide20_1.jpg', 'photo-sourire-1.jpg'] as $fichier) {
+            $this->assertFileDoesNotExist(public_path('assets/ppt/'.$fichier));
+            $this->assertFileDoesNotExist(public_path('assets/'.$fichier));
+        }
     }
 }

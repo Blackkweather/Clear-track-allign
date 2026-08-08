@@ -79,4 +79,67 @@ Suivi vivant du projet (règle Phase 6 : checklist maintenue en continu).
 ## Correction post-Étape 7 (17/07/2026)
 - [x] **Section « 5 qualités » (PPT slide 3) reconstruite** : le client a repéré que j'avais remplacé le vrai design (photo de l'aligneur annotée avec lignes de rappel vers Amovible/Hygiénique/Confortable/Discret/Efficace) par une simple grille de cartes. Corrigé : diagramme annoté fidèle au PPT sur desktop/tablette (photo transparente + lignes SVG + labels positionnés), repli en liste simple sur mobile (le diagramme annoté ne fonctionne pas sur petit écran). Vérifié visuellement aux deux tailles.
 
-## Étape 8 — Déploiement Heberjahiz
+## ✅ Animations premium (17/07/2026)
+- [x] **Dépôt Git initialisé** — commit de sauvegarde `75c91ff` avant toute animation (restauration en un clic : `git reset --hard 75c91ff`)
+- [x] Révélation douce au défilement (cartes/titres/images, IntersectionObserver, une fois) — exclut le contenu des carrousels (bug trouvé et corrigé : les diapositives hors champ ne croisaient jamais le viewport et restaient bloquées invisibles)
+- [x] Héro : cascade titre→sous-titre→CTA au chargement + flottement subtil de l'aligneur
+- [x] Cartes : soulèvement + ombre au survol · Boutons : élévation + scale 1.02 (bug trouvé et corrigé : la classe `.btn` n'existe jamais dans le HTML rendu à cause de `@apply`)
+- [x] Accordéon FAQ/annuaire : x-collapse réactivé, expansion fluide mesurée et confirmée (20→72→132px sur ~300ms)
+- [x] `prefers-reduced-motion` : tout désactivé, vérifié par émulation
+- [x] Vérification via Playwright (scroll réel complet, hover, accordéon, contraste avant/après) — outils de capture habituels indisponibles ponctuellement, contournés proprement
+- [x] 33/33 tests toujours au vert, Pint propre, aucune mise en page modifiée
+- [x] Commit `c278846` + Vercel mis à jour
+
+## ✅ Étape 8 — Retours de réunion client (08/08/2026)
+
+### Contenus débloqués (ne dépendaient en fait pas du client)
+- [x] **FAQ Médecin : les 20 réponses seedées** — le constat de l'Étape 5 (« une seule réponse fournie ») était faux : `CLEARTRACK - Part 2.docx` contient une section FAQ praticien couvrant toutes les questions du PPT. Voir CONTENT-DECISIONS.md **D17**
+- [x] Accordéon rendu multi-paragraphes (les réponses longues ne forment plus un bloc unique) — bénéficie aussi à la FAQ patient
+- [x] **Liens « voir exemple »** : schémas de cadrage vectoriels + consignes de prise de vue pour les 12 types de photos (6 patient, 10 médecin), sans fabriquer de fausses photos de patients — **D18**
+- [x] Bug corrigé : le formulaire médecin acceptait les PDF côté validation mais le sélecteur de fichiers les masquait (`accept` codé en dur sur JPG/PNG)
+
+### Phase 1 — Navigation et mise en page
+- [x] Logo → accueil (déjà en place), **« Accueil » ajouté en premier élément** de la nav (desktop + mobile, icône maison)
+- [x] Nav **et** footer repassés au bleu exact du PPT `#2A9EFC` — **arbitrage assumé contre le contraste WCAG AA, voir D19**
+- [x] **Accueil : alternance stricte bleu/blanc** sur les 10 sections — héro bleu, avant-dernière blanche, footer bleu, conformément à la réunion
+- [x] Favicon vérifié dans le `<head>`
+- [x] **Échelle typographique recalée sur le PPT** (titres de section 52 px, titres de page 48 px, sur-titre héro 40 px) — **D22**
+
+### Phase 2 — Contenus
+- [x] **Page « Pourquoi » : les 3 atouts** de la réunion (Clarté « sans stries » / Confort « bords polis à la main » / Durabilité « ne jaunit pas »), en fonds alternés
+- [x] **« Casser la grille »** : images qui débordent réellement de leur section (débordement mesuré : 20 à 60 px en haut et en bas) + photo statique qui sort par le côté gauche
+- [x] **Nouvelle page `/instructions`** (page dédiée, liée dans la nav et le footer) : système de signets à 4 catégories — mise en place, retrait, rangement/entretien, alimentation. Contenu tiré des documents client, pas inventé
+- [x] Page ajoutée au sitemap
+
+### Phase 3 — Animations (version animée par défaut, version statique en un réglage)
+- [x] **Écran d'ouverture au logo** (accueil, une fois par session, 1,3 s, retiré du DOM ensuite)
+- [x] **Effet « machine à écrire » au défilement** sur les puces (Pourquoi + accueil) — révélation mot à mot : le texte reste intégralement dans le DOM (SEO + lecteurs d'écran)
+- [x] Bug trouvé et corrigé : la cible portant `clip-path: inset(0 100% 0 0)` n'est jamais « intersecting » — elle ne pouvait pas déclencher sa propre animation. C'est désormais un conteneur non découpé qui est observé
+- [x] Bug trouvé et corrigé : les éléments en `display:none` à la largeur courante (blocs `md:hidden`) restaient à `opacity: 0` après redimensionnement
+- [x] **Deux versions livrables** : `CLEARTRACK_ANIMATIONS=false` (ou retrait de `animations.css`/`animations.js` du `vite.config.js`) donne la version statique. **Vérifié : hauteur de page identique au pixel près** entre les deux modes
+- [x] `prefers-reduced-motion` respecté par toutes les nouvelles animations
+
+### Phase 4-5 — Responsive, médias
+- [x] **Audit responsive automatisé** : 11 pages × 375 / 768 / 1440 px → aucun défilement horizontal, aucune erreur console
+- [x] `overflow-x: clip` sur `html` **et** `body` (sur `body` seul la barre horizontale réapparaît ; `hidden` casserait la nav sticky)
+- [x] Emplacement voix off prêt (`public/assets/audio/presentation.mp3`), lecture manuelle — **D21**
+
+### Problèmes de contenu détectés et corrigés
+- [x] **Filigrane de banque d'images** sur `photo-sourire-1.jpg`, publiée sur l'accueil et le blog → retirée et remplacée — **D20**
+- [x] **Publicité comparative Spark (Ormco)** servie publiquement sous `/assets/ppt/` → sortie de la racine web — **D20-bis**
+- [x] Test automatisé ajouté pour empêcher la réapparition de ces fichiers
+
+### Vérifications
+- [x] **40 tests, 91 assertions, 100 % de réussite** (33 → 40 : page instructions, onglets, nav, bascule animée/statique, absence de visuels tiers)
+- [x] Pint propre
+
+## En attente du client (bloquants réels)
+- [ ] Les **3 PDF** du centre de téléchargement (fiche de prescription, consentement éclairé, consentement contention)
+- [ ] **Vraies photos avant/après** consenties par écrit (6 cas) — les cartes actuelles utilisent les photos du PPT
+- [ ] **Vraies fiches cabinets** (3 fiches « Dr. M. XXXXX » placeholder, Casablanca)
+- [ ] **URL des réseaux sociaux** (Facebook / YouTube / Instagram — actuellement `href="#"`)
+- [ ] **Fichier audio de la voix off** (+ préciser : piste seule ou bande sonore d'une vidéo à monter ?)
+- [ ] Validation de l'usage des vidéos `Impression.mp4` et `Pose des attachements.mp4` sur l'Espace Médecin
+- [ ] Arbitrages à confirmer : **D17-bis** (délais devis), **D19** (contraste nav), **D22** (corps de texte 20 px vs 24 px)
+
+## Étape 9 — Déploiement Heberjahiz

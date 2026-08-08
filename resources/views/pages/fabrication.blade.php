@@ -7,7 +7,7 @@
     {{-- En-tête (PPT slide 52) --}}
     <section class="bg-waves">
         <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6">
-            <h1 class="max-w-3xl text-3xl font-bold text-white md:text-4xl">Comment les aligneurs Cleartrack® align sont fabriqués</h1>
+            <h1 class="page-title max-w-3xl text-white">Comment les aligneurs Cleartrack® align sont fabriqués</h1>
             <a href="{{ route('rdv') }}" class="btn-white mt-6">Démarrer mon traitement</a>
         </div>
     </section>

@@ -7,13 +7,13 @@
     {{-- En-tête (PPT slide 18) --}}
     <section class="bg-waves">
         <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6">
-            <h1 class="max-w-3xl text-3xl font-bold text-white md:text-4xl">Pourquoi choisir le traitement Cleartrack®align&nbsp;?</h1>
-            <p class="mt-4 max-w-2xl text-white/90">Les aligneurs Cleartrack® sont conçus et développés par des orthodontistes qualifiés et expérimentés.</p>
+            <h1 class="page-title max-w-3xl text-white">Pourquoi choisir le traitement Cleartrack®align&nbsp;?</h1>
+            <p class="texte-ppt mt-4 max-w-2xl text-white/90">Les aligneurs Cleartrack® sont conçus et développés par des orthodontistes qualifiés et expérimentés.</p>
         </div>
     </section>
 
-    {{-- 4 raisons (PPT slides 18-19) --}}
-    <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6">
+    {{-- 4 raisons (PPT slides 18-19) — BLANC --}}
+    <section class="mx-auto max-w-7xl bg-white px-4 py-16 sm:px-6">
         <div class="grid gap-8 md:grid-cols-2">
             @php
                 $raisons = [
@@ -32,43 +32,82 @@
         </div>
     </section>
 
-    {{-- Comparaison matériau (PPT slides 20-22) --}}
-    <section class="bg-waves" aria-labelledby="materiau-titre">
-        <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-            <h2 id="materiau-titre" class="text-3xl font-bold text-white md:text-4xl">Aligneurs avec matériau de meilleure qualité</h2>
-            <p class="mt-3 max-w-2xl text-white/90">Un matériau biocompatible personnalisé de nos aligneurs, qui présente les avantages suivants&nbsp;:</p>
-            <div class="mt-10 grid gap-6 md:grid-cols-3">
-                @php
-                    $comparaisons = [
-                        ['titre' => 'Plus clairs', 'ct' => 'Transparence supérieure, quasi invisibles au quotidien.', 'autres' => 'Opacité et visibilité plus marquées.'],
-                        ['titre' => 'Plus confortables', 'ct' => 'Polis à la main pour des bords plus lisses.', 'autres' => 'Bords bruts pouvant irriter gencives et joues.'],
-                        ['titre' => 'Pas de décoloration', 'ct' => 'Gardent leur transparence s’ils restent à l’abri de produits colorants.', 'autres' => 'Jaunissement apparent avec le temps.'],
-                    ];
-                @endphp
-                @foreach ($comparaisons as $c)
-                    <div class="card">
-                        <h3 class="text-lg font-bold text-brand-600">{{ $c['titre'] }}</h3>
-                        <dl class="mt-4 space-y-4 text-sm">
-                            <div>
-                                <dt class="font-semibold text-brand-500">Cleartrack®align</dt>
-                                <dd class="mt-1">{{ $c['ct'] }}</dd>
-                            </div>
-                            <div>
-                                <dt class="font-semibold text-slate-400">Autres aligneurs</dt>
-                                <dd class="mt-1 text-slate-500">{{ $c['autres'] }}</dd>
-                            </div>
-                        </dl>
-                    </div>
-                @endforeach
+    {{-- ── LES 3 ATOUTS MATÉRIAU (PPT slides 20-22, priorités confirmées en réunion) ──
+         Clarté / Confort / Durabilité, en fonds alternés, avec des images qui débordent
+         volontairement de leur section (« casser la grille »). --}}
+
+    {{-- 1. CLARTÉ — BLEU --}}
+    <section class="section-bleed bg-waves" aria-labelledby="clarte-titre">
+        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-2">
+            <div class="text-white" data-typing-group>
+                <p class="text-sm font-bold uppercase tracking-widest text-white/70">01 — Clarté</p>
+                <h2 id="clarte-titre" class="section-title-invert mt-2">Transparents, sans stries</h2>
+                <div class="mt-4 h-1 w-16 rounded bg-white/70"></div>
+                <ul class="mt-6 space-y-3 text-white/90">
+                    <li class="flex gap-3"><span class="font-bold" aria-hidden="true">✓</span><span data-typing>Un matériau réellement translucide, sans stries ni marques de découpe visibles.</span></li>
+                    <li class="flex gap-3"><span class="font-bold" aria-hidden="true">✓</span><span data-typing>Une fois en bouche, l’effet est invisible&nbsp;: personne ne remarque que vous portez un aligneur.</span></li>
+                    <li class="flex gap-3"><span class="font-bold" aria-hidden="true">✓</span><span data-typing>Les autres aligneurs présentent souvent une opacité et des striures plus marquées.</span></li>
+                </ul>
             </div>
-            <div class="mt-8">
-                <a href="{{ route('fabrication') }}" class="btn-white">Comment sont-ils fabriqués&nbsp;?</a>
+            <div class="flex justify-center">
+                {{-- Débordement volontaire : l'aligneur dépasse en haut et en bas de la section --}}
+                <img src="{{ asset('assets/aligneur-serre.png') }}"
+                     alt="Aligneur Cleartrack® align transparent, sans stries visibles"
+                     class="img-bleed no-reveal h-72 w-auto max-w-none drop-shadow-2xl md:h-[22rem] lg:h-[36rem]" loading="lazy">
             </div>
         </div>
     </section>
 
-    {{-- Pourquoi les aligneurs plutôt que les appareils (PPT slide 23) --}}
-    <section class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-2">
+    {{-- 2. CONFORT — BLANC --}}
+    <section class="section-bleed relative bg-white" aria-labelledby="confort-titre">
+        {{-- Photo statique qui sort par le côté de la page (demande client) --}}
+        <img src="{{ asset('assets/aligneur-doigts.png') }}" alt="" aria-hidden="true"
+             class="pointer-events-none absolute -left-28 top-1/2 hidden w-72 -translate-y-1/2 opacity-90 lg:block xl:-left-20"
+             loading="lazy">
+
+        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-2">
+            <div class="flex justify-center md:order-2">
+                <img src="{{ asset('assets/aligneur-doigts.png') }}"
+                     alt="Bord d’un aligneur Cleartrack® poli à la main, découpe lisse"
+                     class="img-bleed h-64 w-auto max-w-none drop-shadow-xl md:h-[19rem] lg:h-[30rem]" loading="lazy">
+            </div>
+            <div class="md:order-1 lg:pl-24" data-typing-group>
+                <p class="text-sm font-bold uppercase tracking-widest text-brand-400">02 — Confort</p>
+                <h2 id="confort-titre" class="section-title mt-2">Des bords polis à la main</h2>
+                <div class="mt-4 h-1 w-16 rounded bg-brand-400"></div>
+                <ul class="mt-6 space-y-3">
+                    <li class="flex gap-3"><span class="font-bold text-brand-500" aria-hidden="true">✓</span><span data-typing>Chaque aligneur est découpé puis poli à la main par nos techniciens.</span></li>
+                    <li class="flex gap-3"><span class="font-bold text-brand-500" aria-hidden="true">✓</span><span data-typing>Des bords lisses, sans arête vive&nbsp;: aucun risque de blessure de la gencive ni de la joue.</span></li>
+                    <li class="flex gap-3"><span class="font-bold text-brand-500" aria-hidden="true">✓</span><span data-typing>Les bords bruts des aligneurs industriels irritent fréquemment les tissus mous.</span></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    {{-- 3. DURABILITÉ — BLEU --}}
+    <section class="section-bleed bg-waves" aria-labelledby="durabilite-titre">
+        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-2">
+            <div class="text-white" data-typing-group>
+                <p class="text-sm font-bold uppercase tracking-widest text-white/70">03 — Durabilité</p>
+                <h2 id="durabilite-titre" class="section-title-invert mt-2">Ils ne jaunissent pas</h2>
+                <div class="mt-4 h-1 w-16 rounded bg-white/70"></div>
+                <ul class="mt-6 space-y-3 text-white/90">
+                    <li class="flex gap-3"><span class="font-bold" aria-hidden="true">✓</span><span data-typing>Le matériau résiste à la coloration des boissons pigmentées (café, thé, sodas).</span></li>
+                    <li class="flex gap-3"><span class="font-bold" aria-hidden="true">✓</span><span data-typing>Un simple nettoyage leur rend toute leur clarté d’origine.</span></li>
+                    <li class="flex gap-3"><span class="font-bold" aria-hidden="true">✓</span><span data-typing>Là où d’autres aligneurs prennent une teinte jaune définitive au fil des semaines.</span></li>
+                </ul>
+                <a href="{{ route('fabrication') }}" class="btn-white mt-8">Comment sont-ils fabriqués&nbsp;?</a>
+            </div>
+            <div class="flex justify-center">
+                <img src="{{ asset('assets/photo-aligneur-main.png') }}"
+                     alt="Patiente tenant un aligneur Cleartrack® resté parfaitement transparent"
+                     class="img-bleed h-80 w-auto max-w-none rounded-2xl bg-white shadow-2xl md:h-[22rem] lg:h-[34rem]" loading="lazy">
+            </div>
+        </div>
+    </section>
+
+    {{-- Pourquoi les aligneurs plutôt que les appareils (PPT slide 23) — BLANC --}}
+    <section class="mx-auto grid max-w-7xl items-center gap-10 bg-white px-4 py-16 sm:px-6 md:grid-cols-2">
         <div>
             <h2 class="section-title">Pourquoi les gens choisissent les aligneurs plutôt que les appareils dentaires conventionnels&nbsp;?</h2>
             <p class="mt-4 leading-relaxed">La plupart des médecins et orthodontistes considèrent les aligneurs comme la solution idéale pour améliorer la santé bucco-dentaire, la confiance en soi et la personnalité, car ils offrent les avantages d’un traitement orthodontique sans les compromis et les problèmes associés aux appareils conventionnels.</p>

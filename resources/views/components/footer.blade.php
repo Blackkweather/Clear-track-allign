@@ -1,5 +1,6 @@
-{{-- Footer (référence : PPT slides 16, 24, 30…) --}}
-<footer class="bg-waves-dark mt-0 text-white">
+{{-- Footer (référence : PPT slides 16, 24, 30…)
+     Même bleu exact du PPT que la nav, pour la cohérence demandée en réunion (voir D19). --}}
+<footer class="bg-waves mt-0 text-white">
     <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6">
         <div class="flex flex-col gap-10 lg:flex-row lg:justify-between">
 
@@ -29,6 +30,7 @@
                     <ul class="mt-4 space-y-2 text-sm">
                         <li><a href="{{ route('pourquoi') }}" class="hover:underline">Pourquoi CT&nbsp;?</a></li>
                         <li><a href="{{ route('avantages') }}" class="hover:underline">Avantages</a></li>
+                        <li><a href="{{ route('instructions') }}" class="hover:underline">Instructions d’utilisation</a></li>
                         <li><a href="{{ route('blog.index') }}" class="hover:underline">Blog</a></li>
                         <li><a href="{{ route('faq') }}" class="hover:underline">FAQ</a></li>
                         <li><a href="{{ route('a-propos') }}" class="hover:underline">À propos</a></li>
@@ -72,7 +74,7 @@
             </div>
         </div>
 
-        <div class="mt-10 border-t border-white/20 pt-5 text-center text-xs text-white/80">
+        <div class="mt-10 border-t border-white/30 pt-5 text-center text-xs font-medium text-white">
             © Cleartrack {{ date('Y') }}. Tous droits réservés
         </div>
     </div>

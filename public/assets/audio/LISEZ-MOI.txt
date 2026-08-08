@@ -1,0 +1,16 @@
+Voix off de présentation — emplacement réservé
+==============================================
+
+Déposez ici le fichier fourni par le client, nommé exactement :
+
+    presentation.mp3
+
+Le lecteur audio apparaît alors automatiquement sur la page d'accueil,
+sous la vidéo « Regardez comment ça marche » (section bleue).
+Tant que le fichier est absent, aucun lecteur n'est affiché.
+
+Choix de mise en oeuvre (voir CONTENT-DECISIONS.md D21) :
+  - lecture MANUELLE (bouton), jamais de lecture automatique ;
+  - preload="none" : aucun octet téléchargé tant que l'utilisateur ne lance pas ;
+  - question en attente pour le client : cette voix off doit-elle plutôt servir
+    de bande sonore à une vidéo ? Dans ce cas, fournir la vidéo montée, pas l'audio seul.

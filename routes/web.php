@@ -23,6 +23,7 @@ Route::get('/faq', function () {
         'traitement' => Faq::actif()->where('groupe', 'patient-traitement')->get(),
     ]);
 })->name('faq');
+Route::view('/instructions', 'pages.instructions')->name('instructions');
 Route::view('/a-propos', 'pages.a-propos')->name('a-propos');
 Route::get('/prendre-rdv', [RdvController::class, 'show'])->name('rdv');
 Route::post('/prendre-rdv', [RdvController::class, 'store'])

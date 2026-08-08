@@ -7,7 +7,7 @@
     {{-- En-tête (PPT slide 70) --}}
     <section class="bg-waves">
         <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6">
-            <h1 class="max-w-3xl text-3xl font-bold text-white md:text-4xl">Réservez une consultation dans un des cabinets certifiés Cleartrack® partout au Maroc</h1>
+            <h1 class="page-title max-w-3xl text-white">Réservez une consultation dans un des cabinets certifiés Cleartrack® partout au Maroc</h1>
             <p class="mt-4 max-w-3xl text-white/90">Comment deviendra mon sourire après l’alignement des dents&nbsp;? Combien de temps faut-il pour aligner mes dents&nbsp;? Les aligneurs conviennent-ils à mon cas&nbsp;? Remplissez le formulaire ci-dessous afin que nous puissions réserver une consultation dentaire gratuite pour répondre à toutes vos questions.</p>
         </div>
     </section>

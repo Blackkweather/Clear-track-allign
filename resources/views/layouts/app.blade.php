@@ -1,5 +1,14 @@
 <!DOCTYPE html>
-<html lang="fr">
+@php
+    // Version animée vs version statique « copie du PowerPoint » — voir config/cleartrack.php.
+    $animations = config('cleartrack.animations');
+    // Écran d'ouverture : uniquement sur l'accueil, et une fois par session.
+    $splash = $animations && request()->routeIs('home') && ! session()->get('splash_vu');
+    if ($splash) {
+        session()->put('splash_vu', true);
+    }
+@endphp
+<html lang="fr" @class(['splash-actif' => $splash]) data-animations="{{ $animations ? 'on' : 'off' }}">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -25,7 +34,10 @@
     <link rel="icon" type="image/png" href="{{ asset('assets/brand/favicon.png') }}">
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=poppins:400,500,600,700,800&display=swap" rel="stylesheet">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @vite(array_merge(
+        ['resources/css/app.css', 'resources/js/app.js'],
+        $animations ? ['resources/css/animations.css', 'resources/js/animations.js'] : []
+    ))
 
     {{-- Organisation (JSON-LD, sur toutes les pages) --}}
     <script type="application/ld+json">
@@ -50,6 +62,13 @@
     @stack('head')
 </head>
 <body class="min-h-screen bg-white">
+    @if ($splash)
+        {{-- Écran d'ouverture au logo (≤ 1,4 s), retiré du DOM par animations.js --}}
+        <div class="splash" data-splash aria-hidden="true">
+            <img src="{{ asset('assets/brand/logo-on-blue.png') }}" alt="">
+        </div>
+    @endif
+
     <a href="#contenu" class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-white focus:px-4 focus:py-2 focus:text-brand-600">Aller au contenu</a>
 
     <x-nav />

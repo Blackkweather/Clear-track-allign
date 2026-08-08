@@ -11,8 +11,11 @@ Alpine.start();
  * visible normalement (rien n'est masqué par défaut en CSS).
  */
 const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+// Version statique « copie du PowerPoint » : data-animations="off" sur <html>
+// (config/cleartrack.php). Aucune animation, aucune mise en page modifiée.
+const animationsActives = document.documentElement.dataset.animations !== 'off';
 
-if (!reduceMotion) {
+if (!reduceMotion && animationsActives) {
     // Révélation douce au défilement (cartes, titres de section, images) — une seule fois.
     // Exclus : contenu à l'intérieur des carrousels (diapositives hors champ via
     // overflow-hidden horizontal — elles ne croiseraient jamais le viewport au
@@ -20,7 +23,12 @@ if (!reduceMotion) {
     // clique pas sur "suivant").
     const revealSelector = '.card, .section-title, main img:not(.no-reveal)';
     const revealTargets = [...document.querySelectorAll(revealSelector)]
-        .filter((el) => !el.closest('[data-carousel-slide]'));
+        .filter((el) => !el.closest('[data-carousel-slide]'))
+        // Écarte ce qui n'est pas rendu à cette largeur (blocs `md:hidden` /
+        // `hidden md:block`) : un élément en display:none ne croise jamais le
+        // viewport, resterait donc à opacity 0 et deviendrait invisible si
+        // l'utilisateur redimensionne la fenêtre sans recharger la page.
+        .filter((el) => el.getClientRects().length > 0);
 
     if ('IntersectionObserver' in window && revealTargets.length) {
         revealTargets.forEach((el) => el.classList.add('will-reveal'));
@@ -43,8 +51,11 @@ if (!reduceMotion) {
         revealTargets.forEach((el) => observer.observe(el));
     }
 
-    // Ombre de la nav qui s'accentue légèrement au défilement (sticky déjà en place)
-    const header = document.querySelector('header.bg-waves-dark');
+    // Ombre de la nav qui s'accentue légèrement au défilement (sticky déjà en place).
+    // NB : sélecteur volontairement sur `header` seul — la classe de fond de la nav
+    // a changé (bg-waves-dark → bg-waves) et un sélecteur lié à la couleur casserait
+    // silencieusement à chaque changement de charte.
+    const header = document.querySelector('header');
     if (header) {
         header.style.transition = 'box-shadow 250ms ease';
         const onScroll = () => {

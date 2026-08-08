@@ -9,6 +9,9 @@
         </button>
     </h3>
     <div x-show="ouvert" x-collapse.duration.300ms x-cloak class="px-5 pb-5 text-sm leading-relaxed text-slate-600">
-        {{ $reponse }}
+        {{-- Les réponses saisies sur plusieurs lignes (admin ou seed) deviennent autant de paragraphes --}}
+        @foreach (preg_split('/\R+/', trim($reponse)) as $paragraphe)
+            <p @class(['mt-3' => ! $loop->first])>{{ $paragraphe }}</p>
+        @endforeach
     </div>
 </div>
