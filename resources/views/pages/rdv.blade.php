@@ -36,6 +36,7 @@
 
     {{-- Formulaire (PPT slides 71-72) --}}
     <section class="mx-auto max-w-4xl px-4 py-14 sm:px-6">
+        <x-avis-apercu />
         @if (session('succes'))
             <div class="mb-8 rounded-2xl border-2 border-green-500 bg-green-50 p-6 text-center" role="status">
                 <p class="text-lg font-bold text-green-700">Votre demande a bien été envoyée&nbsp;!</p>
@@ -104,7 +105,8 @@
 
             <p class="text-xs leading-relaxed text-slate-500">Toutes les données personnelles récoltées resteront préservées à des fins de traitement uniquement et conformément aux règles énoncées dans notre <a href="{{ route('confidentialite') }}" class="text-brand-600 underline">page de politique de confidentialité</a> que vous pouvez consulter.</p>
 
-            <button type="submit" class="btn-brand px-10">Envoyer</button>
+            <button type="submit" class="btn-brand px-10 disabled:cursor-not-allowed disabled:opacity-50"
+                    @disabled(config('cleartrack.demo'))>Envoyer</button>
         </form>
     </section>
     </div>

@@ -16,6 +16,7 @@
     {{-- Soumission de cas — fond blanc à vagues (section pleine largeur, conteneur centré à l'intérieur) --}}
     <section class="bg-waves-light">
         <div class="mx-auto max-w-4xl px-4 py-14 sm:px-6">
+        <x-avis-apercu />
         @if (session('succes'))
             <div class="mb-8 rounded-2xl border-2 border-green-500 bg-green-50 p-6 text-center" role="status">
                 <p class="text-lg font-bold text-green-700">Votre cas a bien été soumis&nbsp;!</p>
@@ -170,7 +171,8 @@
                 @error('consentement')<p class="text-xs text-red-600">{{ $message }}</p>@enderror
             </fieldset>
 
-            <button type="submit" class="btn-brand px-10">Envoyer</button>
+            <button type="submit" class="btn-brand px-10 disabled:cursor-not-allowed disabled:opacity-50"
+                    @disabled(config('cleartrack.demo'))>Envoyer</button>
         </form>
         </div>
     </section>
