@@ -13,7 +13,9 @@
 
     <x-medecin-nav />
 
-    <section class="mx-auto max-w-4xl px-4 py-14 sm:px-6">
+    {{-- FAQ Médecin — fond blanc à vagues (section pleine largeur, conteneur centré à l'intérieur) --}}
+    <section class="bg-waves-light">
+        <div class="mx-auto max-w-4xl px-4 py-14 sm:px-6">
         @if ($faqs->isEmpty())
             <p class="py-16 text-center text-slate-500">Les réponses de la FAQ Médecin sont en cours de rédaction — contactez-nous à <a href="mailto:customer@cleartrack.ma" class="text-brand-600 underline">customer@cleartrack.ma</a> pour toute question.</p>
         @else
@@ -30,6 +32,7 @@
                 <a href="https://wa.me/212693133170" target="_blank" rel="noopener" class="btn-brand text-xs">Parler à un représentant</a>
                 <a href="mailto:customer@cleartrack.ma" class="btn-outline-brand text-xs">customer@cleartrack.ma</a>
             </div>
+        </div>
         </div>
     </section>
 @endsection

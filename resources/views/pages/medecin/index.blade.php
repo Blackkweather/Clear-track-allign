@@ -14,8 +14,9 @@
 
     <x-medecin-nav />
 
-    {{-- Présentation (PPT slide 78) --}}
-    <section class="mx-auto max-w-7xl px-4 py-14 sm:px-6">
+    {{-- Présentation (PPT slide 78) — fond blanc à vagues (section pleine largeur, conteneur centré à l'intérieur) --}}
+    <section class="bg-waves-light">
+        <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6">
         <div class="grid items-start gap-10 md:grid-cols-2">
             <div>
                 <h2 class="section-title">Développez votre cabinet avec Cleartrack®</h2>
@@ -38,6 +39,7 @@
                     </li>
                 @endforeach
             </ul>
+        </div>
         </div>
     </section>
 

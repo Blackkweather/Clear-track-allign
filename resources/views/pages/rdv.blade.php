@@ -12,6 +12,11 @@
         </div>
     </section>
 
+    {{-- Bloc blanc à vagues : les « 2 visites » et le formulaire sont visuellement
+         continus (pt-14 puis py-14, sans césure). Un seul fond les couvre donc tous
+         les deux — deux .bg-waves-light accolés cadreraient chacun une portion
+         différente du motif et la cassure se verrait à la jointure. --}}
+    <div class="bg-waves-light">
     {{-- 2 visites (PPT slide 70) --}}
     <section class="mx-auto max-w-7xl px-4 pt-14 sm:px-6">
         <div class="card">
@@ -102,6 +107,7 @@
             <button type="submit" class="btn-brand px-10">Envoyer</button>
         </form>
     </section>
+    </div>
 
     {{-- Annuaire des cabinets par ville (PPT slides 73-74) --}}
     <section class="bg-waves" aria-labelledby="annuaire-titre">

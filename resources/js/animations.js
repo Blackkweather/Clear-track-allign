@@ -99,10 +99,42 @@ function machineAEcrire() {
     conteneurs.forEach((_, conteneur) => observer.observe(conteneur));
 }
 
+/* ── 3. Dérive lente du fond à courbes de niveau ──────────────────────────
+   La classe n'est posée que sur les sections effectivement à l'écran : une
+   animation de `background-position` provoque un repaint à chaque image, et
+   l'accueil compte dix sections à fond. Hors champ, on la retire — inutile de
+   faire travailler le navigateur sur ce qu'on ne voit pas. */
+function deriveDesVagues() {
+    if (reduceMotion || !('IntersectionObserver' in window)) return;
+
+    // La nav collante et le pied de page portent aussi .bg-waves : on les laisse
+    // fixes. Un motif qui dérive derrière une barre toujours visible attire l'œil
+    // en permanence, et la nav est repeinte à chaque défilement.
+    const cibles = [...document.querySelectorAll('.bg-waves, .bg-waves-light, .bg-waves-dark')].filter(
+        (el) => !el.closest('header, footer')
+    );
+    if (!cibles.length) return;
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                entry.target.classList.toggle('waves-anime', entry.isIntersecting);
+            });
+        },
+        { rootMargin: '10% 0px' }
+    );
+
+    cibles.forEach((el) => observer.observe(el));
+}
+
 ecranOuverture();
 
 if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', machineAEcrire);
+    document.addEventListener('DOMContentLoaded', () => {
+        machineAEcrire();
+        deriveDesVagues();
+    });
 } else {
     machineAEcrire();
+    deriveDesVagues();
 }

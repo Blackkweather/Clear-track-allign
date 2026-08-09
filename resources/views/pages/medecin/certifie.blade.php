@@ -13,7 +13,9 @@
 
     <x-medecin-nav />
 
-    <section class="mx-auto max-w-3xl px-4 py-14 sm:px-6">
+    {{-- Formulaire de certification — fond blanc à vagues (section pleine largeur, conteneur centré à l'intérieur) --}}
+    <section class="bg-waves-light">
+        <div class="mx-auto max-w-3xl px-4 py-14 sm:px-6">
         @if (session('succes'))
             <div class="mb-8 rounded-2xl border-2 border-green-500 bg-green-50 p-6 text-center" role="status">
                 <p class="text-lg font-bold text-green-700">Votre demande de certification a bien été envoyée&nbsp;!</p>
@@ -68,5 +70,6 @@
 
             <button type="submit" class="btn-brand px-10">Envoyer ma demande de certification</button>
         </form>
+        </div>
     </section>
 @endsection

@@ -34,6 +34,8 @@
         </div>
     </section>
 
+    {{-- Corps de l'article — fond blanc à vagues (section pleine largeur, article centré à l'intérieur) --}}
+    <section class="bg-waves-light">
     <article class="mx-auto max-w-3xl px-4 py-16 sm:px-6">
         @if ($post->image)
             <img src="{{ asset($post->image) }}" alt="" class="mb-10 w-full rounded-2xl shadow-lg" fetchpriority="high">
@@ -48,4 +50,5 @@
             <a href="{{ route('rdv') }}" class="btn-brand mt-5">Prendre RDV</a>
         </div>
     </article>
+    </section>
 @endsection

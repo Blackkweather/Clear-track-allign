@@ -12,8 +12,9 @@
         </div>
     </section>
 
-    {{-- Introduction (PPT slide 53) --}}
-    <section class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-2">
+    {{-- Introduction (PPT slide 53) — fond blanc à vagues (section pleine largeur, grille centrée à l'intérieur) --}}
+    <section class="bg-waves-light">
+        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-2">
         <div>
             <h2 class="section-title">Voyons d’abord ce que sont les aligneurs Cleartrack® align</h2>
             <p class="mt-4 leading-relaxed">Prescrits par votre dentiste, les aligneurs Cleartrack® align sont des gouttières transparentes qui ont été développées spécifiquement pour aligner vos dents de manière prévisible, douce, claire et confortable. Au lieu d’attaches métalliques, de fils ou de vis, vous porterez un matériau thermoplastique qui vous permettra d’obtenir les résultats souhaités, tout en passant inaperçu aux yeux de votre entourage.</p>
@@ -21,6 +22,7 @@
         </div>
         <div class="flex justify-center">
             <img src="{{ asset('assets/ppt/slide53.jpg') }}" alt="Aligneur transparent Cleartrack align" class="w-full max-w-md rounded-2xl shadow-xl" loading="lazy">
+        </div>
         </div>
     </section>
 
@@ -52,8 +54,9 @@
         </div>
     </section>
 
-    {{-- Procédure de laboratoire (PPT slides 55-57) --}}
-    <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6">
+    {{-- Procédure de laboratoire (PPT slides 55-57) — fond blanc à vagues --}}
+    <section class="bg-waves-light">
+        <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6">
         <h2 class="section-title text-center">Procédure de laboratoire Cleartrack®</h2>
         <div class="mt-10 space-y-10">
             <div class="grid items-center gap-8 md:grid-cols-2">
@@ -80,6 +83,7 @@
                     <p class="mt-3 leading-relaxed">Avant d’autoriser la livraison des aligneurs à votre prestataire, un contrôle de qualité complet est effectué pour vérifier toutes les marges, les bordures, les épaisseurs, la numérotation et la forme de l’arcade de vos aligneurs. La différence Cleartrack® est claire.</p>
                 </div>
             </div>
+        </div>
         </div>
     </section>
 

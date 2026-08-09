@@ -25,7 +25,9 @@
         </div>
     </section>
 
-    <section class="mx-auto max-w-4xl px-4 py-16 sm:px-6">
+    {{-- Les deux groupes de questions — fond blanc à vagues (section pleine largeur, conteneur centré à l'intérieur) --}}
+    <section class="bg-waves-light">
+        <div class="mx-auto max-w-4xl px-4 py-16 sm:px-6">
         <h2 class="section-title">Questions générales</h2>
         <div class="mt-6 space-y-3">
             @foreach ($general as $faq)
@@ -38,6 +40,7 @@
             @foreach ($traitement as $faq)
                 <x-accordion-item :question="$faq->question" :reponse="$faq->reponse" />
             @endforeach
+        </div>
         </div>
     </section>
 

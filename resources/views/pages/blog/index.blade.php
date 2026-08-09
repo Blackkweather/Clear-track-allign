@@ -11,7 +11,9 @@
         </div>
     </section>
 
-    <section class="mx-auto max-w-7xl px-4 py-16 sm:px-6">
+    {{-- Liste des articles — fond blanc à vagues (section pleine largeur, conteneur centré à l'intérieur) --}}
+    <section class="bg-waves-light">
+        <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6">
         @if ($posts->isEmpty())
             <p class="py-20 text-center text-slate-500">Aucun article publié pour le moment — revenez bientôt&nbsp;!</p>
         @else
@@ -43,5 +45,6 @@
                 {{ $posts->links() }}
             </nav>
         @endif
+        </div>
     </section>
 @endsection

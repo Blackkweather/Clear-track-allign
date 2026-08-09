@@ -43,6 +43,7 @@
                         <li><a href="{{ route('confidentialite') }}" class="hover:underline">Politique de confidentialité</a></li>
                         <li><a href="{{ route('cgu') }}" class="hover:underline">Conditions générales</a></li>
                         <li><a href="{{ route('rdv') }}" class="hover:underline">Nous contacter</a></li>
+                        <li><a href="{{ route('rdv') }}" class="hover:underline">Prendre RDV</a></li>
                     </ul>
                 </div>
             </div>

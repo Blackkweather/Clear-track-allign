@@ -13,7 +13,9 @@
 
     <x-medecin-nav />
 
-    <section class="mx-auto max-w-3xl px-4 py-14 sm:px-6">
+    {{-- Formulaires téléchargeables — fond blanc à vagues (section pleine largeur, conteneur centré à l'intérieur) --}}
+    <section class="bg-waves-light">
+        <div class="mx-auto max-w-3xl px-4 py-14 sm:px-6">
         <h2 class="section-title">Formulaires</h2>
         <div class="mt-6 space-y-4">
             @foreach ($documents as $doc)
@@ -35,6 +37,7 @@
             <h2 class="text-lg font-bold text-brand-600">Matériel marketing &amp; dossier d’information</h2>
             <p class="mt-2 text-sm text-slate-600">Veuillez nous contacter si vous ne parvenez pas à trouver ce que vous cherchez.</p>
             <a href="mailto:contact@cleartrack.ma" class="btn-outline-brand mt-4 text-xs">contact@cleartrack.ma</a>
+        </div>
         </div>
     </section>
 @endsection

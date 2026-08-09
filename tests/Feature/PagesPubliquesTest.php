@@ -109,9 +109,44 @@ class PagesPubliquesTest extends TestCase
     {
         // Les visuels concurrents (Spark/Invisalign…) et le rendu filigrané ne doivent
         // jamais être servis depuis la racine web — voir CONTENT-DECISIONS.md D15 et D20.
+        // Ce sont bien les fichiers d'ORIGINE, non recadrés, qui sont interdits : le
+        // comparatif matériau publie les mêmes photos avec le recadrage du PPT, lequel
+        // supprime tout le bandeau de marque (D24).
         foreach (['slide20_0.jpg', 'slide20_1.jpg', 'photo-sourire-1.jpg'] as $fichier) {
             $this->assertFileDoesNotExist(public_path('assets/ppt/'.$fichier));
             $this->assertFileDoesNotExist(public_path('assets/'.$fichier));
         }
+    }
+
+    public function test_les_fonds_a_vagues_sont_vectoriels_et_conformes_au_ppt(): void
+    {
+        // Les couleurs sont relevées dans la palette des PNG du PowerPoint
+        // (ppt/media/image1.png : #1586C8 / #248ACA — image8.png : #FFFFFF / #F6FAFD).
+        // Si quelqu'un régénère les SVG avec d'autres teintes, on veut le savoir.
+        $attendus = [
+            'bg-waves-blue.svg' => ['#1586c8', '#248aca'],
+            'bg-waves-landscape.svg' => ['#ffffff', '#f6fafd'],
+            'bg-waves-dark.svg' => ['#1667d5', '#256bd7'],
+        ];
+
+        foreach ($attendus as $fichier => $couleurs) {
+            $chemin = public_path('assets/brand/'.$fichier);
+            $this->assertFileExists($chemin);
+
+            $svg = file_get_contents($chemin);
+            $doc = new \DOMDocument;
+            $this->assertTrue(@$doc->loadXML($svg), "{$fichier} n'est pas un XML valide");
+            $this->assertGreaterThan(20, $doc->getElementsByTagName('path')->length,
+                "{$fichier} a perdu des tracés");
+
+            foreach ($couleurs as $couleur) {
+                $this->assertStringContainsString($couleur, $svg,
+                    "{$fichier} ne porte plus la couleur {$couleur} du PPT");
+            }
+        }
+
+        // Plus aucun fond à vagues en bitmap : le passage au vectoriel doit rester acquis.
+        $css = file_get_contents(resource_path('css/app.css'));
+        $this->assertDoesNotMatchRegularExpression('#bg-waves[a-z-]*\.png#', $css);
     }
 }

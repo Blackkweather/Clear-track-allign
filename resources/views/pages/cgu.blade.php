@@ -10,8 +10,12 @@
         </div>
     </section>
 
-    {{-- Texte intégral (PPT slides 66-68) --}}
-    <section class="mx-auto max-w-4xl space-y-6 px-4 py-16 leading-relaxed sm:px-6">
+    {{-- Texte intégral (PPT slides 66-68) — fond blanc à vagues, comme toutes les
+         diapos blanches. Le fond est porté par la section pleine largeur et le
+         conteneur centré passe à l'intérieur : porté par le conteneur, les courbes
+         s'arrêteraient à 896 px et laisseraient des marges blanches sur les côtés. --}}
+    <section class="bg-waves-light">
+        <div class="mx-auto max-w-4xl space-y-6 px-4 py-16 leading-relaxed sm:px-6">
         <p class="text-lg font-semibold text-brand-600">Bienvenue sur Cleartrack&nbsp;!</p>
         <p>Les présentes conditions d’utilisation («&nbsp;Conditions&nbsp;», «&nbsp;Conditions de service&nbsp;») régissent votre utilisation de notre site web www.cleartrack.ma (ensemble ou individuellement «&nbsp;Service&nbsp;») exploité par Go dental sarl.</p>
         <p>Notre politique de confidentialité régit également votre utilisation de notre service et explique comment nous recueillons, protégeons et divulguons les informations résultant de votre utilisation de nos pages web.</p>
@@ -45,5 +49,6 @@
             <li><a href="mailto:contact@cleartrack.ma" class="text-brand-600 underline">contact@cleartrack.ma</a></li>
             <li><a href="tel:+212693133170" class="text-brand-600 underline">+212 693 133 170</a></li>
         </ul>
+        </div>
     </section>
 @endsection

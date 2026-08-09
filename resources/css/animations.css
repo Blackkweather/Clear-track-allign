@@ -86,6 +86,43 @@ html.splash-actif body {
     }
 }
 
+/* ── 3. Dérive lente du fond à courbes de niveau ─────────────────────────
+   Le motif monte et descend très lentement, comme une marée. La classe est
+   posée par le script uniquement sur les sections visibles à l'écran.
+
+   Pourquoi une dérive VERTICALE et rien d'autre :
+   - `background-size` reste figé, donc le SVG n'est rastérisé qu'une fois ;
+     l'animer forcerait le navigateur à re-rastériser 27 tracés de Bézier à
+     chaque image, sur chaque section visible.
+   - En largeur il n'y a aucune marge (`background-size: 100% auto`) : une
+     dérive horizontale ferait « sortir » les courbes sur un bord. En hauteur
+     l'image déborde de la plupart des sections, la marge existe donc vraiment.
+   - Et là où elle n'existe pas (sections plus hautes que l'image), aucun raccord
+     ne se voit : `background-color` est exactement la couleur de fond du SVG,
+     la zone découverte est donc du même aplat qu'à l'arrêt.
+
+   L'image-clé 0 % et 100 % vaut `center` — c'est-à-dire exactement la position
+   de la version statique. L'animation oscille autour de cet état de repos :
+   retirer animations.css ne déplace donc rien. */
+.waves-anime {
+    animation: waves-derive 28s ease-in-out infinite;
+}
+
+@keyframes waves-derive {
+    0% {
+        background-position: center 50%;
+    }
+    25% {
+        background-position: center 46%;
+    }
+    75% {
+        background-position: center 54%;
+    }
+    100% {
+        background-position: center 50%;
+    }
+}
+
 /* ── Accessibilité et mobile ─────────────────────────────────────────────
    prefers-reduced-motion : tout est neutralisé, le contenu s'affiche
    immédiatement et en entier. */
@@ -100,5 +137,8 @@ html.splash-actif body {
     }
     [data-typing].typing-lance::after {
         display: none;
+    }
+    .waves-anime {
+        animation: none;
     }
 }

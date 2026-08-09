@@ -70,7 +70,8 @@
         ];
     @endphp
 
-    <section class="bg-white" aria-labelledby="instructions-titre">
+    {{-- Fond blanc à vagues comme les autres sections claires du site (pas de bg-white nu) --}}
+    <section class="bg-waves-light" aria-labelledby="instructions-titre">
         <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6"
              x-data="{ onglet: '{{ $onglets[0]['cle'] }}' }">
             <h2 id="instructions-titre" class="section-title text-center">Comment porter vos aligneurs</h2>

@@ -18,6 +18,10 @@
     --color-brand-900: #1a4a87;
     --color-brand-950: #142e52;
 
+    /* Bleu de fond des maquettes PPT (ppt/media/image1.png) — distinct du bleu
+       de marque #2A9EFC, qui reste réservé aux boutons et aplats. */
+    --color-ppt-blue: #1586c8;
+
     --color-whatsapp: #25d366;
 
     --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
@@ -91,31 +95,64 @@
         @apply text-base leading-relaxed md:text-xl;
     }
 
-    /* Fond bleu à motif vagues (maquettes PPT) — blanc × multiply = #2A9EFC exact */
+    /* ══ Les trois fonds à courbes de niveau ═══════════════════════════════════
+       Une seule et même géométrie, déclinée en trois nuanciers. Ce ne sont plus
+       les PNG du PPT mais un relevé VECTORIEL de ces PNG : les tracés sont les
+       axes médians des traits d'origine (squelettisation puis lissage), donc la
+       forme reste celle du client au pixel près, tout en devenant modifiable.
+
+       Pour changer l'aspect, ouvrir le .svg : trois valeurs dans son <style>
+       (couleur de fond, couleur des courbes, épaisseur du trait — 10.5 = PPT).
+       Le script qui a produit ces fichiers est dans outils/waves/ ; il n'est pas
+       nécessaire pour construire le site, seulement pour re-générer la géométrie.
+
+       Proportions : le viewBox est 2474 × 1394,81, et non 2474 × 1749. Le PPT
+       étire en effet l'image sur une diapositive 16:9, ce qui écrase le motif
+       verticalement à 79,7 % — les SVG reproduisent cet écrasement (D26).
+
+       Fond bleu : teinte #1586c8, le bleu de fond choisi par le client dans le
+       PowerPoint (ppt/media/image1.png), plus profond que le bleu de marque
+       #2A9EFC — lequel reste celui des boutons et des aplats, comme dans le PPT.
+       Effet de bord bienvenu : le texte blanc passe de 2,84:1 à 3,98:1. */
     .bg-waves {
-        background-color: var(--color-brand-500);
-        background-image: url('/assets/brand/bg-waves.png');
-        background-size: cover;
+        background-color: var(--color-ppt-blue);
+        background-image: url('/assets/brand/bg-waves-blue.svg');
+        background-size: 100% auto;
         background-position: center;
-        background-blend-mode: multiply;
+        background-repeat: no-repeat;
     }
 
-    /* Variante claire (sections blanches à vagues discrètes) */
+    /* Variante claire : mêmes courbes, nuancier des diapositives blanches
+       (5-8, 11…) — fond #ffffff, courbes #f6fafd, relevés sur ppt/media/image8.png.
+       Aucun z-index nécessaire : un background est toujours peint derrière le
+       contenu de l'élément. */
     .bg-waves-light {
         background-color: white;
-        background-image: url('/assets/brand/bg-waves.png');
-        background-size: cover;
+        background-image: url('/assets/brand/bg-waves-landscape.svg');
+        /* 100% auto plutôt que cover : le motif couvre toute la largeur de la
+           section comme sur la diapositive, et l'échelle ne dépend que de la
+           largeur du viewport — sinon chaque section, de hauteur différente,
+           afficherait le motif à un zoom différent. */
+        background-size: 100% auto;
+        /* Ancrage au centre : chaque section, de hauteur différente, cadre une
+           portion différente du motif. Ancré en haut, les cinq sections blanches
+           afficheraient toutes le même coin et le motif se lirait comme un tampon
+           répété au fil du défilement. */
         background-position: center;
+        background-repeat: no-repeat;
     }
 
     /* Variante foncée pour nav/footer : texte blanc à 5.3:1 (WCAG AA) au lieu de 2.8:1 avec le bleu de marque.
        Réservée aux zones de texte petit/fréquent (nav, footer) ; les sections héros du PPT gardent .bg-waves. */
     .bg-waves-dark {
         background-color: var(--color-brand-700);
-        background-image: url('/assets/brand/bg-waves.png');
-        background-size: cover;
+        background-image: url('/assets/brand/bg-waves-dark.svg');
+        /* Mêmes réglages que .bg-waves / .bg-waves-light : le SVG porte lui-même
+           son aplat de fond, il n'y a donc plus de blend multiply à appliquer
+           (il dénaturerait les couleurs écrites dans le fichier). */
+        background-size: 100% auto;
         background-position: center;
-        background-blend-mode: multiply;
+        background-repeat: no-repeat;
     }
 
     /* Carte arrondie */

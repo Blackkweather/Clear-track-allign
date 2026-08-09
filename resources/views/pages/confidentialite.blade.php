@@ -10,8 +10,10 @@
         </div>
     </section>
 
-    {{-- Texte intégral (PPT slides 59-64) --}}
-    <section class="mx-auto max-w-4xl space-y-6 px-4 py-16 leading-relaxed sm:px-6">
+    {{-- Texte intégral (PPT slides 59-64) — fond blanc à vagues (voir cgu.blade.php
+         pour le pourquoi de la section pleine largeur + conteneur centré interne). --}}
+    <section class="bg-waves-light">
+        <div class="mx-auto max-w-4xl space-y-6 px-4 py-16 leading-relaxed sm:px-6">
         <p>Go dental SARL (numéro du registre de commerce 147751) («&nbsp;Go dental&nbsp;», «&nbsp;nous&nbsp;» et «&nbsp;notre&nbsp;», «&nbsp;Cleartrack&nbsp;») respecte votre vie privée (l’utilisateur de ce site web) et prend au sérieux la protection de vos informations personnelles. À cette fin, la présente politique de confidentialité («&nbsp;Politique de confidentialité&nbsp;») explique comment nous recueillons, traitons, protégeons, conservons et partageons vos informations personnelles lorsque vous utilisez ce site web (www.cleartrack.ma, ci-après «&nbsp;le site web&nbsp;») et ses fonctionnalités connexes.</p>
         <p>Il convient de noter qu’en utilisant le site web et les fonctionnalités connexes, vous acceptez les conditions, les pratiques et les politiques relatives à la présente politique de confidentialité, vous consentez à la collecte et au traitement de toutes les informations (y compris les informations spéciales) et déclarez que vous avez plus de 18 ans. Si vous n’êtes pas d’accord avec les conditions, les pratiques et les politiques relatives à l’utilisation du site web telles qu’elles figurent dans la présente politique de confidentialité, il vous est interdit d’en faire usage. La divulgation et la fourniture d’informations personnelles sont volontaires. La poursuite de l’utilisation du site web et de ses fonctionnalités sera considérée comme une acceptation de toutes les dispositions, politiques et conditions contenues dans le présent document.</p>
         <p>En outre, il convient de noter que les conditions de la politique de confidentialité de Cleartrack peuvent être modifiées de temps à autre sans préavis. Il est de votre responsabilité de vous assurer que vous êtes au courant de ces changements lorsque vous utilisez le site web. La poursuite de votre utilisation sera considérée comme une acceptation de ces changements. Si vous n’êtes pas d’accord avec ces modifications, vous devez immédiatement cesser d’utiliser le site web.</p>
@@ -89,5 +91,6 @@
             <li>16, Résidence Ifrane, Avenue Hassan II, Agdal, Rabat, 10090</li>
             <li><a href="tel:+212693133170" class="text-brand-600 underline">+212 693 133 170</a></li>
         </ul>
+        </div>
     </section>
 @endsection

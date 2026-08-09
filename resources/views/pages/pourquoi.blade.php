@@ -1,140 +1,195 @@
 @extends('layouts.app')
 
+{{--
+    Page « Pourquoi » — reproduction des diapositives 18 à 25 du PowerPoint client.
+    Ordre, textes, icônes et images repris tels quels de la maquette :
+      diapo 18-19 : en-tête + 4 raisons (fond BLEU, image1.png)
+      diapo 20-22 : « Aligneurs avec matériau de meilleure qualité » (fond BLANC)
+      diapo 23    : CTA « Nous sommes impatients… » puis « Pourquoi les gens choisissent… »
+      diapo 24    : 3 atouts + ligne de contact
+      diapo 25    : pied de page
+    Les textes sont recopiés mot pour mot du PPT (y compris ses coquilles) — voir
+    CONTENT-DECISIONS.md D23.
+--}}
+
 @section('title', 'Pourquoi choisir Cleartrack®align ? — ClearTrack® align')
 @section('meta_description', 'Conception par orthodontistes experts, contrôle complet de la production, prix abordables et assistance clinique complète : découvrez la différence Cleartrack®align.')
 
 @section('content')
-    {{-- En-tête (PPT slide 18) --}}
+    {{-- ══ Diapo 18 — En-tête (BLEU) ══
+         Titre et sous-titre centrés, comme sur la diapositive. --}}
     <section class="bg-waves">
-        <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6">
-            <h1 class="page-title max-w-3xl text-white">Pourquoi choisir le traitement Cleartrack®align&nbsp;?</h1>
-            <p class="texte-ppt mt-4 max-w-2xl text-white/90">Les aligneurs Cleartrack® sont conçus et développés par des orthodontistes qualifiés et expérimentés.</p>
+        <div class="mx-auto max-w-7xl px-4 pb-6 pt-14 text-center sm:px-6">
+            <h1 class="page-title mx-auto max-w-5xl text-white">Pourquoi choisir le traitement Cleartrack®align&nbsp;?</h1>
+            <p class="mx-auto mt-4 max-w-4xl text-white/90">Les aligneurs Cleartrack® sont conçues et développées par des orthodontistes qualifiés et expérimentés</p>
         </div>
     </section>
 
-    {{-- 4 raisons (PPT slides 18-19) — BLANC --}}
-    <section class="mx-auto max-w-7xl bg-white px-4 py-16 sm:px-6">
-        <div class="grid gap-8 md:grid-cols-2">
-            @php
-                $raisons = [
-                    ['titre' => 'Basé sur la science des données', 'texte' => 'Les gouttières Cleartrack sont conçues et développées par des orthodontistes experts utilisant des systèmes de haute technologie basés sur l’intelligence artificielle et l’expérience de plus de 5 000 traitements dentaires réalisés dans des cliniques dentaires marocaines.'],
-                    ['titre' => 'Un contrôle complet de la conception à la production', 'texte' => 'Cleartrack® dispose de son propre centre de conception high-tech équipé des derniers logiciels de 3Shape. Les modèles sont imprimés sur des imprimantes 3D 4K avec une précision de 100 microns. Chaque aligneur est ajusté et fini à la main par des techniciens experts.'],
-                    ['titre' => 'Prix abordables et paiement planifié', 'texte' => 'Nous fournissons la meilleure qualité de traitement dentaire par gouttières aux prix les plus abordables possibles. Nous proposons également des options de paiement planifié.'],
-                    ['titre' => 'Assistance clinique complète', 'texte' => 'Nous ne fournissons des traitements que dans des cliniques entièrement équipées, avec des dentistes experts, car les traitements par aligneurs nécessitent des traitements supplémentaires tels que les restaurations et le nettoyage des dents. Seul un dentiste peut garantir le suivi du traitement pour obtenir le résultat souhaité.'],
-                ];
-            @endphp
-            @foreach ($raisons as $raison)
-                <article class="card">
-                    <h2 class="text-xl font-bold text-brand-600">{{ $raison['titre'] }}</h2>
-                    <p class="mt-3 leading-relaxed">{{ $raison['texte'] }}</p>
-                </article>
-            @endforeach
-        </div>
-    </section>
+    {{-- ══ Diapos 18-19 — Les 4 raisons (BLEU) ══
+         Diapo 18 : les deux premières raisons à gauche, la main gantée à droite.
+         Diapo 19 : l'aligneur 3D à gauche (débordant hors cadre), les deux autres à droite. --}}
+    @php
+        $raisons = [
+            ['icone' => 'icone-science.png', 'titre' => 'Basé sur la science des données', 'texte' => 'Les gouttières cleartrack sont conçues et développées par des orthodontistes experts utilisant des systèmes de haute technologie basés sur l’intelligence artificielle et l’expérience de plus de 5 000 traitements dentaires réalisés dans des cliniques dentaires marocaines'],
+            ['icone' => 'icone-controle.png', 'titre' => 'Un contrôle complet de la conception à la production', 'texte' => 'Cleartrack® dispose de son propre centre de conception high-tech équipé des derniers logiciels de 3Shape. Les modèles sont imprimés sur des imprimantes 3D 4K avec une précision de 100 microns. Chaque aligneur est ajusté et fini à la main par des techniciens experts.'],
+            ['icone' => 'icone-assistance.png', 'titre' => 'Assistance clinique complète', 'texte' => 'Nous ne fournissons des traitements que dans des cliniques entièrement équipées, avec des dentistes experts, car les traitements par aligneurs nécessitent des traitements supplémentaires tels que les restaurations et le nettoyage des dents. Seul un dentiste peut garantir le suivi du traitement pour obtenir le résultat souhaité'],
+            ['icone' => 'icone-prix.png', 'titre' => 'Prix abordables et paiement planifié', 'texte' => 'Nous fournissons la meilleure qualité de dentaire par gouttières aux prix les plus traitement abordables possibles. Nous proposons également des options de paiement planifié'],
+        ];
+    @endphp
 
-    {{-- ── LES 3 ATOUTS MATÉRIAU (PPT slides 20-22, priorités confirmées en réunion) ──
-         Clarté / Confort / Durabilité, en fonds alternés, avec des images qui débordent
-         volontairement de leur section (« casser la grille »). --}}
+    <section class="section-bleed bg-waves" aria-labelledby="raisons-titre">
+        <h2 id="raisons-titre" class="sr-only">Les raisons de choisir Cleartrack®align</h2>
 
-    {{-- 1. CLARTÉ — BLEU --}}
-    <section class="section-bleed bg-waves" aria-labelledby="clarte-titre">
-        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-2">
-            <div class="text-white" data-typing-group>
-                <p class="text-sm font-bold uppercase tracking-widest text-white/70">01 — Clarté</p>
-                <h2 id="clarte-titre" class="section-title-invert mt-2">Transparents, sans stries</h2>
-                <div class="mt-4 h-1 w-16 rounded bg-white/70"></div>
-                <ul class="mt-6 space-y-3 text-white/90">
-                    <li class="flex gap-3"><span class="font-bold" aria-hidden="true">✓</span><span data-typing>Un matériau réellement translucide, sans stries ni marques de découpe visibles.</span></li>
-                    <li class="flex gap-3"><span class="font-bold" aria-hidden="true">✓</span><span data-typing>Une fois en bouche, l’effet est invisible&nbsp;: personne ne remarque que vous portez un aligneur.</span></li>
-                    <li class="flex gap-3"><span class="font-bold" aria-hidden="true">✓</span><span data-typing>Les autres aligneurs présentent souvent une opacité et des striures plus marquées.</span></li>
-                </ul>
+        {{-- Diapo 18 --}}
+        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-12 sm:px-6 md:grid-cols-2">
+            <div class="space-y-10">
+                @foreach (array_slice($raisons, 0, 2) as $r)
+                    <div class="flex gap-5">
+                        {{-- Icône bleue posée sur un disque blanc, comme sur les diapos 18-19 (D25) --}}
+                        <span class="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-white p-4">
+                            <img src="{{ asset('assets/pourquoi/' . $r['icone']) }}" alt="" aria-hidden="true"
+                                 class="h-full w-full object-contain" loading="lazy">
+                        </span>
+                        <div class="text-white">
+                            <h3 class="text-xl font-bold underline decoration-2 underline-offset-4">{{ $r['titre'] }}</h3>
+                            <p class="mt-2 leading-relaxed text-white/90">{{ $r['texte'] }}</p>
+                        </div>
+                    </div>
+                @endforeach
             </div>
             <div class="flex justify-center">
-                {{-- Débordement volontaire : l'aligneur dépasse en haut et en bas de la section --}}
-                <img src="{{ asset('assets/aligneur-serre.png') }}"
-                     alt="Aligneur Cleartrack® align transparent, sans stries visibles"
-                     class="img-bleed no-reveal h-72 w-auto max-w-none drop-shadow-2xl md:h-[22rem] lg:h-[36rem]" loading="lazy">
+                <img src="{{ asset('assets/pourquoi/main-gantee.png') }}"
+                     alt="Aligneur Cleartrack® tenu par une main gantée" loading="lazy"
+                     class="w-64 max-w-full drop-shadow-2xl md:w-80">
+            </div>
+        </div>
+
+        {{-- Diapo 19 --}}
+        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-12 sm:px-6 md:grid-cols-2">
+            <div class="flex justify-center md:order-1">
+                {{-- Débordement volontaire hors du cadre, comme sur la diapo (x = -0,29) --}}
+                <img src="{{ asset('assets/pourquoi/aligneur-3d.png') }}"
+                     alt="Rendu 3D d’un aligneur Cleartrack® align" loading="lazy"
+                     class="img-bleed h-64 w-auto max-w-none drop-shadow-2xl md:h-[22rem] md:-ml-32 lg:h-[30rem] lg:-ml-56">
+            </div>
+            <div class="space-y-10 md:order-2">
+                @foreach (array_slice($raisons, 2, 2) as $r)
+                    <div class="flex gap-5">
+                        {{-- Icône bleue posée sur un disque blanc, comme sur les diapos 18-19 (D25) --}}
+                        <span class="flex h-20 w-20 shrink-0 items-center justify-center rounded-full bg-white p-4">
+                            <img src="{{ asset('assets/pourquoi/' . $r['icone']) }}" alt="" aria-hidden="true"
+                                 class="h-full w-full object-contain" loading="lazy">
+                        </span>
+                        <div class="text-white">
+                            <h3 class="text-xl font-bold underline decoration-2 underline-offset-4">{{ $r['titre'] }}</h3>
+                            <p class="mt-2 leading-relaxed text-white/90">{{ $r['texte'] }}</p>
+                        </div>
+                    </div>
+                @endforeach
             </div>
         </div>
     </section>
 
-    {{-- 2. CONFORT — BLANC --}}
-    <section class="section-bleed relative bg-white" aria-labelledby="confort-titre">
-        {{-- Photo statique qui sort par le côté de la page (demande client) --}}
-        <img src="{{ asset('assets/aligneur-doigts.png') }}" alt="" aria-hidden="true"
-             class="pointer-events-none absolute -left-28 top-1/2 hidden w-72 -translate-y-1/2 opacity-90 lg:block xl:-left-20"
-             loading="lazy">
+    {{-- ══ Diapos 20-22 — Aligneurs avec matériau de meilleure qualité (BLANC) ══ --}}
+    @php
+        // Comparatif « Autres aligneurs » / « Cleartrack®align » (diapos 20-22).
+        // Les six photos sont celles du PPT, reprises avec EXACTEMENT le recadrage
+        // que la maquette leur applique (a:srcRect) : ce recadrage supprime le
+        // bandeau de titre publicitaire du fichier d'origine, si bien qu'aucune
+        // marque tierce n'apparaît sur les visuels publiés — voir D24.
+        $comparaisons = [
+            ['cle' => 'plus-clairs', 'label' => 'Plus clairs', 'cote' => 'gauche',
+             'autres' => null, 'ct' => null],
+            ['cle' => 'plus-confortables', 'label' => 'Plus confortables', 'cote' => 'droite',
+             'autres' => null, 'ct' => 'Polies à la main pour des bords plus lisses'],
+            ['cle' => 'pas-de-decoloration', 'label' => 'Pas de décoloration', 'cote' => 'gauche',
+             'autres' => 'Jaunissement apparent avec le temps', 'ct' => 'Gardent leur transparence s’ils restent à l’abri de produit colorants'],
+        ];
+    @endphp
 
-        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-2">
-            <div class="flex justify-center md:order-2">
-                <img src="{{ asset('assets/aligneur-doigts.png') }}"
-                     alt="Bord d’un aligneur Cleartrack® poli à la main, découpe lisse"
-                     class="img-bleed h-64 w-auto max-w-none drop-shadow-xl md:h-[19rem] lg:h-[30rem]" loading="lazy">
+    <section class="bg-waves-light overflow-hidden" aria-labelledby="materiau-titre">
+        <div class="py-16">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6">
+                <h2 id="materiau-titre" class="section-title text-center">Aligneurs avec matériau de meilleure qualité</h2>
+                <p class="mx-auto mt-3 max-w-3xl text-center text-slate-500">Un matériau biocompatible personnalisé de nos aligneurs, qui présente les avantages suivants</p>
             </div>
-            <div class="md:order-1 lg:pl-24" data-typing-group>
-                <p class="text-sm font-bold uppercase tracking-widest text-brand-400">02 — Confort</p>
-                <h2 id="confort-titre" class="section-title mt-2">Des bords polis à la main</h2>
-                <div class="mt-4 h-1 w-16 rounded bg-brand-400"></div>
-                <ul class="mt-6 space-y-3">
-                    <li class="flex gap-3"><span class="font-bold text-brand-500" aria-hidden="true">✓</span><span data-typing>Chaque aligneur est découpé puis poli à la main par nos techniciens.</span></li>
-                    <li class="flex gap-3"><span class="font-bold text-brand-500" aria-hidden="true">✓</span><span data-typing>Des bords lisses, sans arête vive&nbsp;: aucun risque de blessure de la gencive ni de la joue.</span></li>
-                    <li class="flex gap-3"><span class="font-bold text-brand-500" aria-hidden="true">✓</span><span data-typing>Les bords bruts des aligneurs industriels irritent fréquemment les tissus mous.</span></li>
-                </ul>
+
+            <div class="mt-14 space-y-16">
+                @foreach ($comparaisons as $c)
+                    <div>
+                        {{-- Le libellé est une pastille bleue qui sort du cadre, alternativement
+                             à gauche puis à droite de la diapositive (diapos 20-22). --}}
+                        <div @class(['flex', 'justify-start' => $c['cote'] === 'gauche', 'justify-end' => $c['cote'] === 'droite'])>
+                            <p @class([
+                                'inline-block bg-brand-500 px-8 py-3 text-xl font-bold text-white md:text-2xl',
+                                '-ml-6 rounded-r-full pl-10' => $c['cote'] === 'gauche',
+                                '-mr-6 rounded-l-full pr-10' => $c['cote'] === 'droite',
+                            ])>{{ $c['label'] }}</p>
+                        </div>
+
+                        <div class="mx-auto mt-8 grid max-w-7xl gap-8 px-4 sm:grid-cols-2 sm:px-6">
+                            @foreach ([['Autres aligneurs', $c['autres'], false], ['Cleartrack®align', $c['ct'], true]] as [$titre, $legende, $estCt])
+                                <div class="text-center">
+                                    <h3 class="text-2xl font-bold text-brand-500 md:text-3xl">{{ $titre }}</h3>
+                                    {{-- La légende est placée sous le titre, au-dessus de la photo, comme sur les diapos 21-22 --}}
+                                    <p class="mt-1 min-h-6 text-sm leading-relaxed text-slate-500">{{ $legende }}</p>
+                                    <img src="{{ asset('assets/pourquoi/materiau/' . $c['cle'] . ($estCt ? '-cleartrack' : '-autres') . '.jpg') }}"
+                                         alt="{{ $c['label'] }} — {{ $estCt ? 'aligneur Cleartrack®align' : 'autres aligneurs' }}"
+                                         class="mt-4 w-full object-cover" loading="lazy">
+                                </div>
+                            @endforeach
+                        </div>
+                    </div>
+                @endforeach
+            </div>
+
+            <div class="mt-12 text-center">
+                <a href="{{ route('fabrication') }}" class="btn-outline-brand">Comment sont ils fabriqués&nbsp;?</a>
             </div>
         </div>
     </section>
 
-    {{-- 3. DURABILITÉ — BLEU --}}
-    <section class="section-bleed bg-waves" aria-labelledby="durabilite-titre">
-        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-2">
-            <div class="text-white" data-typing-group>
-                <p class="text-sm font-bold uppercase tracking-widest text-white/70">03 — Durabilité</p>
-                <h2 id="durabilite-titre" class="section-title-invert mt-2">Ils ne jaunissent pas</h2>
-                <div class="mt-4 h-1 w-16 rounded bg-white/70"></div>
-                <ul class="mt-6 space-y-3 text-white/90">
-                    <li class="flex gap-3"><span class="font-bold" aria-hidden="true">✓</span><span data-typing>Le matériau résiste à la coloration des boissons pigmentées (café, thé, sodas).</span></li>
-                    <li class="flex gap-3"><span class="font-bold" aria-hidden="true">✓</span><span data-typing>Un simple nettoyage leur rend toute leur clarté d’origine.</span></li>
-                    <li class="flex gap-3"><span class="font-bold" aria-hidden="true">✓</span><span data-typing>Là où d’autres aligneurs prennent une teinte jaune définitive au fil des semaines.</span></li>
-                </ul>
-                <a href="{{ route('fabrication') }}" class="btn-white mt-8">Comment sont-ils fabriqués&nbsp;?</a>
-            </div>
-            <div class="flex justify-center">
-                <img src="{{ asset('assets/photo-aligneur-main.png') }}"
-                     alt="Patiente tenant un aligneur Cleartrack® resté parfaitement transparent"
-                     class="img-bleed h-80 w-auto max-w-none rounded-2xl bg-white shadow-2xl md:h-[22rem] lg:h-[34rem]" loading="lazy">
-            </div>
-        </div>
-    </section>
-
-    {{-- Pourquoi les aligneurs plutôt que les appareils (PPT slide 23) — BLANC --}}
-    <section class="mx-auto grid max-w-7xl items-center gap-10 bg-white px-4 py-16 sm:px-6 md:grid-cols-2">
-        <div>
-            <h2 class="section-title">Pourquoi les gens choisissent les aligneurs plutôt que les appareils dentaires conventionnels&nbsp;?</h2>
-            <p class="mt-4 leading-relaxed">La plupart des médecins et orthodontistes considèrent les aligneurs comme la solution idéale pour améliorer la santé bucco-dentaire, la confiance en soi et la personnalité, car ils offrent les avantages d’un traitement orthodontique sans les compromis et les problèmes associés aux appareils conventionnels.</p>
-        </div>
-        <div class="grid gap-6">
-            @php
-                $atouts = [
-                    ['titre' => 'Clairs et discrets', 'texte' => 'Les aligneurs sont fabriqués en polyuréthane biocompatible, un matériau transparent et invisible.'],
-                    ['titre' => 'Amovibles et confortables', 'texte' => 'Ils doivent être portés 22 heures par jour. Ils sont amovibles et très confortables. Une solution sans fil métallique.'],
-                    ['titre' => 'Pas de restrictions alimentaires', 'texte' => 'Contrairement aux appareils métalliques. Continuez à vous régaler de pizzas, de hamburgers, et autres !'],
-                ];
-            @endphp
-            @foreach ($atouts as $a)
-                <div class="card">
-                    <h3 class="font-bold text-brand-600">{{ $a['titre'] }}</h3>
-                    <p class="mt-2 text-sm leading-relaxed">{{ $a['texte'] }}</p>
-                </div>
-            @endforeach
-        </div>
-    </section>
-
-    {{-- CTA consultation gratuite (PPT slides 23-24) --}}
+    {{-- ══ Diapo 23 — Appel à la consultation gratuite (bandeau BLEU, bouton blanc) ══ --}}
     <section class="bg-waves">
-        <div class="mx-auto max-w-7xl px-4 py-14 text-center text-white sm:px-6">
-            <h2 class="text-2xl font-bold md:text-3xl">Nous sommes impatients de vous offrir le meilleur sourire que vous méritez.</h2>
-            <p class="mx-auto mt-4 max-w-2xl text-white/90">Planifiez une première consultation avec un orthodontiste entièrement gratuite&nbsp;! Pour découvrir et expérimenter ces avantages par vous-même, appelez nos dentistes experts au <a href="tel:+212693133170" class="font-semibold underline">+212 693 133 170</a> ou envoyez-nous un courriel à <a href="mailto:contact@cleartrack.ma" class="font-semibold underline">contact@cleartrack.ma</a> pour une consultation GRATUITE avec nos orthodontistes certifiés.</p>
+        <div class="mx-auto max-w-5xl px-4 py-14 text-center sm:px-6">
+            <p class="text-2xl font-bold text-white md:text-3xl">Nous sommes impatients de vous offrir le meilleur sourire que vous méritez. Planifiez une première consultation avec un orthodontiste entièrement gratuite&nbsp;!</p>
             <a href="{{ route('rdv') }}" class="btn-white mt-8">Démarrer</a>
+        </div>
+    </section>
+
+    {{-- ══ Diapos 23-24 — Pourquoi les gens choisissent les aligneurs (BLANC) ══ --}}
+    @php
+        $atouts = [
+            ['icone' => 'icone-invisible.png', 'fond' => true, 'titre' => 'Clairs et discrets', 'texte' => 'Les aligneurs sont fabriqués en Polyuréthane biocompatible, un matériau transparent et invisible'],
+            ['icone' => 'icone-confort.png', 'fond' => false, 'titre' => 'Amovibles et confortables', 'texte' => 'doivent être portées 22 heures par jour. Ils sont amovibles et très confortables. Une solution sans fil métallique'],
+            ['icone' => 'icone-alimentation.png', 'fond' => true, 'titre' => 'Pas de restrictions alimentaires', 'texte' => 'Contrairement aux appareils métalliques. Continuez à vous régaler de pizzas, de hamburgers, et autres !'],
+        ];
+    @endphp
+
+    <section class="bg-waves-light" aria-labelledby="choix-titre">
+        <div class="mx-auto max-w-7xl px-4 pb-16 pt-4 sm:px-6">
+            {{-- Diapo 23 : ce titre est gris, et non bleu comme les autres titres de section --}}
+            <h2 id="choix-titre" class="section-title mx-auto max-w-4xl text-center !text-slate-400">Pourquoi les gens choisissent les aligneurs plutôt que les appareils dentaires conventionnels&nbsp;?</h2>
+            <p class="mx-auto mt-6 max-w-4xl text-center leading-relaxed">La plupart des médecins et orthodontistes considèrent les aligneurs comme la solution idéale pour améliorer leur santé bucco-dentaire, leur confiance en eux et leur personnalité, car ils offrent les avantages d’un traitement orthodontique sans les compromis et les problèmes associés aux appareils conventionnels</p>
+
+            <div class="mt-14 grid gap-10 md:grid-cols-3">
+                @foreach ($atouts as $a)
+                    <div class="text-center">
+                        @if ($a['fond'])
+                            <span class="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-brand-500 p-5">
+                                <img src="{{ asset('assets/pourquoi/' . $a['icone']) }}" alt="" aria-hidden="true" class="h-full w-full object-contain" loading="lazy">
+                            </span>
+                        @else
+                            <img src="{{ asset('assets/pourquoi/' . $a['icone']) }}" alt="" aria-hidden="true" class="mx-auto h-24 w-24 object-contain" loading="lazy">
+                        @endif
+                        <h3 class="mt-5 text-2xl font-bold text-brand-600">{{ $a['titre'] }}</h3>
+                        <p class="mt-3 leading-relaxed">{{ $a['texte'] }}</p>
+                    </div>
+                @endforeach
+            </div>
+
+            {{-- Diapo 24 : cette ligne de contact est entièrement en bleu de marque --}}
+            <p class="mx-auto mt-14 max-w-4xl text-center leading-relaxed text-brand-500">Pour découvrir et expérimenter ces avantages par vous-même, appelez nos dentistes experts au <a href="tel:+212693133170" class="font-semibold underline">+212 693 133 170</a> ou envoyez-nous un courriel à <a href="mailto:contact@cleartrack.ma" class="font-semibold underline">contact@cleartrack.ma</a> pour une consultation GRATUITE avec nos orthodontistes certifiés</p>
         </div>
     </section>
 @endsection
