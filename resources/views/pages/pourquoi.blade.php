@@ -70,7 +70,13 @@
                 {{-- Débordement volontaire hors du cadre, comme sur la diapo (x = -0,29) --}}
                 <img src="{{ asset('assets/pourquoi/aligneur-3d.png') }}"
                      alt="Rendu 3D d’un aligneur Cleartrack® align" loading="lazy"
-                     class="img-bleed h-64 w-auto max-w-none drop-shadow-2xl md:h-[22rem] md:-ml-32 lg:h-[30rem] lg:-ml-56">
+                     {{-- Mobile : l'image est bridée à la largeur de sa colonne. Avec
+                          « h-64 w-auto max-w-none », l'image, très large, imposait sa
+                          largeur intrinsèque à la colonne de grille : la section devenait
+                          plus large que l'écran et overflow-x: clip rognait le texte à
+                          droite au lieu de le faire revenir à la ligne. Le débordement
+                          voulu de la diapo 19 ne commence donc qu'à partir de md. --}}
+                     class="img-bleed h-auto w-full max-w-xs drop-shadow-2xl md:h-[22rem] md:w-auto md:max-w-none md:-ml-32 lg:h-[30rem] lg:-ml-56">
             </div>
             <div class="space-y-10 md:order-2">
                 @foreach (array_slice($raisons, 2, 2) as $r)
@@ -119,11 +125,14 @@
                     <div>
                         {{-- Le libellé est une pastille bleue qui sort du cadre, alternativement
                              à gauche puis à droite de la diapositive (diapos 20-22). --}}
-                        <div @class(['flex', 'justify-start' => $c['cote'] === 'gauche', 'justify-end' => $c['cote'] === 'droite'])>
+                        {{-- Sur mobile la pastille reste entière dans la marge : sortie du
+                             cadre, elle se faisait rogner par le bord de l'écran et passait
+                             pour un défaut. Le débordement de la diapo reprend à partir de md. --}}
+                        <div @class(['flex px-4 md:px-0', 'justify-start' => $c['cote'] === 'gauche', 'justify-end' => $c['cote'] === 'droite'])>
                             <p @class([
-                                'inline-block bg-brand-500 px-8 py-3 text-xl font-bold text-white md:text-2xl',
-                                '-ml-6 rounded-r-full pl-10' => $c['cote'] === 'gauche',
-                                '-mr-6 rounded-l-full pr-10' => $c['cote'] === 'droite',
+                                'inline-block rounded-full bg-brand-500 px-8 py-3 text-xl font-bold text-white md:text-2xl',
+                                'md:-ml-6 md:rounded-l-none md:pl-10' => $c['cote'] === 'gauche',
+                                'md:-mr-6 md:rounded-r-none md:pr-10' => $c['cote'] === 'droite',
                             ])>{{ $c['label'] }}</p>
                         </div>
 
