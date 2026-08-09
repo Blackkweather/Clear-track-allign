@@ -138,7 +138,15 @@ Suivi vivant du projet (règle Phase 6 : checklist maintenue en continu).
 - [x] **40 tests, 91 assertions, 100 % de réussite** (33 → 40 : page instructions, onglets, nav, bascule animée/statique, absence de visuels tiers)
 - [x] Pint propre
 
+## ✅ Audit de conformité au PowerPoint (09/08/2026)
+- [x] **Les 89 diapos recomparées phrase à phrase au site rendu** (script de couverture : runs `<a:t>` du PPT vs texte des 18 pages de l'aperçu, correspondance par fenêtres de 6 mots pour absorber les coupures de balises). **383 phrases de plus de 30 caractères → 382 présentes.**
+- [x] **Structure : 12 sections du deck → 12 routes**, aucune manquante (Accueil, Pourquoi, Avantages, Blog, FAQ, À propos, Cas traitables, Fabrication, Confidentialité, CGU, Prendre RDV, Espace Médecin + ses 4 onglets)
+- [x] Faux positifs écartés un par un après vérification : les 21 villes de l'annuaire sont bien seedées (rendues en boutons séparés), les 12 libellés de photos existent avec un trait d'union, la section 4 de la politique de confidentialité est complète (12 points), le chrome de gabarit (nav, pied de page, copyright) est présent mais découpé en éléments distincts
+- [x] **Le PowerPoint ne contient aucune animation** : recherche exhaustive de `p:transition`, `p:timing`, `animEffect`, `animMotion`, `p:anim`, `videoFile`, `p:audio` sur **toutes** les parties XML du fichier → **0 occurrence**. Les 89 diapos sont statiques. Les animations du site ne viennent donc pas du deck mais de la réunion client (Phase 3, Étape 8)
+- [ ] **Seul écart réel : la question FAQ de la diapo 38** — voir **D28**, réponse à obtenir du client
+
 ## En attente du client (bloquants réels)
+- [ ] **Réponse à « Pourquoi ne pas me faire livrer directement chez moi et devoir passer chez un dentiste ? »** (seule question du PPT absente du site — D28)
 - [ ] Les **3 PDF** du centre de téléchargement (fiche de prescription, consentement éclairé, consentement contention)
 - [ ] **Vraies photos avant/après** consenties par écrit (6 cas) — les cartes actuelles utilisent les photos du PPT
 - [ ] **Vraies fiches cabinets** (3 fiches « Dr. M. XXXXX » placeholder, Casablanca)
