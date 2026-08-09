@@ -20,7 +20,9 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2474 1394.81">
   <style>
     .fond  { fill: #1667d5; }
-    .trait { fill: none; stroke: #256bd7; stroke-width: 10.5;
+    /* Même correction que les deux autres variantes (D27) : trait éclairci de
+       #256bd7 à #508ddf (blanc à 25 % sur le fond) pour que le motif se voie. */
+    .trait { fill: none; stroke: #508ddf; stroke-width: 10.5;
              stroke-linecap: round; stroke-linejoin: round; }
   </style>
   <rect class="fond" width="2474" height="1394.81"/>
