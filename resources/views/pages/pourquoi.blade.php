@@ -120,9 +120,31 @@
                 <p class="mx-auto mt-3 max-w-3xl text-center text-slate-500">Un matériau biocompatible personnalisé de nos aligneurs, qui présente les avantages suivants</p>
             </div>
 
-            <div class="mt-14 space-y-16">
+            {{-- Barre de bascule : les trois comparaisons (six photos) étaient empilées,
+                 ce qui faisait défiler longuement. On n'en montre plus qu'une à la fois,
+                 comme le PPT qui leur consacre une diapositive chacune (20, 21, 22).
+                 Même mécanique que les onglets de la page Instructions.
+                 Sans JavaScript, x-cloak ne s'applique pas et les trois blocs restent
+                 visibles : on retombe simplement sur l'empilement d'avant. --}}
+            <div class="mt-12" x-data="{ onglet: '{{ $comparaisons[0]['cle'] }}' }">
+                <div class="mx-auto flex max-w-2xl flex-wrap justify-center gap-2 px-4 sm:px-6"
+                     role="tablist" aria-label="Comparaisons de matériau">
+                    @foreach ($comparaisons as $c)
+                        <button type="button" role="tab"
+                                @click="onglet = '{{ $c['cle'] }}'"
+                                :aria-selected="onglet === '{{ $c['cle'] }}' ? 'true' : 'false'"
+                                :class="onglet === '{{ $c['cle'] }}'
+                                    ? 'bg-brand-500 text-white shadow'
+                                    : 'bg-white text-brand-600 hover:bg-brand-50'"
+                                class="rounded-full border border-brand-300 px-6 py-2.5 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 md:text-base">
+                            {{ $c['label'] }}
+                        </button>
+                    @endforeach
+                </div>
+
+            <div class="mt-10 space-y-16">
                 @foreach ($comparaisons as $c)
-                    <div>
+                    <div x-show="onglet === '{{ $c['cle'] }}'" x-cloak>
                         {{-- Le libellé est une pastille bleue qui sort du cadre, alternativement
                              à gauche puis à droite de la diapositive (diapos 20-22). --}}
                         {{-- Sur mobile la pastille reste entière dans la marge : sortie du
@@ -150,6 +172,7 @@
                         </div>
                     </div>
                 @endforeach
+            </div>
             </div>
 
             <div class="mt-12 text-center">
