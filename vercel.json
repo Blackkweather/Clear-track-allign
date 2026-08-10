@@ -1,0 +1,18 @@
+{
+  "framework": null,
+  "buildCommand": "echo 'assets deja compiles dans public/build'",
+  "installCommand": "echo 'dependances PHP installees par le runtime'",
+  "outputDirectory": "public",
+  "functions": {
+    "api/index.php": {
+      "runtime": "vercel-php@0.7.4",
+      "maxDuration": 30
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": "/api/index.php"
+    }
+  ]
+}

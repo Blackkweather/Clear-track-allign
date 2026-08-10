@@ -1,0 +1,44 @@
+# Ce fichier remplace .gitignore côté Vercel. Point important : public/build
+# n'est PAS exclu ici, alors qu'il l'est dans .gitignore — sans lui le site
+# partirait en ligne sans CSS ni JS compilés.
+
+# La chaîne JS est volontairement exclue : les assets sont déjà compilés dans
+# public/build et téléversés tels quels. Laisser package.json ferait détecter
+# « Vite » à Vercel, qui lancerait une compilation front et réclamerait ensuite
+# un dossier de sortie « dist » — alors que ce déploiement est un site PHP.
+package.json
+package-lock.json
+vite.config.js
+
+# public/ sert de racine statique (outputDirectory). Tout ce qui s'y trouve est
+# donc téléchargeable TEL QUEL, sans passer par PHP. On en retire donc :
+#  - index.php : servi en clair, il exposait le code source ; le point d'entrée
+#    du déploiement est api/index.php.
+#  - robots.txt : c'est SeoController qui doit le produire, le fichier statique
+#    le masquerait.
+public/index.php
+public/robots.txt
+
+# Manifeste de paquets périmé : celui d'ici est généré avec les dépendances de
+# DÉVELOPPEMENT (laravel/pail…), alors que Vercel installe en --no-dev. Envoyé
+# tel quel, Laravel tentait d'enregistrer PailServiceProvider et plantait en 500.
+# Le fichier .gitignore du dossier suffit à le faire exister ; composer le
+# régénère pendant la construction.
+bootstrap/cache/*.php
+
+.git
+node_modules
+vendor
+tests
+build-apercu
+outils
+storage/app
+storage/logs
+storage/framework/cache
+storage/framework/sessions
+storage/framework/views
+database/database.sqlite
+.env
+.env.*
+.phpunit.result.cache
+*.md
