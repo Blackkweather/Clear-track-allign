@@ -31,6 +31,7 @@
                         <li><a href="{{ route('pourquoi') }}" class="hover:underline">Pourquoi CT&nbsp;?</a></li>
                         <li><a href="{{ route('avantages') }}" class="hover:underline">Avantages</a></li>
                         <li><a href="{{ route('instructions') }}" class="hover:underline">Instructions d’utilisation</a></li>
+                        <li><a href="{{ route('aligner-care') }}" class="hover:underline">Aligner Care Instructions</a></li>
                         <li><a href="{{ route('blog.index') }}" class="hover:underline">Blog</a></li>
                         <li><a href="{{ route('faq') }}" class="hover:underline">FAQ</a></li>
                         <li><a href="{{ route('a-propos') }}" class="hover:underline">À propos</a></li>

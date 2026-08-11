@@ -26,31 +26,64 @@
         </div>
     </section>
 
-    {{-- LES 5 QUALITÉS (PPT slide 3) : photo annotée avec lignes de rappel — BLEU (diapo 3) --}}
-    <section class="bg-waves" aria-labelledby="qualites-titre">
+    {{-- LES QUALITÉS (PPT slide 3) — BLEU (diapo 3)
+         Retours client : les rappels « Hygiénique », « Confortable » et « Discret »
+         sont retirés (marqués d'une croix rouge) ; seuls « Amovible » et « Efficace »
+         restent. Chaque mot devient cliquable et déploie une explication courte.
+
+         Les explications ne sont pas inventées : ce sont les textes du client pour
+         les avantages correspondants (« Sûr et amovible » et « Des résultats
+         rapides », diapo 28 / page Avantages), la diapo 3 ne portant que les mots. --}}
+    @php
+        $qualites = [
+            [
+                'cle' => 'amovible',
+                'mot' => 'Amovible',
+                'texte' => 'Ce qui vous permet de vous brosser les dents, d’utiliser du fil dentaire et de maintenir une bonne hygiène buccale. Les aligneurs Cleartrack® sont amovibles, ce qui vous permet de continuer à manger et à boire ce que vous voulez, et de faire du sport ou d’autres activités similaires.',
+                'pos' => 'left: 3%; top: 17%;',
+            ],
+            [
+                'cle' => 'efficace',
+                'mot' => 'Efficace',
+                'texte' => 'Comparé à d’autres méthodes d’alignement des dents, Cleartrack® agit rapidement. En moyenne, la durée totale du traitement est entre 3 à 12 mois et de nombreuses personnes remarquent des résultats en quelques semaines.',
+                'pos' => 'left: 66%; top: 61%;',
+            ],
+        ];
+    @endphp
+
+    <section class="bg-waves" aria-labelledby="qualites-titre" x-data="{ ouvert: null }">
         <h2 id="qualites-titre" class="sr-only">Les qualités des aligneurs ClearTrack</h2>
 
-        {{-- Desktop / tablette : diagramme annoté fidèle au PPT — bord à bord (les doigts touchent le bord gauche de l'écran, comme sur la diapo 16:9) --}}
+        {{-- Desktop / tablette : diagramme annoté fidèle au PPT — bord à bord --}}
         <div class="relative hidden aspect-[16/9] w-full md:block">
             <img src="{{ asset('assets/ppt/slide04_0.png') }}" alt="" aria-hidden="true"
                  class="absolute inset-0 h-full w-full object-contain object-left" loading="lazy">
 
+            {{-- Ne restent que les deux traits de rappel conservés --}}
             <svg viewBox="0 0 1000 563" class="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true">
                 <line x1="160" y1="115" x2="270" y2="140" stroke="white" stroke-width="1.5"/>
-                <line x1="510" y1="112" x2="655" y2="112" stroke="white" stroke-width="1.5"/>
-                <line x1="520" y1="212" x2="655" y2="212" stroke="white" stroke-width="1.5"/>
-                <line x1="475" y1="285" x2="655" y2="285" stroke="white" stroke-width="1.5"/>
                 <line x1="470" y1="365" x2="655" y2="365" stroke="white" stroke-width="1.5"/>
             </svg>
 
-            <span class="absolute font-bold text-white" style="left: 3%; top: 17%;">Amovible</span>
-            <span class="absolute font-bold text-white" style="left: 66%; top: 15%;">Hygiénique</span>
-            <span class="absolute font-bold text-white" style="left: 66%; top: 33%;">Confortable</span>
-            <span class="absolute font-bold text-white" style="left: 66%; top: 47%;">Discret</span>
-            <span class="absolute font-bold text-white" style="left: 66%; top: 61%;">Efficace</span>
+            @foreach ($qualites as $q)
+                <button type="button" class="qualite-mot absolute" style="{{ $q['pos'] }}"
+                        @click="ouvert = (ouvert === '{{ $q['cle'] }}' ? null : '{{ $q['cle'] }}')"
+                        :class="ouvert === '{{ $q['cle'] }}' ? 'qualite-mot-actif' : ''"
+                        :aria-expanded="ouvert === '{{ $q['cle'] }}' ? 'true' : 'false'"
+                        aria-controls="qualite-{{ $q['cle'] }}">{{ $q['mot'] }}</button>
+            @endforeach
 
-            <div class="absolute inset-x-0 bottom-6 text-center">
-                <a href="{{ route('pourquoi') }}" class="btn-outline-white">En savoir plus</a>
+            {{-- L'explication s'ouvre en bas de la diapositive, à la place du bouton --}}
+            <div class="absolute inset-x-0 bottom-6 px-6 text-center">
+                @foreach ($qualites as $q)
+                    <p id="qualite-{{ $q['cle'] }}" x-show="ouvert === '{{ $q['cle'] }}'" x-cloak
+                       x-transition:enter="transition ease-out duration-300"
+                       x-transition:enter-start="opacity-0 translate-y-2"
+                       x-transition:enter-end="opacity-100 translate-y-0"
+                       class="mx-auto max-w-3xl text-base leading-relaxed text-white md:text-lg">{{ $q['texte'] }}</p>
+                @endforeach
+                <a href="{{ route('pourquoi') }}" class="btn-outline-white mt-4 inline-block"
+                   x-show="ouvert === null">En savoir plus</a>
             </div>
         </div>
 
@@ -60,9 +93,18 @@
                 <img src="{{ asset('assets/ppt/slide04_0.png') }}" alt="Aligneur ClearTrack tenu entre deux doigts"
                      class="h-40 w-auto object-contain" loading="lazy">
             </div>
-            <ul class="mt-6 grid grid-cols-2 gap-4 text-center">
-                @foreach (['Hygiénique', 'Confortable', 'Discret', 'Amovible', 'Efficace'] as $qualite)
-                    <li class="rounded-xl border border-white/40 py-3 font-bold text-white">{{ $qualite }}</li>
+            <ul class="mt-6 space-y-3">
+                @foreach ($qualites as $q)
+                    <li>
+                        <button type="button"
+                                @click="ouvert = (ouvert === '{{ $q['cle'] }}' ? null : '{{ $q['cle'] }}')"
+                                :aria-expanded="ouvert === '{{ $q['cle'] }}' ? 'true' : 'false'"
+                                class="w-full rounded-xl border border-white/40 py-3 text-lg font-bold text-white">
+                            {{ $q['mot'] }}
+                        </button>
+                        <p x-show="ouvert === '{{ $q['cle'] }}'" x-cloak x-collapse
+                           class="px-2 pt-3 text-sm leading-relaxed text-white/90">{{ $q['texte'] }}</p>
+                    </li>
                 @endforeach
             </ul>
             <div class="mt-6 text-center">
@@ -77,50 +119,24 @@
             <div class="text-white">
                 <h2 id="experts-titre" class="section-title-invert">Traitement fourni par des dentistes experts dans des cabinets et cliniques dentaires</h2>
                 <div class="mt-4 h-1 w-16 rounded bg-white/70"></div>
-                <p class="texte-ppt mt-6 text-white/90">Votre traitement sera mené, géré et suivi par nos dentistes certifiés dans des cliniques dentaires entièrement équipées afin de garantir un traitement facile et sans douleurs.</p>
-                <a href="{{ route('rdv') }}" class="btn-white mt-8">En savoir plus</a>
+                {{-- Retour client : « Animation Typing + justifier » --}}
+                <p class="texte-ppt mt-6 text-justify text-white/90" data-typing>Votre traitement sera mené, géré et suivi par nos dentistes certifiés dans des cliniques dentaires entièrement équipées afin de garantir un traitement facile et sans douleurs.</p>
+                {{-- Retour client : « Agrandir taille + animation » --}}
+                <a href="{{ route('rdv') }}" class="btn-white btn-grand btn-anime mt-8">En savoir plus</a>
             </div>
             <div class="flex justify-center">
+                {{-- Retour client : « Rendre l'image homogène sans coupure ».
+                     object-contain au lieu d'un cadrage : l'image n'est plus rognée. --}}
                 <img src="{{ asset('assets/ppt/slide04_experts.png') }}" alt="Une assistante dentaire et un dentiste examinant une radiographie dentaire"
-                     class="w-full max-w-md" loading="lazy">
+                     class="w-full max-w-lg object-contain" loading="lazy">
             </div>
         </div>
     </section>
 
-    {{-- CLEARTRACK EN 4 ÉTAPES (PPT slides 5-8) — section 4/10 : BLANC --}}
-    {{-- Le fond était porté par le conteneur centré (max-w-7xl) : les courbes se
-         seraient arrêtées à 1280 px. La section porte désormais le fond sur toute
-         la largeur, le conteneur centré passe à l'intérieur — contenu inchangé. --}}
-    <section class="bg-waves-light" aria-labelledby="etapes-titre">
-        <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-        <h2 id="etapes-titre" class="section-title text-center">Cleartrack® align en 4 étapes</h2>
-        <div class="mt-10 grid gap-6 md:grid-cols-2 xl:grid-cols-4">
-            @php
-                $etapes = [
-                    ['n' => 1, 'titre' => 'Consultation gratuite', 'texte' => 'Une de nos cliniques partenaires ou cabinets proches de chez vous effectueront un examen et vous feront savoir si votre sourire peut être amélioré grâce aux aligneurs Cleartrack®.', 'img' => 'assets/ppt/slide05_0.jpg'],
-                    ['n' => 2, 'titre' => 'Nous prenons vos empreintes', 'texte' => 'Nous avons besoin d’une empreinte de vos dents que nous numériserons et utiliserons pour créer un fichier de conception assistée par ordinateur (CAO). Nous utilisons les dernières technologies en matière de dentisterie numérique pour concevoir le plan de traitement le plus approprié pour vous.', 'img' => 'assets/ppt/slide06_0.jpg'],
-                    ['n' => 3, 'titre' => 'Vérification de votre plan de traitement', 'texte' => 'Une simulation de votre plan de traitement en 3D et vidéos sont envoyés à vous et à votre médecin pour approbation. Une fois votre approbation obtenue, nous procédons à la fabrication de vos aligneurs sur mesure.', 'img' => 'assets/ppt/slide07_0.jpg'],
-                    ['n' => 4, 'titre' => 'Préparez-vous à avoir un sourire hollywoodien !', 'texte' => 'Nous vous enverrons une série de gouttières que vous devrez porter successivement en changeant vos gouttières tous les 15 jours. Vos dents se déplaceront lentement vers les positions souhaitées.', 'img' => 'assets/ppt/slide08_0.jpg'],
-                ];
-            @endphp
-            @foreach ($etapes as $etape)
-                <article class="card flex flex-col overflow-hidden !p-0">
-                    <img src="{{ asset($etape['img']) }}" alt="Étape {{ $etape['n'] }} : {{ $etape['titre'] }}" class="h-44 w-full object-cover" loading="lazy">
-                    <div class="flex flex-1 flex-col p-6">
-                        <span class="inline-flex h-9 w-9 items-center justify-center rounded-lg bg-brand-500 text-lg font-bold text-white">{{ $etape['n'] }}</span>
-                        <h3 class="mt-3 text-lg font-bold text-brand-600">{{ $etape['titre'] }}</h3>
-                        <p class="mt-2 text-base leading-relaxed">{{ $etape['texte'] }}</p>
-                    </div>
-                </article>
-            @endforeach
-        </div>
-        <div class="mt-8 text-center">
-            <a href="{{ route('rdv') }}" class="btn-brand">Démarrer maintenant</a>
-        </div>
-        </div>
-    </section>
-
-    {{-- VIDÉO « Comment ça marche » (kit média officiel du client) — BLANC --}}
+    {{-- VIDÉO « Comment ça marche » (kit média officiel du client) — BLANC
+         Retour client : « mettre ce slide avant le slide 1.4 » — la vidéo passe
+         donc devant la section « en 4 étapes ». Le fond blanc à courbes est
+         conservé (« Garder ce fond lorsque le fond est blanc »). --}}
     <section class="bg-waves-light" aria-labelledby="video-titre">
         <div class="mx-auto max-w-5xl px-4 py-16 sm:px-6">
             <h2 id="video-titre" class="section-title text-center">Regardez comment ça marche</h2>
@@ -129,8 +145,10 @@
             </div>
 
             {{-- Présentation audio (voix off) : emplacement prêt, fichier à fournir par le client.
+                 Le retour « Ajouter le script à cette video avec voix d'une femme » attend
+                 ce fichier — rien à publier tant qu'il n'est pas fourni (voir D21).
                  Lecture manuelle et jamais automatique — une lecture automatique est bloquée par
-                 les navigateurs et pénalise l'accessibilité. Voir CONTENT-DECISIONS.md D21. --}}
+                 les navigateurs et pénalise l'accessibilité. --}}
             @php $voixOff = file_exists(public_path('assets/audio/presentation.mp3')); @endphp
             @if ($voixOff)
                 <div class="card mx-auto mt-10 max-w-2xl border border-brand-100 text-center">
@@ -145,12 +163,51 @@
         </div>
     </section>
 
+    {{-- CLEARTRACK EN 4 ÉTAPES (PPT slides 5-8) — section 4/10 : BLANC --}}
+    {{-- Le fond était porté par le conteneur centré (max-w-7xl) : les courbes se
+         seraient arrêtées à 1280 px. La section porte désormais le fond sur toute
+         la largeur, le conteneur centré passe à l'intérieur — contenu inchangé. --}}
+    {{-- Retour client : « Mettre le fond blanc avec la meme identité graphique »
+         (déjà .bg-waves-light : blanc + courbes du PPT) et « Agrandir + animation
+         lors du scroll vers ce slide ». --}}
+    <section class="bg-waves-light" aria-labelledby="etapes-titre" data-etapes>
+        <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+        <h2 id="etapes-titre" class="section-title text-center text-4xl md:text-5xl">Cleartrack® align en 4 étapes</h2>
+        <div class="mt-12 grid gap-8 md:grid-cols-2 xl:grid-cols-4">
+            @php
+                $etapes = [
+                    ['n' => 1, 'titre' => 'Consultation gratuite', 'texte' => 'Une de nos cliniques partenaires ou cabinets proches de chez vous effectueront un examen et vous feront savoir si votre sourire peut être amélioré grâce aux aligneurs Cleartrack®.', 'img' => 'assets/ppt/slide05_0.jpg'],
+                    ['n' => 2, 'titre' => 'Nous prenons vos empreintes', 'texte' => 'Nous avons besoin d’une empreinte de vos dents que nous numériserons et utiliserons pour créer un fichier de conception assistée par ordinateur (CAO). Nous utilisons les dernières technologies en matière de dentisterie numérique pour concevoir le plan de traitement le plus approprié pour vous.', 'img' => 'assets/ppt/slide06_0.jpg'],
+                    ['n' => 3, 'titre' => 'Vérification de votre plan de traitement', 'texte' => 'Une simulation de votre plan de traitement en 3D et vidéos sont envoyés à vous et à votre médecin pour approbation. Une fois votre approbation obtenue, nous procédons à la fabrication de vos aligneurs sur mesure.', 'img' => 'assets/ppt/slide07_0.jpg'],
+                    ['n' => 4, 'titre' => 'Préparez-vous à avoir un sourire hollywoodien !', 'texte' => 'Nous vous enverrons une série de gouttières que vous devrez porter successivement en changeant vos gouttières tous les 15 jours. Vos dents se déplaceront lentement vers les positions souhaitées.', 'img' => 'assets/ppt/slide08_0.jpg'],
+                ];
+            @endphp
+            @foreach ($etapes as $etape)
+                <article class="card etape-reveal flex flex-col overflow-hidden !p-0" style="--i: {{ $loop->index }}">
+                    <img src="{{ asset($etape['img']) }}" alt="Étape {{ $etape['n'] }} : {{ $etape['titre'] }}" class="h-52 w-full object-cover" loading="lazy">
+                    <div class="flex flex-1 flex-col p-7">
+                        <span class="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-brand-500 text-xl font-bold text-white">{{ $etape['n'] }}</span>
+                        <h3 class="mt-4 text-xl font-bold text-brand-600">{{ $etape['titre'] }}</h3>
+                        <p class="mt-2 text-base leading-relaxed">{{ $etape['texte'] }}</p>
+                    </div>
+                </article>
+            @endforeach
+        </div>
+        {{-- Bouton conservé, comme demandé --}}
+        <div class="mt-10 text-center">
+            <a href="{{ route('rdv') }}" class="btn-brand btn-grand">Démarrer maintenant</a>
+        </div>
+        </div>
+    </section>
+
     {{-- RÉSULTATS (PPT slides 9-10) — carrousel — section 6/10 : BLANC --}}
     <section class="bg-waves-light" aria-labelledby="resultats-titre">
         <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6">
             <div class="text-center">
-                <h2 id="resultats-titre" class="section-title">Résultats garantis.<br>Sourires transformés.</h2>
-                <p class="section-subtitle">Les résultats sont visibles en 6 mois en moyenne</p>
+                {{-- Retour client : « Agrandir » + ajouter « à partir de 3 mois » --}}
+                <h2 id="resultats-titre" class="section-title text-4xl md:text-5xl">Résultats garantis.<br>Sourires transformés.</h2>
+                <p class="section-subtitle text-lg md:text-xl">Les résultats sont visibles en 6 mois en moyenne</p>
+                <p class="mt-2 text-lg font-bold text-brand-600 md:text-xl">à partir de 3 mois</p>
             </div>
             <div class="mt-10 px-6 sm:px-10">
                 <x-carousel label="Résultats de patients" :per-view-md="3">
@@ -161,7 +218,8 @@
                             ['prenom' => 'Noureddine', 'mois' => 8, 'cas' => 'Encombrement', 'img' => 'noureddine'],
                             ['prenom' => 'Rania', 'mois' => 5, 'cas' => 'Encombrement', 'img' => 'rania'],
                             ['prenom' => 'Marwa', 'mois' => 2, 'cas' => 'Espacement', 'img' => 'marwa'],
-                            ['prenom' => 'Ayman', 'mois' => 10, 'cas' => 'Espacement', 'img' => 'ayman'],
+                            // Retour client : Ayman est un cas d'encombrement, pas d'espacement
+                            ['prenom' => 'Ayman', 'mois' => 10, 'cas' => 'Encombrement', 'img' => 'ayman'],
                         ];
                     @endphp
                     @foreach ($resultats as $r)
@@ -185,9 +243,10 @@
     {{-- AVANTAGES 3 COLONNES (PPT slide 11) — BLANC --}}
     <section class="bg-waves-light" aria-labelledby="avantages-titre">
         <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6">
-        <h2 id="avantages-titre" class="section-title text-center">Obtenez des dents parfaitement alignées</h2>
-        <p class="section-subtitle text-center">Cleartrack® présente des avantages de premier choix</p>
-        <div class="mt-10 grid gap-8 md:grid-cols-3">
+        {{-- Retour client : « Agrandir » toute la section, fond blanc conservé --}}
+        <h2 id="avantages-titre" class="section-title text-center text-4xl md:text-5xl">Obtenez des dents parfaitement alignées</h2>
+        <p class="section-subtitle text-center text-lg md:text-xl">Cleartrack® présente des avantages de premier choix</p>
+        <div class="mt-12 grid gap-10 md:grid-cols-3">
             @php
                 $blocs = [
                     ['icon' => 'icons/dentiste.png', 'titre' => 'Traitement par des experts', 'texte' => 'Planifié et conçu par des orthodontistes exclusifs. Pour les autres marques d’aligneurs, la planification du traitement est assurée par des techniciens et non pas par des médecins qualifiés.'],
@@ -196,12 +255,16 @@
                 ];
             @endphp
             @foreach ($blocs as $bloc)
-                {{-- Diapo 11 : icône posée sur un disque bleu de marque --}}
+                {{-- Retour client : « Corriger les logos invisibles ».
+                     Ces trois icônes sont des illustrations en couleurs (noir, crème,
+                     orange) : posées sur le disque bleu de marque elles se noyaient.
+                     Elles passent sur un disque BLANC, comme le PPT le fait déjà pour
+                     les icônes de la page Pourquoi (D25). --}}
                 <div class="text-center">
-                    <span class="mx-auto flex h-24 w-24 items-center justify-center rounded-full bg-brand-500 p-5">
+                    <span class="mx-auto flex h-28 w-28 items-center justify-center rounded-full bg-white p-5 shadow-md ring-1 ring-brand-100">
                         <img src="{{ asset('assets/' . $bloc['icon']) }}" alt="" class="h-full w-full object-contain" loading="lazy">
                     </span>
-                    <h3 class="mt-4 text-lg font-bold text-brand-500">{{ $bloc['titre'] }}</h3>
+                    <h3 class="mt-5 text-xl font-bold text-brand-500">{{ $bloc['titre'] }}</h3>
                     <p class="mt-2 text-base leading-relaxed">{{ $bloc['texte'] }}</p>
                 </div>
             @endforeach
@@ -212,37 +275,42 @@
         </div>
     </section>
 
-    {{-- NOUS AIMONS VOTRE SOURIRE (PPT slide 12) — section 8/10 : BLANC --}}
+    {{-- NOUS AIMONS VOTRE SOURIRE (PPT slide 12) — section 8/10 : BLANC
+         Retours client : « Agrandir slide », « Suivre le modele sur PPT : fond blanc »
+         et « Découper contour » (photo détourée, sans fond). --}}
     <section class="bg-waves-light" aria-labelledby="sourire-titre">
-        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-2">
-            {{-- Diapo 12 : la photo occupe la moitié gauche, le bloc de texte la moitié droite.
-                 C'est bien le visuel de la diapo 12 (ppt/media/image25.png) : il était jusqu'ici
-                 posé sur la section « traitement invisible », remplacé ici à sa place. --}}
+        <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 py-24 sm:px-6 md:grid-cols-2">
+            {{-- Diapo 12 : la photo occupe la moitié gauche, le bloc de texte la moitié droite. --}}
             <div class="flex justify-center md:order-1">
-                <img src="{{ asset('assets/photo-aligneur-main.png') }}" alt="Patiente tenant un aligneur Cleartrack® transparent" class="w-full max-w-md" loading="lazy">
+                <img src="{{ asset('assets/photo-aligneur-main-detoure.png') }}" alt="Patiente tenant un aligneur Cleartrack® transparent" class="w-full max-w-lg" loading="lazy">
             </div>
             {{-- Diapo 12 : titre souligné, puis cinq lignes centrées, sans puces.
                  « dents inclinés » est la graphie du PPT, conservée telle quelle (D23). --}}
             <div class="text-center md:order-2" data-typing-group>
-                <h2 id="sourire-titre" class="section-title underline decoration-2 underline-offset-8">Votre Sourire est Magnifique&nbsp;!</h2>
-                <div class="mt-8 space-y-5">
+                <h2 id="sourire-titre" class="section-title text-4xl underline decoration-2 underline-offset-8 md:text-5xl">Votre Sourire est Magnifique&nbsp;!</h2>
+                <div class="mt-10 space-y-6 text-lg md:text-xl">
                     <p>Nous aimons votre sourire&nbsp;!</p>
                     <p>Rendons-le plus beau …</p>
                     <p data-typing>Nous éliminons les espaces entre les dents</p>
                     <p data-typing>Nous redressons les dents inclinés et retournées</p>
-                    <p data-typing>Obtenir un alignement parfait des dents</p>
+                    {{-- Retour client sur cette ligne : « obtenez » --}}
+                    <p data-typing>Obtenez un alignement parfait des dents</p>
                 </div>
-                <a href="{{ route('cas-traitables') }}" class="btn-brand mt-8">Voir les cas que nous pouvons traiter</a>
+                {{-- Retour client : « agrandir » ce bouton --}}
+                <a href="{{ route('cas-traitables') }}" class="btn-brand btn-grand mt-10">Voir les cas que nous pouvons traiter</a>
             </div>
         </div>
     </section>
 
-    {{-- TRAITEMENT INVISIBLE (PPT slide 13) — BLANC --}}
+    {{-- TRAITEMENT INVISIBLE (PPT slide 13) — BLANC
+         Retours client : « Elargir slide », « Agrandir photo avec elargissement
+         slide » et « Fond blanc avec rainures » — ce dernier est déjà le cas
+         (.bg-waves-light = blanc + courbes du PPT). --}}
     <section class="bg-waves-light" aria-labelledby="invisible-titre">
-        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-2">
+        <div class="mx-auto grid max-w-[90rem] items-center gap-14 px-4 py-24 sm:px-6 md:grid-cols-2">
         <div>
-            <h2 id="invisible-titre" class="section-title">Un traitement orthodontique invisible…</h2>
-            <p class="texte-ppt mt-4">Les aligneurs Cleartrack® sont fréquemment prescrits pour corriger divers cas de dents mal alignées, d’espaces entre les dents et de rotation des dents.</p>
+            <h2 id="invisible-titre" class="section-title text-4xl md:text-5xl">Un traitement orthodontique invisible…</h2>
+            <p class="texte-ppt mt-6">Les aligneurs Cleartrack® sont fréquemment prescrits pour corriger divers cas de dents mal alignées, d’espaces entre les dents et de rotation des dents.</p>
             <div class="mt-8 flex flex-col items-start gap-3">
                 <a href="{{ route('faq') }}" class="btn-outline-brand">Questions fréquemment posées</a>
                 <a href="{{ route('fabrication') }}" class="btn-outline-brand">Comment sont-ils fabriqués&nbsp;?</a>
@@ -258,37 +326,14 @@
                  gouttière) porte un filigrane de banque d'images en mosaïque sur toute sa
                  surface, et le PPT ne le recadre pas : il reste impubliable — voir D20.
                  Emplacement réservé en attendant la version sous licence. --}}
-            <div class="flex aspect-[4/3] w-full max-w-md items-center justify-center rounded-2xl border-2 border-dashed border-brand-200 bg-brand-50 px-6 text-center">
-                <span class="text-sm text-slate-400">Photo à fournir<br>(rendu 3D de la diapo 13, version sous licence)</span>
+            <div class="flex aspect-[4/3] w-full max-w-2xl items-center justify-center rounded-2xl border-2 border-dashed border-brand-200 bg-brand-50 px-6 text-center">
+                <span class="text-base text-slate-400">Photo à fournir<br>(rendu 3D de la diapo 13, version sous licence)</span>
             </div>
         </div>
         </div>
     </section>
 
-    {{-- TÉMOIGNAGES (PPT slides 14-15) — carrousel — section 10/10 : BLANC (contraste avant le footer bleu) --}}
-    <section class="bg-waves-light" aria-labelledby="temoignages-titre">
-        <div class="mx-auto max-w-5xl px-4 py-16 sm:px-6">
-            <h2 id="temoignages-titre" class="sr-only">Témoignages de patients</h2>
-            <div class="px-6 sm:px-10">
-                <x-carousel label="Témoignages de patients" :per-view-md="2">
-                    @php
-                        $temoignages = [
-                            // Témoignages recopiés mot pour mot des diapos 14-15 : ce sont des
-                            // propos de patients, ils ne sont ni reformulés ni reponctués (D23).
-                            ['texte' => 'Mon expérience avec mon dentiste a été excellente jusqu’à présent. J’ai opté pour un traitement par aligneurs à Casablanca et il a été très facile de les utiliser. La meilleure chose pour moi est qu’il n’y a aucune restriction sur ce que je dois manger. la livraison des aligneurs a toujours été à l’heure. ainsi, vous pouvez les faire livrer à votre domicile ce qui m’a vraiment aidé durant cette pandémie. aussi, l’aseptisation de la clinique était au rendez vous si on considère la situation pandémique.', 'auteur' => 'Tarik, J'],
-                            ['texte' => 'Les aligneurs ont l’air si naturels qu’une fois posés il est impossible pour quiconque de savoir si vous portez un appareil dentaire. Facile à utiliser et à enlever. Je les utilise depuis quelques mois et les résultats sont très satisfaisants. Je recommande sans hésiter ce produit.', 'auteur' => 'Nouha, S'],
-                        ];
-                    @endphp
-                    @foreach ($temoignages as $t)
-                        <div class="shrink-0 px-3" data-carousel-slide :style="`width: ${100 / perView}%`">
-                            <blockquote class="h-full rounded-2xl border-2 border-brand-200 bg-brand-50 p-8 text-slate-700">
-                                <p class="leading-relaxed">« {{ $t['texte'] }} »</p>
-                                <footer class="mt-4 font-bold text-brand-600">{{ $t['auteur'] }}</footer>
-                            </blockquote>
-                        </div>
-                    @endforeach
-                </x-carousel>
-            </div>
-        </div>
-    </section>
+    {{-- TÉMOIGNAGES (PPT diapos 14-15) — SUPPRIMÉ à la demande du client
+         (« Supprimer ce slide »). Les deux témoignages (Tarik, J et Nouha, S)
+         restent dans le PPT si la section devait être rétablie. --}}
 @endsection

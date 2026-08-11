@@ -11,7 +11,7 @@ class SeoController extends Controller
     {
         $staticRoutes = [
             'home', 'pourquoi', 'avantages', 'cas-traitables', 'fabrication', 'faq',
-            'instructions', 'a-propos', 'rdv', 'confidentialite', 'cgu', 'blog.index',
+            'instructions', 'aligner-care', 'a-propos', 'rdv', 'confidentialite', 'cgu', 'blog.index',
             'medecin.index', 'medecin.demarrer', 'medecin.certifie',
             'medecin.telechargements', 'medecin.faq',
         ];

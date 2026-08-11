@@ -127,14 +127,36 @@ function deriveDesVagues() {
     cibles.forEach((el) => observer.observe(el));
 }
 
+/* ── 4. Cartes « 4 étapes » : apparition à l'arrivée sur la section ───────
+   Demande client : « animation lors du scroll vers ce slide ». Une seule fois :
+   l'observation est retirée après le déclenchement. */
+function etapesAuDefilement() {
+    const section = document.querySelector('[data-etapes]');
+    if (!section || reduceMotion || !('IntersectionObserver' in window)) return;
+
+    const observer = new IntersectionObserver(
+        (entries) => {
+            entries.forEach((entry) => {
+                if (!entry.isIntersecting) return;
+                entry.target.classList.add('etape-visible');
+                observer.unobserve(entry.target);
+            });
+        },
+        { threshold: 0.2 }
+    );
+    observer.observe(section);
+}
+
 ecranOuverture();
 
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', () => {
         machineAEcrire();
         deriveDesVagues();
+        etapesAuDefilement();
     });
 } else {
     machineAEcrire();
     deriveDesVagues();
+    etapesAuDefilement();
 }

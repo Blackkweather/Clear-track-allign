@@ -123,6 +123,71 @@ html.splash-actif body {
     }
 }
 
+/* ── 4. Mots-qualités de la diapo 3 ──────────────────────────────────────
+   « Animation avant clique » : une pulsation lente signale que le mot est
+   cliquable. Elle s'arrête dès que le mot est ouvert ou survolé, pour ne pas
+   bouger pendant la lecture. Purement visuelle : la géométrie ne change pas. */
+.qualite-mot:not(.qualite-mot-actif) {
+    animation: qualite-appel 2.6s ease-in-out infinite;
+}
+
+.qualite-mot:hover,
+.qualite-mot:focus-visible {
+    animation: none;
+}
+
+@keyframes qualite-appel {
+    0%,
+    100% {
+        box-shadow: 0 0 0 0 rgb(255 255 255 / 0.45);
+    }
+    60% {
+        box-shadow: 0 0 0 12px rgb(255 255 255 / 0);
+    }
+}
+
+/* ── 5. Boutons signalés « + animation » par le client ───────────────────
+   Respiration lente, arrêtée au survol pour ne pas gêner le clic. */
+.btn-anime {
+    animation: bouton-appel 2.8s ease-in-out infinite;
+}
+
+.btn-anime:hover,
+.btn-anime:focus-visible {
+    animation: none;
+}
+
+@keyframes bouton-appel {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.04);
+    }
+}
+
+/* ── 6. Cartes « 4 étapes » : apparition au défilement ───────────────────
+   « Agrandir + animation lors du scroll vers ce slide ». La classe est posée
+   par le script quand la section entre dans le champ ; sans JavaScript les
+   cartes restent simplement visibles. */
+.etape-reveal {
+    opacity: 0;
+    transform: translateY(18px);
+}
+
+.etape-visible .etape-reveal {
+    animation: etape-entree 500ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    animation-delay: calc(var(--i, 0) * 110ms);
+}
+
+@keyframes etape-entree {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
 /* ── Accessibilité et mobile ─────────────────────────────────────────────
    prefers-reduced-motion : tout est neutralisé, le contenu s'affiche
    immédiatement et en entier. */
@@ -140,5 +205,12 @@ html.splash-actif body {
     }
     .waves-anime {
         animation: none;
+    }
+    .qualite-mot:not(.qualite-mot-actif),
+    .btn-anime,
+    .etape-reveal {
+        animation: none;
+        opacity: 1;
+        transform: none;
     }
 }

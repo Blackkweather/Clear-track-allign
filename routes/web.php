@@ -24,6 +24,9 @@ Route::get('/faq', function () {
     ]);
 })->name('faq');
 Route::view('/instructions', 'pages.instructions')->name('instructions');
+
+// Page fournie par le client, en anglais (annotations du 11/08/2026).
+Route::view('/aligner-care-instructions', 'pages.aligner-care-instructions')->name('aligner-care');
 Route::view('/a-propos', 'pages.a-propos')->name('a-propos');
 Route::get('/prendre-rdv', [RdvController::class, 'show'])->name('rdv');
 Route::post('/prendre-rdv', [RdvController::class, 'store'])
