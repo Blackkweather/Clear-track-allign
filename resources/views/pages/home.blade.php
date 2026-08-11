@@ -82,8 +82,7 @@
                        x-transition:enter-end="opacity-100 translate-y-0"
                        class="mx-auto max-w-3xl text-base leading-relaxed text-white md:text-lg">{{ $q['texte'] }}</p>
                 @endforeach
-                <a href="{{ route('pourquoi') }}" class="btn-outline-white mt-4 inline-block"
-                   x-show="ouvert === null">En savoir plus</a>
+                <a href="{{ route('pourquoi') }}" class="btn-outline-white mt-4 inline-block">En savoir plus</a>
             </div>
         </div>
 
@@ -93,17 +92,28 @@
                 <img src="{{ asset('assets/ppt/slide04_0.png') }}" alt="Aligneur ClearTrack tenu entre deux doigts"
                      class="h-40 w-auto object-contain" loading="lazy">
             </div>
+            {{-- Le retour client porte sur les LIGNES DE RAPPEL et les libellés du
+                 diagramme, qui n'existent que sur grand écran. La liste mobile garde
+                 donc les cinq qualités : rien ne demandait de les retirer d'ici.
+                 Seules « Amovible » et « Efficace » se déploient — ce sont les deux
+                 seules pour lesquelles le client a fourni un texte. --}}
             <ul class="mt-6 space-y-3">
-                @foreach ($qualites as $q)
+                @php $explications = collect($qualites)->keyBy('mot'); @endphp
+                @foreach (['Hygiénique', 'Confortable', 'Discret', 'Amovible', 'Efficace'] as $mot)
+                    @php $q = $explications->get($mot); @endphp
                     <li>
-                        <button type="button"
-                                @click="ouvert = (ouvert === '{{ $q['cle'] }}' ? null : '{{ $q['cle'] }}')"
-                                :aria-expanded="ouvert === '{{ $q['cle'] }}' ? 'true' : 'false'"
-                                class="w-full rounded-xl border border-white/40 py-3 text-lg font-bold text-white">
-                            {{ $q['mot'] }}
-                        </button>
-                        <p x-show="ouvert === '{{ $q['cle'] }}'" x-cloak x-collapse
-                           class="px-2 pt-3 text-sm leading-relaxed text-white/90">{{ $q['texte'] }}</p>
+                        @if ($q)
+                            <button type="button"
+                                    @click="ouvert = (ouvert === '{{ $q['cle'] }}' ? null : '{{ $q['cle'] }}')"
+                                    :aria-expanded="ouvert === '{{ $q['cle'] }}' ? 'true' : 'false'"
+                                    class="w-full rounded-xl border border-white/40 py-3 text-lg font-bold text-white">
+                                {{ $mot }}
+                            </button>
+                            <p x-show="ouvert === '{{ $q['cle'] }}'" x-cloak x-collapse
+                               class="px-2 pt-3 text-sm leading-relaxed text-white/90">{{ $q['texte'] }}</p>
+                        @else
+                            <p class="rounded-xl border border-white/40 py-3 text-center text-lg font-bold text-white">{{ $mot }}</p>
+                        @endif
                     </li>
                 @endforeach
             </ul>
