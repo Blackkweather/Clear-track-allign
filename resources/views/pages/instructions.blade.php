@@ -107,7 +107,11 @@
                     @foreach ($onglets as $o)
                         <div id="panneau-{{ $o['cle'] }}" role="tabpanel"
                              :aria-labelledby="'onglet-' + '{{ $o['cle'] }}'"
-                             x-show="onglet === '{{ $o['cle'] }}'" x-cloak
+                             {{-- x-cloak seulement à partir du 2e panneau : la règle CSS
+                                  [x-cloak]{display:none} s'applique aussi sans JavaScript,
+                                  donc la poser partout viderait la page si Alpine ne
+                                  démarre pas. --}}
+                             x-show="onglet === '{{ $o['cle'] }}'" @if (! $loop->first) x-cloak @endif
                              x-transition:enter="transition ease-out duration-200"
                              x-transition:enter-start="opacity-0 translate-y-2"
                              x-transition:enter-end="opacity-100 translate-y-0"

@@ -124,8 +124,13 @@
                  ce qui faisait défiler longuement. On n'en montre plus qu'une à la fois,
                  comme le PPT qui leur consacre une diapositive chacune (20, 21, 22).
                  Même mécanique que les onglets de la page Instructions.
-                 Sans JavaScript, x-cloak ne s'applique pas et les trois blocs restent
-                 visibles : on retombe simplement sur l'empilement d'avant. --}}
+
+                 Attention : [x-cloak] { display: none } est une règle CSS ordinaire,
+                 elle s'applique donc même sans JavaScript (c'est Alpine qui retire
+                 l'attribut au démarrage). Poser x-cloak sur les trois blocs les
+                 rendrait tous invisibles si Alpine ne se charge pas. Le premier en
+                 est donc dépourvu : sans JavaScript, on voit au moins la première
+                 comparaison au lieu d'une section vide. --}}
             <div class="mt-12" x-data="{ onglet: '{{ $comparaisons[0]['cle'] }}' }">
                 <div class="mx-auto flex max-w-2xl flex-wrap justify-center gap-2 px-4 sm:px-6"
                      role="tablist" aria-label="Comparaisons de matériau">
@@ -144,7 +149,7 @@
 
             <div class="mt-10 space-y-16">
                 @foreach ($comparaisons as $c)
-                    <div x-show="onglet === '{{ $c['cle'] }}'" x-cloak>
+                    <div x-show="onglet === '{{ $c['cle'] }}'" @if (! $loop->first) x-cloak @endif>
                         {{-- Le libellé est une pastille bleue qui sort du cadre, alternativement
                              à gauche puis à droite de la diapositive (diapos 20-22). --}}
                         {{-- Sur mobile la pastille reste entière dans la marge : sortie du

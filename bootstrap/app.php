@@ -13,6 +13,12 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
+        // Derrière un hébergeur qui termine le TLS (Vercel, Heberjahiz derrière un
+        // répartiteur…), PHP ne voit qu'une requête HTTP en clair : Laravel générait
+        // donc des URL absolues en http:// sur des pages servies en https://, ce qui
+        // faussait les balises canoniques et Open Graph. On fait confiance aux
+        // en-têtes X-Forwarded-* du proxy pour rétablir le bon schéma.
+        $middleware->trustProxies(at: '*');
         $middleware->append(SecurityHeaders::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {

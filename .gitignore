@@ -23,3 +23,5 @@ yarn-error.log
 /build-apercu
 .vercel
 .env*
+
+.env.local
