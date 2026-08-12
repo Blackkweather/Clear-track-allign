@@ -105,21 +105,25 @@ html.splash-actif body {
    de la version statique. L'animation oscille autour de cet état de repos :
    retirer animations.css ne déplace donc rien. */
 .waves-anime {
-    animation: waves-derive 28s ease-in-out infinite;
+    /* Linéaire et non « ease » : un défilement continu ne doit pas ralentir à
+       chaque boucle, sinon la répétition se voit. */
+    animation: waves-derive 90s linear infinite;
 }
 
+/* Le fond se raccordant maintenant à l'infini (tuile en miroir, background-repeat:
+   repeat), la dérive n'a plus besoin d'osciller pour éviter de découvrir un bord :
+   elle défile en continu et boucle sans couture. L'image-clé finale correspond
+   exactement à la hauteur d'une tuile, d'où un raccord invisible. */
 @keyframes waves-derive {
-    0% {
-        background-position: center 50%;
+    from {
+        background-position: center top;
     }
-    25% {
-        background-position: center 46%;
-    }
-    75% {
-        background-position: center 54%;
-    }
-    100% {
-        background-position: center 50%;
+    to {
+        /* Hauteur exacte d'une tuile rendue : la tuile fait 4948 × 2789,62 unités
+           (rapport 1,77372) et s'affiche sur 200 % de la largeur de la section,
+           donc 200vw / 1,77372. Décaler de cette valeur precise ramène le motif
+           sur lui-même : la boucle est invisible. */
+        background-position: center calc(-200vw / 1.77372);
     }
 }
 

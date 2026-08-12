@@ -101,18 +101,36 @@ foreach ($nuanciers as $nom => $c) {
     $svg .= '  ce qui écrase le motif verticalement à '.round(100 * $etirement, 1)." %. Mettre 1 pour revenir\n";
     $svg .= "  aux proportions natives de l'image (viewBox à ajuster : {$W} × {$H}).\n";
     $svg .= "-->\n";
-    $svg .= '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '.$W.' '.$Hs.'">'."\n";
+    /* Pavage par MIROIR ─────────────────────────────────────────────────────
+       Le relevé n'est pas raccordable tel quel : ses bords ne coïncident pas,
+       et le motif « se terminait » donc en bas des sections hautes. On assemble
+       ici une tuile de 2 × 2 : l'original, son miroir horizontal, son miroir
+       vertical et le miroir des deux. Les bords opposés de la tuile sont alors
+       identiques par construction, ce qui la rend raccordable à l'infini —
+       background-repeat: repeat n'affiche plus aucune couture.
+       Contrepartie : le motif devient symétrique, ce qui se remarque un peu sur
+       un aplat très contrasté ; à la finesse de ces courbes, c'est invisible. */
+    $Wt = $W * 2;
+    $Ht = round($Hs * 2, 2);
+
+    $svg .= '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 '.$Wt.' '.$Ht.'">'."\n";
     $svg .= "  <style>\n";
     $svg .= "    .fond  { fill: {$c['fond']}; }\n";
     $svg .= "    .trait { fill: none; stroke: {$c['trait']}; stroke-width: ".EPAISSEUR.";\n";
     $svg .= "             stroke-linecap: round; stroke-linejoin: round; }\n";
     $svg .= "  </style>\n";
-    $svg .= '  <rect class="fond" width="'.$W.'" height="'.$Hs.'"/>'."\n";
-    $svg .= '  <g class="trait" transform="scale(1 '.$etirement.')">'."\n";
+    $svg .= '  <rect class="fond" width="'.$Wt.'" height="'.$Ht.'"/>'."\n";
+    $svg .= "  <defs>\n";
+    $svg .= '    <g id="motif" class="trait" transform="scale(1 '.$etirement.')">'."\n";
     foreach ($chemins as $d) {
-        $svg .= '    <path d="'.$d.'"/>'."\n";
+        $svg .= '      <path d="'.$d.'"/>'."\n";
     }
-    $svg .= "  </g>\n</svg>\n";
+    $svg .= "    </g>\n  </defs>\n";
+    $svg .= '  <use href="#motif"/>'."\n";
+    $svg .= '  <use href="#motif" transform="translate('.$Wt.' 0) scale(-1 1)"/>'."\n";
+    $svg .= '  <use href="#motif" transform="translate(0 '.$Ht.') scale(1 -1)"/>'."\n";
+    $svg .= '  <use href="#motif" transform="translate('.$Wt.' '.$Ht.') scale(-1 -1)"/>'."\n";
+    $svg .= "</svg>\n";
 
     file_put_contents("{$dossier}/{$nom}", $svg);
     printf("%-26s %6.1f Ko  (%d tracés, viewBox %d × %s)\n",

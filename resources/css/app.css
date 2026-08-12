@@ -117,9 +117,14 @@
     .bg-waves {
         background-color: var(--color-ppt-blue);
         background-image: url('/assets/brand/bg-waves-blue.svg');
-        background-size: 100% auto;
-        background-position: center;
-        background-repeat: no-repeat;
+        /* 200 % : le SVG contient une tuile 2 × 2 (l'original et ses trois
+           miroirs), donc un motif complet occupe la moitié du fichier — à 200 %
+           il retrouve exactement la largeur de la section. */
+        background-size: 200% auto;
+        background-position: center top;
+        /* Le motif se raccorde désormais : il ne s'arrête plus en bas des
+           sections hautes, où l'on voyait un aplat de couleur. */
+        background-repeat: repeat;
     }
 
     /* Variante claire : mêmes courbes, nuancier des diapositives blanches
@@ -129,17 +134,14 @@
     .bg-waves-light {
         background-color: white;
         background-image: url('/assets/brand/bg-waves-landscape.svg');
-        /* 100% auto plutôt que cover : le motif couvre toute la largeur de la
-           section comme sur la diapositive, et l'échelle ne dépend que de la
-           largeur du viewport — sinon chaque section, de hauteur différente,
-           afficherait le motif à un zoom différent. */
-        background-size: 100% auto;
-        /* Ancrage au centre : chaque section, de hauteur différente, cadre une
-           portion différente du motif. Ancré en haut, les cinq sections blanches
-           afficheraient toutes le même coin et le motif se lirait comme un tampon
-           répété au fil du défilement. */
-        background-position: center;
-        background-repeat: no-repeat;
+        /* 200 % : le SVG contient une tuile 2 × 2 (l'original et ses trois
+           miroirs), donc un motif complet occupe la moitié du fichier — à 200 %
+           il retrouve exactement la largeur de la section, comme avant. */
+        background-size: 200% auto;
+        background-position: center top;
+        /* Le motif se raccorde désormais d'une tuile à l'autre : il ne s'arrête
+           plus en bas des sections hautes, où l'on voyait un aplat de couleur. */
+        background-repeat: repeat;
     }
 
     /* Variante foncée pour nav/footer : texte blanc à 5.3:1 (WCAG AA) au lieu de 2.8:1 avec le bleu de marque.
@@ -150,9 +152,14 @@
         /* Mêmes réglages que .bg-waves / .bg-waves-light : le SVG porte lui-même
            son aplat de fond, il n'y a donc plus de blend multiply à appliquer
            (il dénaturerait les couleurs écrites dans le fichier). */
-        background-size: 100% auto;
-        background-position: center;
-        background-repeat: no-repeat;
+        /* 200 % : le SVG contient une tuile 2 × 2 (l'original et ses trois
+           miroirs), donc un motif complet occupe la moitié du fichier — à 200 %
+           il retrouve exactement la largeur de la section. */
+        background-size: 200% auto;
+        background-position: center top;
+        /* Le motif se raccorde désormais : il ne s'arrête plus en bas des
+           sections hautes, où l'on voyait un aplat de couleur. */
+        background-repeat: repeat;
     }
 
     /* Boutons agrandis, demandés par le client sur plusieurs sections
