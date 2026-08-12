@@ -296,10 +296,15 @@
             </div>
             {{-- Diapo 12 : titre souligné, puis cinq lignes centrées, sans puces.
                  « dents inclinés » est la graphie du PPT, conservée telle quelle (D23). --}}
+            {{-- Ordre rétabli d'après la diapo 12, qui va dans cet ordre précis :
+                 « Nous aimons votre sourire ! » (titre), « Rendons-le plus beau … »,
+                 les trois lignes, puis « Votre Sourire est Magnifique ! » et le
+                 bouton. Le site avait interverti le premier et l'avant-dernier, ce
+                 qui faisait lire deux titres concurrents pour une même section —
+                 les « paragraphes en double » signalés par le client. --}}
             <div class="text-center md:order-2" data-typing-group>
-                <h2 id="sourire-titre" class="section-title text-4xl underline decoration-2 underline-offset-8 md:text-5xl">Votre Sourire est Magnifique&nbsp;!</h2>
+                <h2 id="sourire-titre" class="section-title text-4xl underline decoration-2 underline-offset-8 md:text-5xl">Nous aimons votre sourire&nbsp;!</h2>
                 <div class="mt-10 space-y-6 text-lg md:text-xl">
-                    <p>Nous aimons votre sourire&nbsp;!</p>
                     <p>Rendons-le plus beau …</p>
                     <p data-typing>Nous éliminons les espaces entre les dents</p>
                     <p data-typing>Nous redressons les dents inclinés et retournées</p>
@@ -309,6 +314,15 @@
                 {{-- Retour client : « agrandir » ce bouton --}}
                 <a href="{{ route('cas-traitables') }}" class="btn-brand btn-grand mt-10">Voir les cas que nous pouvons traiter</a>
             </div>
+        </div>
+    </section>
+
+    {{-- BANDEAU « Votre Sourire est Magnifique ! » (fin de la diapo 12)
+         Retour client : bandeau BLEU, à élargir. Il ferme la section précédente
+         et introduit « Un traitement orthodontique invisible… ». --}}
+    <section class="bg-waves">
+        <div class="mx-auto max-w-[90rem] px-4 py-16 text-center sm:px-6">
+            <p class="text-4xl font-extrabold text-white underline decoration-2 underline-offset-8 md:text-5xl">Votre Sourire est Magnifique&nbsp;!</p>
         </div>
     </section>
 
