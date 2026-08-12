@@ -162,22 +162,10 @@
                 <x-video-facade src="assets/videos/comment-ca-marche.mp4" poster="assets/videos/comment-ca-marche-poster.jpg" label="Lancer la vidéo Comment ça marche" />
             </div>
 
-            {{-- Présentation audio (voix off) : emplacement prêt, fichier à fournir par le client.
-                 Le retour « Ajouter le script à cette video avec voix d'une femme » attend
-                 ce fichier — rien à publier tant qu'il n'est pas fourni (voir D21).
-                 Lecture manuelle et jamais automatique — une lecture automatique est bloquée par
-                 les navigateurs et pénalise l'accessibilité. --}}
-            @php $voixOff = file_exists(public_path('assets/audio/presentation.mp3')); @endphp
-            @if ($voixOff)
-                <div class="card mx-auto mt-10 max-w-2xl border border-brand-100 text-center">
-                    <h3 class="text-lg font-bold text-brand-600">Écouter la présentation</h3>
-                    <p class="mt-1 text-sm text-slate-500">Une minute pour comprendre le traitement Cleartrack®&nbsp;align.</p>
-                    <audio controls preload="none" class="mt-4 w-full">
-                        <source src="{{ asset('assets/audio/presentation.mp3') }}" type="audio/mpeg">
-                        Votre navigateur ne prend pas en charge la lecture audio.
-                    </audio>
-                </div>
-            @endif
+            {{-- Le lecteur « Écouter la présentation » est retiré à la demande du
+                 client : la voix off est désormais montée dans la vidéo elle-même,
+                 le lecteur séparé faisait donc doublon. Le fichier
+                 assets/audio/presentation.mp3 reste disponible si besoin. --}}
         </div>
     </section>
 
