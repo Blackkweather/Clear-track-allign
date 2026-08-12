@@ -210,10 +210,11 @@
     <section class="bg-waves-light" aria-labelledby="resultats-titre">
         <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6">
             <div class="text-center">
-                {{-- Retour client : « Agrandir » + ajouter « à partir de 3 mois » --}}
+                {{-- Retour client : « les résultats sont visibles à partir de trois
+                     mois, pas six mois ». La mention « en 6 mois en moyenne » de la
+                     diapo 9 est donc remplacée, et non complétée. --}}
                 <h2 id="resultats-titre" class="section-title text-4xl md:text-5xl">Résultats garantis.<br>Sourires transformés.</h2>
-                <p class="section-subtitle text-lg md:text-xl">Les résultats sont visibles en 6 mois en moyenne</p>
-                <p class="mt-2 text-lg font-bold text-brand-600 md:text-xl">à partir de 3 mois</p>
+                <p class="section-subtitle text-lg md:text-xl">Les résultats sont visibles à partir de 3 mois</p>
             </div>
             <div class="mt-10 px-6 sm:px-10">
                 <x-carousel label="Résultats de patients" :per-view-md="3">
@@ -255,8 +256,11 @@
         <div class="mt-12 grid gap-10 md:grid-cols-3">
             @php
                 $blocs = [
-                    ['icon' => 'icons/dentiste.png', 'titre' => 'Traitement par des experts', 'texte' => 'Planifié et conçu par des orthodontistes exclusifs. Pour les autres marques d’aligneurs, la planification du traitement est assurée par des techniciens et non pas par des médecins qualifiés.'],
-                    ['icon' => 'icons/livraison.png', 'titre' => 'Livraison et traitement rapides', 'texte' => 'Les aligneurs de Cleartrack® sont livrés en 7 jours*. D’autres entreprises prennent au moins 30 à 45 jours.'],
+                    // Retours client : les comparaisons avec les autres marques sont
+                    // retirées des deux premiers blocs, et la phrase sur la
+                    // planification est reformulée au bénéfice de Cleartrack®.
+                    ['icon' => 'icons/dentiste.png', 'titre' => 'Traitement par des experts', 'texte' => 'Planifié et conçu par des orthodontistes exclusifs. La planification du traitement est assurée par des médecins qualifiés et non par des techniciens.'],
+                    ['icon' => 'icons/livraison.png', 'titre' => 'Livraison et traitement rapides', 'texte' => 'Les aligneurs de Cleartrack® sont livrés en 7 jours'],
                     ['icon' => 'icons/badge.png', 'titre' => 'Fiabilité et responsabilité', 'texte' => 'Le traitement est directement suivi par un dentiste dans une clinique dentaire, ce qui garantit la responsabilité et la fiabilité du plan de traitement.'],
                 ];
             @endphp
@@ -266,12 +270,13 @@
                      orange) : posées sur le disque bleu de marque elles se noyaient.
                      Elles passent sur un disque BLANC, comme le PPT le fait déjà pour
                      les icônes de la page Pourquoi (D25). --}}
+                {{-- Retour client : « agrandir un tout petit peu » les trois blocs --}}
                 <div class="text-center">
-                    <span class="mx-auto flex h-28 w-28 items-center justify-center rounded-full bg-white p-5 shadow-md ring-1 ring-brand-100">
+                    <span class="mx-auto flex h-32 w-32 items-center justify-center rounded-full bg-white p-6 shadow-md ring-1 ring-brand-100">
                         <img src="{{ asset('assets/' . $bloc['icon']) }}" alt="" class="h-full w-full object-contain" loading="lazy">
                     </span>
-                    <h3 class="mt-5 text-xl font-bold text-brand-500">{{ $bloc['titre'] }}</h3>
-                    <p class="mt-2 text-base leading-relaxed">{{ $bloc['texte'] }}</p>
+                    <h3 class="mt-6 text-2xl font-bold text-brand-500">{{ $bloc['titre'] }}</h3>
+                    <p class="mt-3 text-lg leading-relaxed">{{ $bloc['texte'] }}</p>
                 </div>
             @endforeach
         </div>
@@ -287,8 +292,10 @@
     <section class="bg-waves-light" aria-labelledby="sourire-titre">
         <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 py-24 sm:px-6 md:grid-cols-2">
             {{-- Diapo 12 : la photo occupe la moitié gauche, le bloc de texte la moitié droite. --}}
+            {{-- Retour client : « agrandir un tout petit peu le slide » et garder la
+                 photo de la patiente, main levée tenant l'aligneur, détourée. --}}
             <div class="flex justify-center md:order-1">
-                <img src="{{ asset('assets/photo-aligneur-main-detoure.png') }}" alt="Patiente tenant un aligneur Cleartrack® transparent" class="w-full max-w-lg" loading="lazy">
+                <img src="{{ asset('assets/photo-aligneur-main-detoure.png') }}" alt="Patiente tenant un aligneur Cleartrack® transparent" class="w-full max-w-xl" loading="lazy">
             </div>
             {{-- Diapo 12 : titre souligné, puis cinq lignes centrées, sans puces.
                  « dents inclinés » est la graphie du PPT, conservée telle quelle (D23). --}}
