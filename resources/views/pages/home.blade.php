@@ -40,13 +40,15 @@
                 'cle' => 'amovible',
                 'mot' => 'Amovible',
                 'texte' => 'Ce qui vous permet de vous brosser les dents, d’utiliser du fil dentaire et de maintenir une bonne hygiène buccale. Les aligneurs Cleartrack® sont amovibles, ce qui vous permet de continuer à manger et à boire ce que vous voulez, et de faire du sport ou d’autres activités similaires.',
-                'pos' => 'left: 3%; top: 17%;',
+                // Position exacte relevée dans le PPT (diapo 3, a:off/a:ext en EMU)
+                'pos' => 'left: 8.14%; top: 17.10%;',
             ],
             [
                 'cle' => 'efficace',
                 'mot' => 'Efficace',
                 'texte' => 'Comparé à d’autres méthodes d’alignement des dents, Cleartrack® agit rapidement. En moyenne, la durée totale du traitement est entre 3 à 12 mois et de nombreuses personnes remarquent des résultats en quelques semaines.',
-                'pos' => 'left: 66%; top: 61%;',
+                // Position exacte relevée dans le PPT (diapo 3, a:off/a:ext en EMU)
+                'pos' => 'left: 66.46%; top: 60.71%;',
             ],
         ];
     @endphp
@@ -97,26 +99,32 @@
                  donc les cinq qualités : rien ne demandait de les retirer d'ici.
                  Seules « Amovible » et « Efficace » se déploient — ce sont les deux
                  seules pour lesquelles le client a fourni un texte. --}}
-            <ul class="mt-6 space-y-3">
-                @php $explications = collect($qualites)->keyBy('mot'); @endphp
+            {{-- Grille à 2 colonnes, comme avant : la version en une seule colonne
+                 avec des <button> et des <p> mélangés donnait des pavés de tailles
+                 différentes, mal alignés. Les cinq pavés sont désormais le MÊME
+                 élément avec les MÊMES classes ; seuls les deux qui ont un texte
+                 réagissent au clic. Les explications s'affichent sous la grille,
+                 en pleine largeur, pour ne pas déformer une cellule. --}}
+            @php $explications = collect($qualites)->keyBy('mot'); @endphp
+            <ul class="mt-6 grid grid-cols-2 gap-4">
                 @foreach (['Hygiénique', 'Confortable', 'Discret', 'Amovible', 'Efficace'] as $mot)
                     @php $q = $explications->get($mot); @endphp
                     <li>
-                        @if ($q)
-                            <button type="button"
+                        <button type="button"
+                                class="w-full rounded-xl border border-white/40 py-3 text-center font-bold text-white {{ $q ? '' : 'cursor-default' }}"
+                                @if ($q)
                                     @click="ouvert = (ouvert === '{{ $q['cle'] }}' ? null : '{{ $q['cle'] }}')"
                                     :aria-expanded="ouvert === '{{ $q['cle'] }}' ? 'true' : 'false'"
-                                    class="w-full rounded-xl border border-white/40 py-3 text-lg font-bold text-white">
-                                {{ $mot }}
-                            </button>
-                            <p x-show="ouvert === '{{ $q['cle'] }}'" x-cloak x-collapse
-                               class="px-2 pt-3 text-sm leading-relaxed text-white/90">{{ $q['texte'] }}</p>
-                        @else
-                            <p class="rounded-xl border border-white/40 py-3 text-center text-lg font-bold text-white">{{ $mot }}</p>
-                        @endif
+                                    :class="ouvert === '{{ $q['cle'] }}' ? 'bg-white/20' : ''"
+                                @endif>{{ $mot }}</button>
                     </li>
                 @endforeach
             </ul>
+
+            @foreach ($qualites as $q)
+                <p x-show="ouvert === '{{ $q['cle'] }}'" x-cloak x-collapse
+                   class="mt-4 rounded-xl bg-white/10 p-4 text-sm leading-relaxed text-white/90">{{ $q['texte'] }}</p>
+            @endforeach
             <div class="mt-6 text-center">
                 <a href="{{ route('pourquoi') }}" class="btn-white">En savoir plus</a>
             </div>
