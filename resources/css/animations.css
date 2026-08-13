@@ -57,8 +57,21 @@ html.splash-actif body {
     opacity: 0;
 }
 
+/* `steps(1, start)` et surtout PAS `steps(1, end)`.
+
+   Avec `end`, le mot n'atteint sa valeur finale qu'à une progression
+   EXACTEMENT égale à 1. Or le délai est calculé en virgule flottante
+   (`calc(var(--i) * 55ms)`) : à partir d'une quinzaine de mots, le moteur
+   renvoie 0,9999999999998899 au lieu de 1. La fonction en escalier reste
+   alors sur la marche 0 — `opacity: 0` — et le mot ne s'affiche JAMAIS,
+   l'animation étant terminée et en remplissage avant. C'est ce qui coupait
+   la fin des paragraphes (« …afin de » sur l'accueil).
+
+   Avec `start`, toute progression strictement supérieure à 0 donne la valeur
+   finale : l'affichage reste net et instantané, mais ne dépend plus d'un
+   arrondi au millionième. */
 [data-typing].typing-lance .typing-mot {
-    animation: typing-mot 1ms steps(1, end) both;
+    animation: typing-mot 1ms steps(1, start) both;
     animation-delay: calc(var(--i, 0) * var(--typing-pas, 55ms));
 }
 
@@ -66,6 +79,15 @@ html.splash-actif body {
     to {
         opacity: 1;
     }
+}
+
+/* État final. Le script retire `typing-lance` en même temps qu'il pose
+   `typing-fini` : plus aucune animation ne s'applique, le texte est affiché
+   par cette simple règle. Filet de sécurité — quoi qu'il arrive pendant la
+   frappe, le paragraphe finit toujours entier et lisible.
+   (Doit rester APRÈS la règle `.typing-pret`, à spécificité égale.) */
+[data-typing].typing-fini .typing-mot {
+    opacity: 1;
 }
 
 /* Curseur clignotant pendant la frappe, retiré à la fin par le script */

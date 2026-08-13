@@ -85,8 +85,14 @@ function machineAEcrire() {
                     const duree = Number(el.dataset.typingDuree ?? 400);
                     setTimeout(() => {
                         el.classList.add('typing-lance');
-                        // Curseur retiré une fois le dernier mot affiché
-                        setTimeout(() => el.classList.add('typing-fini'), duree + 120);
+                        // Une fois le dernier mot affiché : on retire l'animation
+                        // et on passe à un état statique « tout visible » (curseur
+                        // compris). Le texte ne dépend donc plus du tout de l'état
+                        // final des 26 animations — il est simplement affiché.
+                        setTimeout(() => {
+                            el.classList.remove('typing-lance');
+                            el.classList.add('typing-fini');
+                        }, duree + 120);
                     }, depart);
                     depart += duree + 120;
                 });

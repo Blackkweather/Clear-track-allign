@@ -75,16 +75,25 @@
                         aria-controls="qualite-{{ $q['cle'] }}">{{ $q['mot'] }}</button>
             @endforeach
 
-            {{-- L'explication s'ouvre en bas de la diapositive, à la place du bouton --}}
-            <div class="absolute inset-x-0 bottom-6 px-6 text-center">
+            {{-- Retour client (13/08/2026) : l'explication ne s'ouvre plus en bas
+                 de la diapositive mais dans le GRAND VIDE en haut à droite, la
+                 seule zone de l'image qui ne porte rien. Les deux rappels, eux,
+                 gardent les coordonnées du PPT. D30.
+                 La zone est dimensionnée sur le texte le plus long (« Amovible »,
+                 55 mots) et reste au-dessus de la pastille « Efficace » (60,71 %). --}}
+            <div class="absolute right-[2%] top-[28%] w-[42%]">
                 @foreach ($qualites as $q)
                     <p id="qualite-{{ $q['cle'] }}" x-show="ouvert === '{{ $q['cle'] }}'" x-cloak
                        x-transition:enter="transition ease-out duration-300"
                        x-transition:enter-start="opacity-0 translate-y-2"
                        x-transition:enter-end="opacity-100 translate-y-0"
-                       class="mx-auto max-w-3xl text-base leading-relaxed text-white md:text-lg">{{ $q['texte'] }}</p>
+                       class="text-sm leading-relaxed text-white lg:text-base">{{ $q['texte'] }}</p>
                 @endforeach
-                <a href="{{ route('pourquoi') }}" class="btn-outline-white mt-4 inline-block">En savoir plus</a>
+            </div>
+
+            {{-- Le bouton reste en bas, centré : il ne dépend pas du rappel ouvert --}}
+            <div class="absolute inset-x-0 bottom-6 px-6 text-center">
+                <a href="{{ route('pourquoi') }}" class="btn-outline-white inline-block">En savoir plus</a>
             </div>
         </div>
 
@@ -256,10 +265,10 @@
         <div class="mt-12 grid gap-10 md:grid-cols-3">
             @php
                 $blocs = [
-                    // Retours client : les comparaisons avec les autres marques sont
-                    // retirées des deux premiers blocs, et la phrase sur la
-                    // planification est reformulée au bénéfice de Cleartrack®.
-                    ['icon' => 'icons/dentiste.png', 'titre' => 'Traitement par des experts', 'texte' => 'Planifié et conçu par des orthodontistes exclusifs. La planification du traitement est assurée par des médecins qualifiés et non par des techniciens.'],
+                    // Retour client (13/08/2026) : la comparaison avec les autres
+                    // marques est RÉTABLIE sur ce premier bloc, à la demande du
+                    // client. Elle reste retirée du deuxième bloc. D29.
+                    ['icon' => 'icons/dentiste.png', 'titre' => 'Traitement par des experts', 'texte' => 'Planifié et conçu par des orthodontistes exclusifs. Pour les autres marques d’aligneurs, la planification du traitement est assurée par des médecins qualifiés et non pas par des techniciens.'],
                     ['icon' => 'icons/livraison.png', 'titre' => 'Livraison et traitement rapides', 'texte' => 'Les aligneurs de Cleartrack® sont livrés en 7 jours'],
                     ['icon' => 'icons/badge.png', 'titre' => 'Fiabilité et responsabilité', 'texte' => 'Le traitement est directement suivi par un dentiste dans une clinique dentaire, ce qui garantit la responsabilité et la fiabilité du plan de traitement.'],
                 ];
@@ -305,8 +314,15 @@
                  bouton. Le site avait interverti le premier et l'avant-dernier, ce
                  qui faisait lire deux titres concurrents pour une même section —
                  les « paragraphes en double » signalés par le client. --}}
+            {{-- Retour client (13/08/2026) : « Votre Sourire est Magnifique ! »
+                 devient le GRAND TITRE de ce bloc — il remonte donc ici, en tête,
+                 et le bandeau bleu qui le portait plus bas est supprimé (il aurait
+                 répété la même phrase à deux sections d'intervalle). « Nous aimons
+                 votre sourire ! » passe juste en dessous, en SOUS-TITRE. Tout le
+                 reste du bloc (accroche, trois lignes, bouton) est inchangé. D31. --}}
             <div class="text-center md:order-2" data-typing-group>
-                <h2 id="sourire-titre" class="section-title text-4xl underline decoration-2 underline-offset-8 md:text-5xl">Nous aimons votre sourire&nbsp;!</h2>
+                <h2 id="sourire-titre" class="section-title text-4xl underline decoration-2 underline-offset-8 md:text-5xl">Votre Sourire est Magnifique&nbsp;!</h2>
+                <p class="section-subtitle font-semibold text-brand-500 md:text-2xl">Nous aimons votre sourire&nbsp;!</p>
                 <div class="mt-10 space-y-6 text-lg md:text-xl">
                     <p>Rendons-le plus beau …</p>
                     <p data-typing>Nous éliminons les espaces entre les dents</p>
@@ -320,14 +336,11 @@
         </div>
     </section>
 
-    {{-- BANDEAU « Votre Sourire est Magnifique ! » (fin de la diapo 12)
-         Retour client : bandeau BLEU, à élargir. Il ferme la section précédente
-         et introduit « Un traitement orthodontique invisible… ». --}}
-    <section class="bg-waves">
-        <div class="mx-auto max-w-[90rem] px-4 py-16 text-center sm:px-6">
-            <p class="text-4xl font-extrabold text-white underline decoration-2 underline-offset-8 md:text-5xl">Votre Sourire est Magnifique&nbsp;!</p>
-        </div>
-    </section>
+    {{-- Le bandeau bleu « Votre Sourire est Magnifique ! » (fin de la diapo 12)
+         a été supprimé le 13/08/2026 : la phrase est devenue le grand titre du
+         bloc « sourire » juste au-dessus, la répéter ici n'aurait plus de sens.
+         Conséquence assumée : il n'y a plus de respiration bleue entre ce bloc
+         et « Un traitement orthodontique invisible… ». D31. --}}
 
     {{-- TRAITEMENT INVISIBLE (PPT slide 13) — BLANC
          Retours client : « Elargir slide », « Agrandir photo avec elargissement
@@ -349,13 +362,28 @@
             </div>
         </div>
         <div class="flex justify-center">
-            {{-- Le visuel de la diapo 13 (ppt/media/image26.jpeg, rendu 3D d'une arcade avec
-                 gouttière) porte un filigrane de banque d'images en mosaïque sur toute sa
-                 surface, et le PPT ne le recadre pas : il reste impubliable — voir D20.
-                 Emplacement réservé en attendant la version sous licence. --}}
-            <div class="flex aspect-[4/3] w-full max-w-2xl items-center justify-center rounded-2xl border-2 border-dashed border-brand-200 bg-brand-50 px-6 text-center">
-                <span class="text-base text-slate-400">Photo à fournir<br>(rendu 3D de la diapo 13, version sous licence)</span>
-            </div>
+            {{-- Visuel de la diapo 13 : rendu 3D d'une arcade avec gouttière
+                 (Shutterstock 1660764217). Le fichier du PPT — comme la copie
+                 récupérée depuis Google Images — porte le filigrane en mosaïque
+                 de la banque d'images : impubliable (D20). Le client a acquis la
+                 licence ; il reste à déposer le fichier PROPRE téléchargé depuis
+                 son compte Shutterstock sous ce nom exact :
+
+                     public/assets/traitement-invisible.jpg
+
+                 Dès qu'il est là, la photo remplace d'elle-même le cadre
+                 « Photo à fournir » — aucune modification de code n'est
+                 nécessaire, ni ici ni au déploiement. --}}
+            @php $visuelInvisible = public_path('assets/traitement-invisible.jpg'); @endphp
+            @if (file_exists($visuelInvisible))
+                <img src="{{ asset('assets/traitement-invisible.jpg') }}?v={{ filemtime($visuelInvisible) }}"
+                     alt="Rendu 3D d'une arcade dentaire portant une gouttière Cleartrack® transparente"
+                     class="w-full max-w-2xl rounded-2xl object-contain" loading="lazy">
+            @else
+                <div class="flex aspect-[4/3] w-full max-w-2xl items-center justify-center rounded-2xl border-2 border-dashed border-brand-200 bg-brand-50 px-6 text-center">
+                    <span class="text-base text-slate-400">Photo à fournir<br>(rendu 3D de la diapo 13, version sous licence)</span>
+                </div>
+            @endif
         </div>
         </div>
     </section>
