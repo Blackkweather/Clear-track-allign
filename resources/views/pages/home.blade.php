@@ -9,12 +9,32 @@
             <div class="text-white">
                 {{-- Échelle PPT slide 2 : sur-titre 28 pt (~42 px), « SANS FIL » 36 pt en gras --}}
                 <p class="hero-in-1 text-2xl font-medium md:text-[2.5rem] md:leading-tight">Optez pour la solution</p>
-                <h1 class="hero-in-2 mt-2 text-5xl font-extrabold leading-none tracking-tight md:text-[3.5rem]">SANS FIL</h1>
-                <p class="hero-in-3 mt-4 text-xl font-semibold md:text-[1.75rem]">Choisissez ClearTrack Align&nbsp;!</p>
-                {{-- Diapo 2 : les deux boutons sont des pilules blanches à texte bleu --}}
+
+                {{-- Retour client : « choisissez next to sans fil, and logo instead of
+                     text of ClearTrack Align ». La diapo 2 empilait trois lignes de
+                     texte ; « Choisissez » remonte donc sur la ligne de SANS FIL, et
+                     le nom de marque cède la place au logo, qui prend la ligne
+                     suivante — trop large pour tenir en ligne avec le mot. Le « ! »
+                     ferme la phrase après le logo. D36.
+                     La phrase reste lisible en synthèse vocale : l'alternative du
+                     logo est exactement le texte qu'il remplace. --}}
+                <div class="hero-in-2 mt-2 flex flex-wrap items-baseline gap-x-6 gap-y-1">
+                    <h1 class="text-5xl font-extrabold leading-none tracking-tight md:text-[3.5rem]">SANS FIL</h1>
+                    <span class="text-xl font-semibold md:text-[1.75rem]">Choisissez</span>
+                </div>
+                <div class="hero-in-3 mt-4 flex items-center gap-3">
+                    <img src="{{ asset('assets/brand/logo-on-blue.png') }}" alt="ClearTrack Align"
+                         class="h-16 w-auto md:h-24" fetchpriority="high">
+                    <span class="text-xl font-semibold md:text-[1.75rem]" aria-hidden="true">!</span>
+                </div>
+
+                {{-- Diapo 2 : les deux boutons sont des pilules blanches à texte bleu.
+                     Retour client : « making button a bit bigger so it follows the
+                     website » — ils passent au gabarit .btn-grand déjà utilisé plus
+                     bas dans la page. --}}
                 <div class="hero-in-4 mt-8 flex flex-wrap gap-4">
-                    <a href="{{ route('pourquoi') }}" class="btn-white">Découvrir</a>
-                    <a href="{{ route('rdv') }}" class="btn-white">Prendre RDV</a>
+                    <a href="{{ route('pourquoi') }}" class="btn-white btn-grand">Découvrir</a>
+                    <a href="{{ route('rdv') }}" class="btn-white btn-grand">Prendre RDV</a>
                 </div>
             </div>
             {{-- Diapo 2 : l'arcade occupe toute la moitié droite et sort du cadre à droite --}}
@@ -26,14 +46,17 @@
         </div>
     </section>
 
-    {{-- LES QUALITÉS (PPT slide 3) — BLEU (diapo 3)
-         Retours client : les rappels « Hygiénique », « Confortable » et « Discret »
-         sont retirés (marqués d'une croix rouge) ; seuls « Amovible » et « Efficace »
-         restent. Chaque mot devient cliquable et déploie une explication courte.
+    {{-- LES CINQ QUALITÉS (PPT slide 3) — BLEU (diapo 3)
+         Retour client : « get back the amovible and the rest of the five that we
+         had » — les cinq mots de la diapo 3 sont RÉTABLIS. Ils avaient été réduits
+         à deux (« Amovible » et « Efficace ») lors d'un retour précédent ; le
+         client revient sur cette suppression. D37.
 
-         Les explications ne sont pas inventées : ce sont les textes du client pour
-         les avantages correspondants (« Sûr et amovible » et « Des résultats
-         rapides », diapo 28 / page Avantages), la diapo 3 ne portant que les mots. --}}
+         Chaque mot garde la position exacte relevée dans le PPT (a:off en EMU).
+         Les deux mots pour lesquels le client a fourni un texte restent cliquables
+         et déploient leur explication ; les trois autres sont de simples libellés,
+         comme sur la diapositive — la maquette ne porte que le mot, et rien ne
+         serait inventé ici (voir la règle « pas de copie inventée »). --}}
     @php
         $qualites = [
             [
@@ -42,6 +65,24 @@
                 'texte' => 'Ce qui vous permet de vous brosser les dents, d’utiliser du fil dentaire et de maintenir une bonne hygiène buccale. Les aligneurs Cleartrack® sont amovibles, ce qui vous permet de continuer à manger et à boire ce que vous voulez, et de faire du sport ou d’autres activités similaires.',
                 // Position exacte relevée dans le PPT (diapo 3, a:off/a:ext en EMU)
                 'pos' => 'left: 8.14%; top: 17.10%;',
+            ],
+            [
+                'cle' => 'hygienique',
+                'mot' => 'Hygiénique',
+                'texte' => null,
+                'pos' => 'left: 66.46%; top: 16.80%;',
+            ],
+            [
+                'cle' => 'confortable',
+                'mot' => 'Confortable',
+                'texte' => null,
+                'pos' => 'left: 66.46%; top: 33.77%;',
+            ],
+            [
+                'cle' => 'discret',
+                'mot' => 'Discret',
+                'texte' => null,
+                'pos' => 'left: 66.46%; top: 47.31%;',
             ],
             [
                 'cle' => 'efficace',
@@ -61,40 +102,55 @@
             <img src="{{ asset('assets/ppt/slide04_0.png') }}" alt="" aria-hidden="true"
                  class="absolute inset-0 h-full w-full object-contain object-left" loading="lazy">
 
-            {{-- Ne restent que les deux traits de rappel conservés --}}
+            {{-- Les cinq traits de rappel de la diapo 3, rétablis avec les mots --}}
             <svg viewBox="0 0 1000 563" class="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true">
                 <line x1="160" y1="115" x2="270" y2="140" stroke="white" stroke-width="1.5"/>
+                <line x1="510" y1="112" x2="655" y2="112" stroke="white" stroke-width="1.5"/>
+                <line x1="520" y1="212" x2="655" y2="212" stroke="white" stroke-width="1.5"/>
+                <line x1="475" y1="285" x2="655" y2="285" stroke="white" stroke-width="1.5"/>
                 <line x1="470" y1="365" x2="655" y2="365" stroke="white" stroke-width="1.5"/>
             </svg>
 
             @foreach ($qualites as $q)
-                <button type="button" class="qualite-mot absolute" style="{{ $q['pos'] }}"
-                        @click="ouvert = (ouvert === '{{ $q['cle'] }}' ? null : '{{ $q['cle'] }}')"
-                        :class="ouvert === '{{ $q['cle'] }}' ? 'qualite-mot-actif' : ''"
-                        :aria-expanded="ouvert === '{{ $q['cle'] }}' ? 'true' : 'false'"
-                        aria-controls="qualite-{{ $q['cle'] }}">{{ $q['mot'] }}</button>
+                @if ($q['texte'])
+                    <button type="button" class="qualite-mot absolute" style="{{ $q['pos'] }}"
+                            @click="ouvert = (ouvert === '{{ $q['cle'] }}' ? null : '{{ $q['cle'] }}')"
+                            :class="ouvert === '{{ $q['cle'] }}' ? 'qualite-mot-actif' : ''"
+                            :aria-expanded="ouvert === '{{ $q['cle'] }}' ? 'true' : 'false'"
+                            aria-controls="qualite-{{ $q['cle'] }}">{{ $q['mot'] }}</button>
+                @else
+                    {{-- Mot sans explication fournie par le client : même pastille,
+                         mais rien à déployer — donc pas de <button> trompeur. --}}
+                    <span class="qualite-mot qualite-mot-inerte absolute" style="{{ $q['pos'] }}">{{ $q['mot'] }}</span>
+                @endif
             @endforeach
 
-            {{-- Retour client (13/08/2026) : l'explication ne s'ouvre plus en bas
-                 de la diapositive mais dans le GRAND VIDE en haut à droite, la
-                 seule zone de l'image qui ne porte rien. Les deux rappels, eux,
-                 gardent les coordonnées du PPT. D30.
-                 La zone est dimensionnée sur le texte le plus long (« Amovible »,
-                 55 mots) et reste au-dessus de la pastille « Efficace » (60,71 %). --}}
-            <div class="absolute right-[2%] top-[28%] w-[42%]">
-                @foreach ($qualites as $q)
+            {{-- Le bouton reste en bas, centré : il ne dépend pas du rappel ouvert.
+                 Retour client : « en savoir plus needs to be taking to comment sont
+                 ils fabriqués » — il pointe désormais vers la page Fabrication et
+                 non plus vers Pourquoi. D38. --}}
+            <div class="absolute inset-x-0 bottom-6 px-6 text-center">
+                <a href="{{ route('fabrication') }}" class="btn-outline-white inline-block">En savoir plus</a>
+            </div>
+        </div>
+
+        {{-- L'explication s'affiche SOUS la diapositive.
+             Elle occupait auparavant le vide en haut à droite (D30) — cette zone
+             était libre parce que trois des cinq mots avaient été retirés. Les
+             mots rétablis (D37) l'occupent de nouveau : le texte recouvrirait
+             « Hygiénique », « Confortable » et « Discret ». Il passe donc en flux
+             normal juste après l'image, où aucune largeur d'écran ne peut créer
+             de chevauchement. --}}
+        <div class="mx-auto hidden max-w-4xl px-6 md:block">
+            @foreach ($qualites as $q)
+                @if ($q['texte'])
                     <p id="qualite-{{ $q['cle'] }}" x-show="ouvert === '{{ $q['cle'] }}'" x-cloak
                        x-transition:enter="transition ease-out duration-300"
                        x-transition:enter-start="opacity-0 translate-y-2"
                        x-transition:enter-end="opacity-100 translate-y-0"
-                       class="text-sm leading-relaxed text-white lg:text-base">{{ $q['texte'] }}</p>
-                @endforeach
-            </div>
-
-            {{-- Le bouton reste en bas, centré : il ne dépend pas du rappel ouvert --}}
-            <div class="absolute inset-x-0 bottom-6 px-6 text-center">
-                <a href="{{ route('pourquoi') }}" class="btn-outline-white inline-block">En savoir plus</a>
-            </div>
+                       class="pb-10 text-center text-base leading-relaxed text-white">{{ $q['texte'] }}</p>
+                @endif
+            @endforeach
         </div>
 
         {{-- Mobile : liste simple (le diagramme annoté ne tient pas sur petit écran) --}}
@@ -103,39 +159,36 @@
                 <img src="{{ asset('assets/ppt/slide04_0.png') }}" alt="Aligneur ClearTrack tenu entre deux doigts"
                      class="h-40 w-auto object-contain" loading="lazy">
             </div>
-            {{-- Le retour client porte sur les LIGNES DE RAPPEL et les libellés du
-                 diagramme, qui n'existent que sur grand écran. La liste mobile garde
-                 donc les cinq qualités : rien ne demandait de les retirer d'ici.
-                 Seules « Amovible » et « Efficace » se déploient — ce sont les deux
-                 seules pour lesquelles le client a fourni un texte. --}}
-            {{-- Grille à 2 colonnes, comme avant : la version en une seule colonne
-                 avec des <button> et des <p> mélangés donnait des pavés de tailles
-                 différentes, mal alignés. Les cinq pavés sont désormais le MÊME
-                 élément avec les MÊMES classes ; seuls les deux qui ont un texte
-                 réagissent au clic. Les explications s'affichent sous la grille,
-                 en pleine largeur, pour ne pas déformer une cellule. --}}
-            @php $explications = collect($qualites)->keyBy('mot'); @endphp
+            {{-- Grille à 2 colonnes : les cinq pavés sont le MÊME élément avec les
+                 MÊMES classes ; seuls les deux qui ont un texte réagissent au clic.
+                 Les explications s'affichent sous la grille, en pleine largeur,
+                 pour ne pas déformer une cellule.
+                 L'ordre suit celui de la diapo 3, de haut en bas puis de gauche à
+                 droite : Amovible (à gauche), puis les quatre de la colonne droite. --}}
             <ul class="mt-6 grid grid-cols-2 gap-4">
-                @foreach (['Hygiénique', 'Confortable', 'Discret', 'Amovible', 'Efficace'] as $mot)
-                    @php $q = $explications->get($mot); @endphp
+                @foreach ($qualites as $q)
                     <li>
-                        <button type="button"
-                                class="w-full rounded-xl border border-white/40 py-3 text-center font-bold text-white {{ $q ? '' : 'cursor-default' }}"
-                                @if ($q)
+                        @if ($q['texte'])
+                            <button type="button"
+                                    class="w-full rounded-xl border border-white/40 py-3 text-center font-bold text-white"
                                     @click="ouvert = (ouvert === '{{ $q['cle'] }}' ? null : '{{ $q['cle'] }}')"
                                     :aria-expanded="ouvert === '{{ $q['cle'] }}' ? 'true' : 'false'"
-                                    :class="ouvert === '{{ $q['cle'] }}' ? 'bg-white/20' : ''"
-                                @endif>{{ $mot }}</button>
+                                    :class="ouvert === '{{ $q['cle'] }}' ? 'bg-white/20' : ''">{{ $q['mot'] }}</button>
+                        @else
+                            <span class="block w-full rounded-xl border border-white/40 py-3 text-center font-bold text-white">{{ $q['mot'] }}</span>
+                        @endif
                     </li>
                 @endforeach
             </ul>
 
             @foreach ($qualites as $q)
-                <p x-show="ouvert === '{{ $q['cle'] }}'" x-cloak x-collapse
-                   class="mt-4 rounded-xl bg-white/10 p-4 text-sm leading-relaxed text-white/90">{{ $q['texte'] }}</p>
+                @if ($q['texte'])
+                    <p x-show="ouvert === '{{ $q['cle'] }}'" x-cloak x-collapse
+                       class="mt-4 rounded-xl bg-white/10 p-4 text-sm leading-relaxed text-white/90">{{ $q['texte'] }}</p>
+                @endif
             @endforeach
             <div class="mt-6 text-center">
-                <a href="{{ route('pourquoi') }}" class="btn-white">En savoir plus</a>
+                <a href="{{ route('fabrication') }}" class="btn-white">En savoir plus</a>
             </div>
         </div>
     </section>
@@ -202,7 +255,7 @@
                     <img src="{{ asset($etape['img']) }}" alt="Étape {{ $etape['n'] }} : {{ $etape['titre'] }}" class="h-52 w-full object-cover" loading="lazy">
                     <div class="flex flex-1 flex-col p-7">
                         <span class="inline-flex h-11 w-11 items-center justify-center rounded-lg bg-brand-500 text-xl font-bold text-white">{{ $etape['n'] }}</span>
-                        <h3 class="mt-4 text-xl font-bold text-brand-600">{{ $etape['titre'] }}</h3>
+                        <h3 class="mt-4 text-xl font-bold text-ppt-blue">{{ $etape['titre'] }}</h3>
                         <p class="mt-2 text-base leading-relaxed">{{ $etape['texte'] }}</p>
                     </div>
                 </article>
@@ -245,7 +298,7 @@
                                      alt="Avant/après du traitement de {{ $r['prenom'] }} — {{ $r['cas'] }} en {{ $r['mois'] }} mois"
                                      class="aspect-square w-full object-cover" loading="lazy">
                                 <div class="p-5">
-                                    <p class="font-bold text-brand-600">{{ $r['prenom'] }} — {{ $r['mois'] }} mois</p>
+                                    <p class="font-bold text-ppt-blue">{{ $r['prenom'] }} — {{ $r['mois'] }} mois</p>
                                     <p class="text-sm text-slate-500">{{ $r['cas'] }}</p>
                                 </div>
                             </div>
@@ -284,7 +337,7 @@
                     <span class="mx-auto flex h-32 w-32 items-center justify-center rounded-full bg-white p-6 shadow-md ring-1 ring-brand-100">
                         <img src="{{ asset('assets/' . $bloc['icon']) }}" alt="" class="h-full w-full object-contain" loading="lazy">
                     </span>
-                    <h3 class="mt-6 text-2xl font-bold text-brand-500">{{ $bloc['titre'] }}</h3>
+                    <h3 class="mt-6 text-2xl font-bold text-ppt-blue">{{ $bloc['titre'] }}</h3>
                     <p class="mt-3 text-lg leading-relaxed">{{ $bloc['texte'] }}</p>
                 </div>
             @endforeach
@@ -303,8 +356,21 @@
             {{-- Diapo 12 : la photo occupe la moitié gauche, le bloc de texte la moitié droite. --}}
             {{-- Retour client : « agrandir un tout petit peu le slide » et garder la
                  photo de la patiente, main levée tenant l'aligneur, détourée. --}}
+            {{-- Retour client : « la photo de "sourire est magnifique" — need to
+                 enhance the quality ». La photo était affichée jusqu'à 576 px de
+                 large (max-w-xl) alors que le fichier détouré n'en fait que 473 :
+                 le navigateur l'agrandissait de 22 %, d'où le flou constaté.
+                 Elle est désormais bornée à sa résolution native (max-w-[473px]),
+                 donc affichée nette au pixel près, et centrée dans sa colonne.
+                 La source du PPT (diapo 12, ppt/media/image25.png, 705 × 591 avec
+                 le bandeau de titre) ne contient pas mieux : un tirage haute
+                 définition de cette photo reste à fournir par le client pour
+                 pouvoir l'afficher plus grand. D39. --}}
             <div class="flex justify-center md:order-1">
-                <img src="{{ asset('assets/photo-aligneur-main-detoure.png') }}" alt="Patiente tenant un aligneur Cleartrack® transparent" class="w-full max-w-xl" loading="lazy">
+                <img src="{{ asset('assets/photo-aligneur-main-detoure.png') }}"
+                     alt="Patiente tenant un aligneur Cleartrack® transparent"
+                     width="473" height="538"
+                     class="h-auto w-full max-w-[473px]" loading="lazy">
             </div>
             {{-- Diapo 12 : titre souligné, puis cinq lignes centrées, sans puces.
                  « dents inclinés » est la graphie du PPT, conservée telle quelle (D23). --}}
@@ -321,8 +387,10 @@
                  votre sourire ! » passe juste en dessous, en SOUS-TITRE. Tout le
                  reste du bloc (accroche, trois lignes, bouton) est inchangé. D31. --}}
             <div class="text-center md:order-2" data-typing-group>
-                <h2 id="sourire-titre" class="section-title text-4xl underline decoration-2 underline-offset-8 md:text-5xl">Votre Sourire est Magnifique&nbsp;!</h2>
-                <p class="section-subtitle font-semibold text-brand-500 md:text-2xl">Nous aimons votre sourire&nbsp;!</p>
+                {{-- Retour client : « remove the line under "votre sourire est
+                     magnifique" » — le soulignement du titre est retiré. D39. --}}
+                <h2 id="sourire-titre" class="section-title text-4xl md:text-5xl">Votre Sourire est Magnifique&nbsp;!</h2>
+                <p class="section-subtitle font-semibold text-ppt-blue md:text-2xl">Nous aimons votre sourire&nbsp;!</p>
                 <div class="mt-10 space-y-6 text-lg md:text-xl">
                     <p>Rendons-le plus beau …</p>
                     <p data-typing>Nous éliminons les espaces entre les dents</p>

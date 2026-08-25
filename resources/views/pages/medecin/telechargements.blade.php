@@ -21,8 +21,8 @@
             @foreach ($documents as $doc)
                 <div class="card flex items-center justify-between gap-4 !p-5">
                     <div class="flex items-center gap-4">
-                        <svg class="h-8 w-8 shrink-0 text-brand-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625z"/><path d="M12.971 1.816A5.23 5.23 0 0114.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 013.434 1.279 9.768 9.768 0 00-6.963-6.963z"/></svg>
-                        <span class="font-semibold text-brand-700">{{ $doc->titre }}</span>
+                        <svg class="h-8 w-8 shrink-0 text-ppt-blue" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M5.625 1.5c-1.036 0-1.875.84-1.875 1.875v17.25c0 1.035.84 1.875 1.875 1.875h12.75c1.035 0 1.875-.84 1.875-1.875V12.75A3.75 3.75 0 0016.5 9h-1.875a1.875 1.875 0 01-1.875-1.875V5.25A3.75 3.75 0 009 1.5H5.625z"/><path d="M12.971 1.816A5.23 5.23 0 0114.25 5.25v1.875c0 .207.168.375.375.375H16.5a5.23 5.23 0 013.434 1.279 9.768 9.768 0 00-6.963-6.963z"/></svg>
+                        <span class="font-semibold text-ppt-blue">{{ $doc->titre }}</span>
                     </div>
                     @if ($doc->fichier)
                         <a href="{{ asset($doc->fichier) }}" download class="btn-brand text-xs">Télécharger</a>
@@ -34,7 +34,7 @@
         </div>
 
         <div class="card mt-10 !p-6 text-center">
-            <h2 class="text-lg font-bold text-brand-600">Matériel marketing &amp; dossier d’information</h2>
+            <h2 class="text-lg font-bold text-ppt-blue">Matériel marketing &amp; dossier d’information</h2>
             <p class="mt-2 text-sm text-slate-600">Veuillez nous contacter si vous ne parvenez pas à trouver ce que vous cherchez.</p>
             <a href="mailto:contact@cleartrack.ma" class="btn-outline-brand mt-4 text-xs">contact@cleartrack.ma</a>
         </div>

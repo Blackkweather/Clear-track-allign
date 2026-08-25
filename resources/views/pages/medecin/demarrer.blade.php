@@ -30,7 +30,7 @@
 
             {{-- Médecin traitant --}}
             <fieldset>
-                <legend class="text-lg font-bold text-brand-600">Médecin traitant</legend>
+                <legend class="text-lg font-bold text-ppt-blue">Médecin traitant</legend>
                 <div class="mt-5 grid gap-6 md:grid-cols-2">
                     <div>
                         <label for="medecin_nom" class="text-sm font-medium text-slate-700">Nom complet du médecin traitant <span class="text-red-500">*</span></label>
@@ -62,7 +62,7 @@
 
             {{-- Patient --}}
             <fieldset>
-                <legend class="text-lg font-bold text-brand-600">Patient</legend>
+                <legend class="text-lg font-bold text-ppt-blue">Patient</legend>
                 <div class="mt-5 grid gap-6 md:grid-cols-2">
                     <div>
                         <label for="patient_nom" class="text-sm font-medium text-slate-700">Nom complet du patient <span class="text-red-500">*</span></label>
@@ -79,7 +79,7 @@
 
             {{-- Prescription --}}
             <fieldset>
-                <legend class="text-lg font-bold text-brand-600">Prescription</legend>
+                <legend class="text-lg font-bold text-ppt-blue">Prescription</legend>
 
                 <div class="mt-5">
                     <p class="text-sm font-medium text-slate-700">Demande de <span class="text-red-500">*</span></p>
@@ -144,7 +144,7 @@
 
             {{-- Dossier photos / radios --}}
             <fieldset>
-                <legend class="text-lg font-bold text-brand-600">Photos et radios du patient</legend>
+                <legend class="text-lg font-bold text-ppt-blue">Photos et radios du patient</legend>
                 <p class="mt-1 text-sm text-slate-500">Formats acceptés&nbsp;: JPG, PNG ou PDF — 15&nbsp;Mo max par fichier. Les champs marqués * sont requis.</p>
                 <div class="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                     @foreach ($typesFichiers as $type => [$label, $requis])
@@ -166,7 +166,7 @@
                 </label>
                 <label class="flex items-start gap-3 text-sm">
                     <input type="checkbox" name="consentement" value="1" required class="mt-0.5 accent-brand-500">
-                    <span>En cochant cette case et remplissant le présent formulaire, je déclare avoir lu et approuvé les <a href="{{ route('cgu') }}" class="text-brand-600 underline">conditions générales</a> et la <a href="{{ route('confidentialite') }}" class="text-brand-600 underline">politique de confidentialité</a> du produit et service. <span class="text-red-500">*</span></span>
+                    <span>En cochant cette case et remplissant le présent formulaire, je déclare avoir lu et approuvé les <a href="{{ route('cgu') }}" class="text-ppt-blue underline">conditions générales</a> et la <a href="{{ route('confidentialite') }}" class="text-ppt-blue underline">politique de confidentialité</a> du produit et service. <span class="text-red-500">*</span></span>
                 </label>
                 @error('consentement')<p class="text-xs text-red-600">{{ $message }}</p>@enderror
             </fieldset>

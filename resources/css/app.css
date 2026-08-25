@@ -31,6 +31,28 @@
     html {
         scroll-behavior: smooth;
     }
+
+    /* ── Échelle générale : 80 % (retour client) ────────────────────────
+       Le client a relu le site à 80 % de zoom navigateur et a demandé que
+       « le site ressemble à ce 80 pour cent de zoom ». D34.
+
+       Une police racine à 80 % (12,8 px au lieu de 16 px) reproduit ce zoom
+       sans toucher une seule vue : toute la maquette est en rem — tailles de
+       texte, marges, largeurs de conteneur (max-w-7xl = 80rem), hauteurs
+       d'images. Tout se réduit du même facteur, et les conteneurs centrés
+       laissent plus de blanc sur les côtés, exactement comme à 80 % de zoom.
+
+       Deux écarts assumés avec le vrai zoom navigateur, tous deux souhaitables :
+       les points de rupture Tailwind sont évalués en rem sur la taille racine
+       INITIALE (16 px), ils ne bougent donc pas — la bascule mobile/desktop
+       reste aux mêmes largeurs d'écran ; et le zoom de l'utilisateur reste
+       disponible par-dessus, sans se cumuler bizarrement.
+
+       Pour revenir à l'échelle d'origine : supprimer cette règle. Rien
+       d'autre n'en dépend. */
+    html {
+        font-size: 80%;
+    }
     [x-cloak] {
         display: none !important;
     }
@@ -48,14 +70,33 @@
     }
 }
 
-/* Bouton pilule de base (maquettes PPT) — @utility pour être applicable */
+/* Bouton pilule de base (maquettes PPT) — @utility pour être applicable
+   Retour client : « making button a bit bigger so it follows the website ».
+   À 80 % d'échelle, l'ancien gabarit (text-sm / px-6 / py-2.5) tombait à
+   11 px de texte et 33 px de haut : les boutons ne « suivaient » plus le
+   reste de la page. Ils repassent à text-base / px-7 / py-3, soit ~38 px de
+   haut à la nouvelle échelle — visiblement plus généreux qu'une simple
+   réduction, sans dépasser la taille qu'ils avaient à 100 %. D34. */
 @utility btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-2.5 text-sm font-semibold transition-all duration-300 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 text-base font-semibold transition-all duration-300 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
 }
 
+    /* ── Le bleu des TEXTES = le bleu des FONDS ─────────────────────────
+       Retour client : « same blue color for texts », « use the same blue as
+       the background for texts ». Le site portait deux bleus : #2A9EFC
+       (marque) pour les titres et les libellés, #1586C8 (fond des sections
+       à courbes) pour les aplats bleus — l'écart se voyait dès qu'un titre
+       bleu jouxtait une section bleue.
+
+       Tout texte bleu passe donc à --color-ppt-blue (#1586C8), via la classe
+       `text-ppt-blue` dans les vues et ici pour les composants. Les APLATS et
+       les REMPLISSAGES gardent #2A9EFC : c'est la couleur des boutons dans le
+       PowerPoint, et le client n'a demandé le changement que « for texts ».
+       Effet de bord bienvenu : le contraste du texte bleu sur blanc passe de
+       2,84:1 à 3,98:1 (D19). D35. */
 @layer components {
     .btn-white {
-        @apply btn bg-white text-brand-600 shadow hover:bg-brand-50 focus-visible:ring-white;
+        @apply btn bg-white text-ppt-blue shadow hover:bg-brand-50 focus-visible:ring-white;
     }
     .btn-outline-white {
         @apply btn border-2 border-white text-white hover:bg-white/10 focus-visible:ring-white;
@@ -64,7 +105,7 @@
         @apply btn bg-brand-500 text-white shadow hover:bg-brand-600 focus-visible:ring-brand-500;
     }
     .btn-outline-brand {
-        @apply btn border-2 border-brand-500 text-brand-600 hover:bg-brand-50 focus-visible:ring-brand-500;
+        @apply btn border-2 border-brand-500 text-ppt-blue hover:bg-brand-50 focus-visible:ring-brand-500;
     }
 
     /* ── Échelle typographique calée sur le PowerPoint ───────────────────
@@ -77,7 +118,7 @@
        Les valeurs mobiles restent plus basses : les tailles du PPT sont pensées
        pour un écran 16:9 vu de loin, pas pour une colonne de 375 px. */
     .section-title {
-        @apply text-3xl font-bold leading-tight text-brand-500 md:text-[3.25rem];
+        @apply text-3xl font-bold leading-tight text-ppt-blue md:text-[3.25rem];
     }
     /* Même échelle, sur fond bleu */
     .section-title-invert {
@@ -183,6 +224,19 @@
         background-color: rgb(255 255 255 / 0.18);
         border-color: rgb(255 255 255 / 0.9);
         outline: none;
+    }
+
+    /* Mot de la diapo 3 sans explication fournie (Hygiénique, Confortable,
+       Discret) : même pastille, mais rien ne se déploie au clic. Ni curseur
+       « main » ni effet de survol, pour ne pas promettre une interaction
+       inexistante. D37. */
+    .qualite-mot-inerte {
+        @apply cursor-default;
+    }
+    .qualite-mot-inerte:hover {
+        transform: none;
+        background-color: rgb(255 255 255 / 0.08);
+        border-color: rgb(255 255 255 / 0.5);
     }
 
     /* État ouvert : le mot reste visiblement sélectionné */

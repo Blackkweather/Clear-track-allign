@@ -45,7 +45,7 @@
         </div>
 
         <div class="mt-12 rounded-2xl bg-brand-50 p-8 text-center">
-            <h2 class="text-xl font-bold text-brand-700">Prêt à transformer votre sourire&nbsp;?</h2>
+            <h2 class="text-xl font-bold text-ppt-blue">Prêt à transformer votre sourire&nbsp;?</h2>
             <p class="mt-2 text-sm text-slate-600">Réservez une consultation gratuite dans un cabinet certifié ClearTrack® partout au Maroc.</p>
             <a href="{{ route('rdv') }}" class="btn-brand mt-5">Prendre RDV</a>
         </div>

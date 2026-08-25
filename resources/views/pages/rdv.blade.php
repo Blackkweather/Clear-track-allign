@@ -4,11 +4,40 @@
 @section('meta_description', 'Réservez une consultation dentaire gratuite dans un des cabinets certifiés ClearTrack® partout au Maroc.')
 
 @section('content')
-    {{-- En-tête (PPT slide 70) --}}
+    {{-- En-tête (PPT slides 70-71)
+         Retour client : « in prendre rendez-vous i need the same gif as in the ppt ».
+         Les diapos 70 et 71 posent une animation à droite du titre
+         (ppt/media/image99.gif, 750 × 509) : une arcade dentaire dont les dents
+         se replacent progressivement. C'est le seul fichier animé de tout le
+         PowerPoint ; il est repris tel quel.
+
+         Un GIF s'anime en boucle et ne peut être ni mis en pause ni ralenti par
+         CSS. Deux garde-fous, donc, tous deux servant une image FIXE de mêmes
+         dimensions (première vignette du GIF), la mise en page restant identique
+         au pixel près :
+           — version statique du site (CLEARTRACK_ANIMATIONS=false) : test Blade ;
+           — `prefers-reduced-motion: reduce` : <source media> dans <picture>,
+             évalué par le navigateur, seul moyen de substituer un fichier.
+         L'animation est décorative : alt vide et aria-hidden, elle n'ajoute rien
+         à ce que dit déjà le titre. D49. --}}
     <section class="bg-waves">
-        <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6">
-            <h1 class="page-title max-w-3xl text-white">Réservez une consultation dans un des cabinets certifiés Cleartrack® partout au Maroc</h1>
-            <p class="mt-4 max-w-3xl text-white/90">Comment deviendra mon sourire après l’alignement des dents&nbsp;? Combien de temps faut-il pour aligner mes dents&nbsp;? Les aligneurs conviennent-ils à mon cas&nbsp;? Remplissez le formulaire ci-dessous afin que nous puissions réserver une consultation dentaire gratuite pour répondre à toutes vos questions.</p>
+        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-14 sm:px-6 md:grid-cols-2">
+            <div>
+                <h1 class="page-title text-white">Réservez une consultation dans un des cabinets certifiés Cleartrack® partout au Maroc</h1>
+                <p class="mt-4 text-white/90">Comment deviendra mon sourire après l’alignement des dents&nbsp;? Combien de temps faut-il pour aligner mes dents&nbsp;? Les aligneurs conviennent-ils à mon cas&nbsp;? Remplissez le formulaire ci-dessous afin que nous puissions réserver une consultation dentaire gratuite pour répondre à toutes vos questions.</p>
+            </div>
+            <div class="flex justify-center md:justify-end">
+                @if (config('cleartrack.animations'))
+                    <picture>
+                        <source srcset="{{ asset('assets/rdv/alignement-fixe.png') }}" media="(prefers-reduced-motion: reduce)">
+                        <img src="{{ asset('assets/rdv/alignement.gif') }}" alt="" aria-hidden="true"
+                             width="750" height="509" class="h-auto w-full max-w-md rounded-2xl">
+                    </picture>
+                @else
+                    <img src="{{ asset('assets/rdv/alignement-fixe.png') }}" alt="" aria-hidden="true"
+                         width="750" height="509" class="h-auto w-full max-w-md rounded-2xl">
+                @endif
+            </div>
         </div>
     </section>
 
@@ -20,7 +49,7 @@
     {{-- 2 visites (PPT slide 70) --}}
     <section class="mx-auto max-w-7xl px-4 pt-14 sm:px-6">
         <div class="card">
-            <h2 class="text-xl font-bold text-brand-600">L’obtention de vos aligneurs Cleartrack® ne nécessite que deux visites chez l’un de nos médecins dentistes certifiés&nbsp;:</h2>
+            <h2 class="text-xl font-bold text-ppt-blue">L’obtention de vos aligneurs Cleartrack® ne nécessite que deux visites chez l’un de nos médecins dentistes certifiés&nbsp;:</h2>
             <div class="mt-5 grid gap-6 md:grid-cols-2">
                 <div class="flex gap-4">
                     <span class="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-brand-500 font-bold text-white">1</span>
@@ -93,17 +122,23 @@
                 </div>
             </div>
 
+            {{-- Retour client : « add the stars in the reservation upload documents ».
+                 Les six photos portent désormais l'astérisque rouge des champs
+                 obligatoires ET sont réellement exigées à l'envoi : une étoile qui
+                 n'engage rien induirait le patient en erreur.
+                 Écart assumé avec le PPT, qui écrit « Photos (facultatif) » sur la
+                 diapo 72 — le client a explicitement demandé le changement. D50. --}}
             <fieldset>
-                <legend class="text-lg font-bold text-brand-600">Photos (facultatif)</legend>
-                <p class="mt-1 text-sm text-slate-500">Elles nous aident à pré-évaluer votre cas avant la consultation.</p>
+                <legend class="text-lg font-bold text-ppt-blue">Photos <span class="text-red-500">*</span></legend>
+                <p class="mt-1 text-sm text-slate-500">Elles nous permettent de pré-évaluer votre cas avant la consultation&nbsp;: les six sont nécessaires. Le lien «&nbsp;voir exemple&nbsp;» montre le cadrage attendu.</p>
                 <div class="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                     @foreach ($typesPhotos as $type => $label)
-                        <x-photo-drop :name="'photo_' . $type" :label="$label" />
+                        <x-photo-drop :name="'photo_' . $type" :label="$label" required />
                     @endforeach
                 </div>
             </fieldset>
 
-            <p class="text-xs leading-relaxed text-slate-500">Toutes les données personnelles récoltées resteront préservées à des fins de traitement uniquement et conformément aux règles énoncées dans notre <a href="{{ route('confidentialite') }}" class="text-brand-600 underline">page de politique de confidentialité</a> que vous pouvez consulter.</p>
+            <p class="text-xs leading-relaxed text-slate-500">Toutes les données personnelles récoltées resteront préservées à des fins de traitement uniquement et conformément aux règles énoncées dans notre <a href="{{ route('confidentialite') }}" class="text-ppt-blue underline">page de politique de confidentialité</a> que vous pouvez consulter.</p>
 
             <button type="submit" class="btn-brand px-10 disabled:cursor-not-allowed disabled:opacity-50"
                     @disabled(config('cleartrack.demo'))>Envoyer</button>
@@ -120,20 +155,20 @@
                     <div class="accordion-row rounded-xl" x-data="{ ouvert: false }">
                         <h3>
                             <button type="button" @click="ouvert = !ouvert" :aria-expanded="ouvert"
-                                    class="flex w-full items-center justify-between gap-4 px-5 py-4 text-left font-semibold text-brand-700 hover:bg-brand-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
+                                    class="flex w-full items-center justify-between gap-4 px-5 py-4 text-left font-semibold text-ppt-blue hover:bg-brand-50 focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
                                 <span>{{ $ville->nom }}</span>
-                                <span class="text-xl font-bold text-brand-500" aria-hidden="true" x-text="ouvert ? '−' : '+'">+</span>
+                                <span class="text-xl font-bold text-ppt-blue" aria-hidden="true" x-text="ouvert ? '−' : '+'">+</span>
                             </button>
                         </h3>
                         <div x-show="ouvert" x-collapse.duration.300ms x-cloak class="px-5 pb-5">
                             @forelse ($ville->cabinets as $cabinet)
                                 <div class="mt-2 rounded-lg bg-brand-50 p-4 text-sm">
-                                    <p class="font-bold text-brand-700">{{ $cabinet->medecin }}</p>
-                                    @if ($cabinet->telephone)<p class="mt-1">Tél&nbsp;: <a href="tel:{{ preg_replace('/\s+/', '', $cabinet->telephone) }}" class="text-brand-600 underline">{{ $cabinet->telephone }}</a></p>@endif
+                                    <p class="font-bold text-ppt-blue">{{ $cabinet->medecin }}</p>
+                                    @if ($cabinet->telephone)<p class="mt-1">Tél&nbsp;: <a href="tel:{{ preg_replace('/\s+/', '', $cabinet->telephone) }}" class="text-ppt-blue underline">{{ $cabinet->telephone }}</a></p>@endif
                                     @if ($cabinet->adresse)<p class="mt-1 text-slate-600">{{ $cabinet->adresse }}</p>@endif
                                 </div>
                             @empty
-                                <p class="mt-2 text-sm text-slate-500">Cabinets certifiés bientôt référencés dans cette ville — contactez-nous au <a href="tel:+212693133170" class="text-brand-600 underline">+212 693 133 170</a>.</p>
+                                <p class="mt-2 text-sm text-slate-500">Cabinets certifiés bientôt référencés dans cette ville — contactez-nous au <a href="tel:+212693133170" class="text-ppt-blue underline">+212 693 133 170</a>.</p>
                             @endforelse
                         </div>
                     </div>

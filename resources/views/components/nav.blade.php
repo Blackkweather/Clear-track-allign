@@ -18,8 +18,9 @@
             </a>
             <a href="{{ route('pourquoi') }}" class="text-sm font-medium text-white hover:text-brand-100 {{ request()->routeIs('pourquoi') ? 'underline underline-offset-4' : '' }}">Pourquoi&nbsp;?</a>
             <a href="{{ route('avantages') }}" class="text-sm font-medium text-white hover:text-brand-100 {{ request()->routeIs('avantages') ? 'underline underline-offset-4' : '' }}">Avantages</a>
-            <a href="{{ route('instructions') }}" class="text-sm font-medium text-white hover:text-brand-100 {{ request()->routeIs('instructions') ? 'underline underline-offset-4' : '' }}">Instructions</a>
-            <a href="{{ route('blog.index') }}" class="text-sm font-medium text-white hover:text-brand-100 {{ request()->routeIs('blog.*') ? 'underline underline-offset-4' : '' }}">Blog</a>
+            @if (config('cleartrack.blog'))
+                <a href="{{ route('blog.index') }}" class="text-sm font-medium text-white hover:text-brand-100 {{ request()->routeIs('blog.*') ? 'underline underline-offset-4' : '' }}">Blog</a>
+            @endif
             <a href="{{ route('faq') }}" class="text-sm font-medium text-white hover:text-brand-100 {{ request()->routeIs('faq') ? 'underline underline-offset-4' : '' }}">FAQ</a>
             <a href="{{ route('a-propos') }}" class="text-sm font-medium text-white hover:text-brand-100 {{ request()->routeIs('a-propos') ? 'underline underline-offset-4' : '' }}">À propos</a>
             <a href="{{ route('rdv') }}" class="text-sm font-medium text-white hover:text-brand-100 {{ request()->routeIs('rdv') ? 'underline underline-offset-4' : '' }}">Prendre RDV</a>
@@ -45,8 +46,9 @@
             </a>
             <a href="{{ route('pourquoi') }}" class="rounded px-3 py-2 text-sm font-medium text-white hover:bg-white/10">Pourquoi&nbsp;?</a>
             <a href="{{ route('avantages') }}" class="rounded px-3 py-2 text-sm font-medium text-white hover:bg-white/10">Avantages</a>
-            <a href="{{ route('instructions') }}" class="rounded px-3 py-2 text-sm font-medium text-white hover:bg-white/10">Instructions</a>
-            <a href="{{ route('blog.index') }}" class="rounded px-3 py-2 text-sm font-medium text-white hover:bg-white/10">Blog</a>
+            @if (config('cleartrack.blog'))
+                <a href="{{ route('blog.index') }}" class="rounded px-3 py-2 text-sm font-medium text-white hover:bg-white/10">Blog</a>
+            @endif
             <a href="{{ route('faq') }}" class="rounded px-3 py-2 text-sm font-medium text-white hover:bg-white/10">FAQ</a>
             <a href="{{ route('a-propos') }}" class="rounded px-3 py-2 text-sm font-medium text-white hover:bg-white/10">À propos</a>
             <a href="{{ route('rdv') }}" class="rounded px-3 py-2 text-sm font-medium text-white hover:bg-white/10">Prendre RDV</a>

@@ -39,4 +39,26 @@ return [
 
     'demo' => (bool) env('CLEARTRACK_DEMO', false),
 
+    /*
+    |---------------------------------------------------------------------
+    | Blog
+    |---------------------------------------------------------------------
+    |
+    | Le client a demandé de masquer le blog tant qu'il n'a pas assez
+    | d'articles (« hide the whole, cause we don't have many blogs »).
+    |
+    | false → masqué (par défaut) : aucun lien dans la nav ni le pied de
+    |         page, aucune entrée dans le sitemap, et /blog comme
+    |         /blog/{slug} répondent 404. Rien n'est supprimé pour autant :
+    |         le modèle Post, les gabarits et la ressource Filament restent
+    |         en place, et les articles déjà saisis sont conservés.
+    | true  → blog publié, comme avant.
+    |
+    | Il suffit de poser CLEARTRACK_BLOG=true dans .env pour le rallumer,
+    | sans modification de code.
+    |
+    */
+
+    'blog' => (bool) env('CLEARTRACK_BLOG', false),
+
 ];

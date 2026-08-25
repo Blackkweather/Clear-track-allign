@@ -6,7 +6,7 @@
             <img src="{{ asset($poster) }}" alt="" class="w-full object-cover" loading="lazy">
             <span class="absolute inset-0 flex items-center justify-center bg-black/20 transition group-hover:bg-black/30">
                 <span class="flex h-16 w-16 items-center justify-center rounded-full bg-white/90 shadow-lg transition group-hover:scale-110">
-                    <svg class="ml-1 h-7 w-7 text-brand-500" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+                    <svg class="ml-1 h-7 w-7 text-ppt-blue" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
                 </span>
             </span>
         </button>

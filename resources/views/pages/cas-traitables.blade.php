@@ -12,7 +12,7 @@
              alt="Profil comparant un appareil dentaire métallique et un aligneur transparent"
              class="absolute right-0 top-0 hidden w-[38%] md:block" loading="lazy">
         <div class="relative mx-auto max-w-7xl px-4 pb-10 pt-16 sm:px-6">
-            <h1 class="flex flex-wrap items-center gap-x-8 gap-y-3 text-3xl font-bold text-brand-500 md:text-5xl">
+            <h1 class="flex flex-wrap items-center gap-x-8 gap-y-3 text-3xl font-bold text-ppt-blue md:text-5xl">
                 Cas traitables avec
                 <img src="{{ asset('assets/brand/logo-on-white.svg') }}" alt="Cleartrack® align"
                      class="h-24 w-auto md:h-40">
@@ -43,7 +43,7 @@
                 <article class="flex flex-col items-start gap-6 sm:flex-row sm:items-center">
                     <img src="{{ asset('assets/cas/' . $c['img'] . '.png') }}" alt="Illustration : {{ $c['titre'] }}" class="h-36 w-44 shrink-0 object-contain" loading="lazy">
                     <div>
-                        <h2 class="text-xl font-bold text-brand-500 underline decoration-2 underline-offset-4 md:text-2xl">{{ $c['titre'] }}</h2>
+                        <h2 class="text-xl font-bold text-ppt-blue underline decoration-2 underline-offset-4 md:text-2xl">{{ $c['titre'] }}</h2>
                         <p class="mt-2 leading-relaxed">{{ $c['texte'] }}</p>
                     </div>
                 </article>

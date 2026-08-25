@@ -8,8 +8,16 @@ use Illuminate\Database\Seeder;
 
 /**
  * Villes de l'annuaire des cabinets certifiés (PPT slides 73-75).
- * Les fiches médecins sont des placeholders identiques à ceux du PPT
- * (« Dr. M. XXXXX ») — données réelles à fournir par le client (Q5).
+ *
+ * Aucune fiche médecin n'est créée : les vraies coordonnées restent à fournir
+ * par le client (Q5). Chaque ville affiche donc le message d'attente de la vue
+ * (« Cabinets certifiés bientôt référencés dans cette ville — contactez-nous
+ * au … »), ce qui est honnête tant que l'annuaire est vide.
+ *
+ * Retour client : « modify Casablanca in the cities, do the same one as
+ * Mohammedia ». Casablanca portait les trois placeholders de la diapo 74
+ * (« Dr. M. XXXXX », « 06 00 00 00 00 », « 34, rue XXX, XXXX, XXX ») ; elle se
+ * comporte désormais comme toutes les autres villes. Voir D51.
  */
 class AnnuaireSeeder extends Seeder
 {
@@ -26,18 +34,12 @@ class AnnuaireSeeder extends Seeder
             Ville::updateOrCreate(['nom' => $nom], ['ordre' => $i]);
         }
 
-        // Placeholders du PPT (slide 74) sur Casablanca uniquement
-        $casablanca = Ville::where('nom', 'Casablanca')->first();
-        if ($casablanca && $casablanca->cabinets()->count() === 0) {
-            foreach (range(1, 3) as $i) {
-                Cabinet::create([
-                    'ville_id' => $casablanca->id,
-                    'medecin' => 'Dr. M. XXXXX',
-                    'telephone' => '06 00 00 00 00',
-                    'adresse' => '34, rue XXX, XXXX, XXX',
-                    'ordre' => $i,
-                ]);
-            }
-        }
+        // Nettoyage des placeholders de la diapo 74, semés jusqu'ici sur
+        // Casablanca. Le seeder est rejoué sur une base déjà remplie : les
+        // supprimer explicitement est le seul moyen de faire disparaître les
+        // fiches « Dr. M. XXXXX » d'un environnement existant. Les fiches
+        // réelles, saisies depuis l'admin, ne portent pas ce nom et sont donc
+        // intactes.
+        Cabinet::where('medecin', 'Dr. M. XXXXX')->delete();
     }
 }

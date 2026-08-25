@@ -57,26 +57,44 @@
                     </div>
                 @endforeach
             </div>
+            {{-- Retour client : « rotate the hand holding the model to be horizontal
+                 not vertical as in the ppt ». La diapo 18 pose bien ce visuel avec
+                 rot="270°" (a:xfrm/@rot = 16200000, soit un quart de tour horaire) :
+                 la main y est horizontale, paume vers le haut. Le site publiait le
+                 fichier d'origine non tourné, donc à la verticale.
+                 La rotation est appliquée une fois pour toutes dans le fichier
+                 (main-gantee-horizontale.png, 411 × 309) plutôt qu'en CSS : une
+                 image tournée par transform garde la boîte de l'original et
+                 déséquilibrerait la grille. L'original vertical reste à côté. D40. --}}
             <div class="flex justify-center">
-                <img src="{{ asset('assets/pourquoi/main-gantee.png') }}"
+                <img src="{{ asset('assets/pourquoi/main-gantee-horizontale.png') }}"
                      alt="Aligneur Cleartrack® tenu par une main gantée" loading="lazy"
-                     class="w-64 max-w-full drop-shadow-2xl md:w-80">
+                     width="411" height="309"
+                     class="h-auto w-full max-w-sm drop-shadow-2xl md:max-w-md">
             </div>
         </div>
 
         {{-- Diapo 19 --}}
         <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-12 sm:px-6 md:grid-cols-2">
             <div class="flex justify-center md:order-1">
-                {{-- Débordement volontaire hors du cadre, comme sur la diapo (x = -0,29) --}}
+                {{-- Débordement volontaire hors du cadre, comme sur la diapo 19, qui
+                     pose l'image à x = -29,48 % : près d'un tiers de sa largeur sort
+                     par la GAUCHE de la diapositive.
+                     Retour client : « the picture of the model needs to be bigger, in
+                     a level that it gonna be maxed on the left side ». L'image passe
+                     donc de 22/30 rem de haut à 32/44 rem, et sa marge négative de
+                     gauche est calée sur le débordement du PPT — elle vient bien
+                     mourir au bord gauche de l'écran au lieu de flotter au milieu
+                     de sa colonne. D41.
+                     Mobile : l'image reste bridée à la largeur de sa colonne. Avec
+                     « w-auto max-w-none », l'image, très large, imposait sa largeur
+                     intrinsèque à la colonne de grille : la section devenait plus
+                     large que l'écran et overflow-x: clip rognait le texte à droite
+                     au lieu de le faire revenir à la ligne. Le débordement voulu
+                     ne commence donc qu'à partir de md. --}}
                 <img src="{{ asset('assets/pourquoi/aligneur-3d.png') }}"
                      alt="Rendu 3D d’un aligneur Cleartrack® align" loading="lazy"
-                     {{-- Mobile : l'image est bridée à la largeur de sa colonne. Avec
-                          « h-64 w-auto max-w-none », l'image, très large, imposait sa
-                          largeur intrinsèque à la colonne de grille : la section devenait
-                          plus large que l'écran et overflow-x: clip rognait le texte à
-                          droite au lieu de le faire revenir à la ligne. Le débordement
-                          voulu de la diapo 19 ne commence donc qu'à partir de md. --}}
-                     class="img-bleed h-auto w-full max-w-xs drop-shadow-2xl md:h-[22rem] md:w-auto md:max-w-none md:-ml-32 lg:h-[30rem] lg:-ml-56">
+                     class="img-bleed h-auto w-full max-w-xs drop-shadow-2xl md:h-[32rem] md:w-auto md:max-w-none md:-ml-56 lg:h-[44rem] lg:-ml-[22rem]">
             </div>
             <div class="space-y-10 md:order-2">
                 @foreach (array_slice($raisons, 2, 2) as $r)
@@ -120,36 +138,16 @@
                 <p class="mx-auto mt-3 max-w-3xl text-center text-slate-500">Un matériau biocompatible personnalisé de nos aligneurs, qui présente les avantages suivants</p>
             </div>
 
-            {{-- Barre de bascule : les trois comparaisons (six photos) étaient empilées,
-                 ce qui faisait défiler longuement. On n'en montre plus qu'une à la fois,
-                 comme le PPT qui leur consacre une diapositive chacune (20, 21, 22).
-                 Même mécanique que les onglets de la page Instructions.
-
-                 Attention : [x-cloak] { display: none } est une règle CSS ordinaire,
-                 elle s'applique donc même sans JavaScript (c'est Alpine qui retire
-                 l'attribut au démarrage). Poser x-cloak sur les trois blocs les
-                 rendrait tous invisibles si Alpine ne se charge pas. Le premier en
-                 est donc dépourvu : sans JavaScript, on voit au moins la première
-                 comparaison au lieu d'une section vide. --}}
-            <div class="mt-12" x-data="{ onglet: '{{ $comparaisons[0]['cle'] }}' }">
-                <div class="mx-auto flex max-w-2xl flex-wrap justify-center gap-2 px-4 sm:px-6"
-                     role="tablist" aria-label="Comparaisons de matériau">
-                    @foreach ($comparaisons as $c)
-                        <button type="button" role="tab"
-                                @click="onglet = '{{ $c['cle'] }}'"
-                                :aria-selected="onglet === '{{ $c['cle'] }}' ? 'true' : 'false'"
-                                :class="onglet === '{{ $c['cle'] }}'
-                                    ? 'bg-brand-500 text-white shadow'
-                                    : 'bg-white text-brand-600 hover:bg-brand-50'"
-                                class="rounded-full border border-brand-300 px-6 py-2.5 text-sm font-semibold transition focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500 md:text-base">
-                            {{ $c['label'] }}
-                        </button>
-                    @endforeach
-                </div>
-
-            <div class="mt-10 space-y-16">
+            {{-- Retour client : « les aligneurs avec matériau needs to be as one
+                 slide and not having the button to change ». La barre d'onglets
+                 « Plus clairs / Plus confortables / Pas de décoloration », qui
+                 n'affichait qu'une comparaison à la fois, est supprimée : les
+                 trois comparaisons redeviennent une seule et même section, lues
+                 d'une traite. Plus aucun JavaScript ici — la section s'affiche
+                 en entier même si Alpine ne se charge pas. D42. --}}
+            <div class="mt-14 space-y-16">
                 @foreach ($comparaisons as $c)
-                    <div x-show="onglet === '{{ $c['cle'] }}'" @if (! $loop->first) x-cloak @endif>
+                    <div>
                         {{-- Le libellé est une pastille bleue qui sort du cadre, alternativement
                              à gauche puis à droite de la diapositive (diapos 20-22). --}}
                         {{-- Sur mobile la pastille reste entière dans la marge : sortie du
@@ -166,7 +164,7 @@
                         <div class="mx-auto mt-8 grid max-w-7xl gap-8 px-4 sm:grid-cols-2 sm:px-6">
                             @foreach ([['Autres aligneurs', $c['autres'], false], ['Cleartrack®align', $c['ct'], true]] as [$titre, $legende, $estCt])
                                 <div class="text-center">
-                                    <h3 class="text-2xl font-bold text-brand-500 md:text-3xl">{{ $titre }}</h3>
+                                    <h3 class="text-2xl font-bold text-ppt-blue md:text-3xl">{{ $titre }}</h3>
                                     {{-- La légende est placée sous le titre, au-dessus de la photo, comme sur les diapos 21-22 --}}
                                     <p class="mt-1 min-h-6 text-sm leading-relaxed text-slate-500">{{ $legende }}</p>
                                     <img src="{{ asset('assets/pourquoi/materiau/' . $c['cle'] . ($estCt ? '-cleartrack' : '-autres') . '.jpg') }}"
@@ -177,7 +175,6 @@
                         </div>
                     </div>
                 @endforeach
-            </div>
             </div>
 
             <div class="mt-12 text-center">
@@ -219,14 +216,14 @@
                         @else
                             <img src="{{ asset('assets/pourquoi/' . $a['icone']) }}" alt="" aria-hidden="true" class="mx-auto h-24 w-24 object-contain" loading="lazy">
                         @endif
-                        <h3 class="mt-5 text-2xl font-bold text-brand-600">{{ $a['titre'] }}</h3>
+                        <h3 class="mt-5 text-2xl font-bold text-ppt-blue">{{ $a['titre'] }}</h3>
                         <p class="mt-3 leading-relaxed">{{ $a['texte'] }}</p>
                     </div>
                 @endforeach
             </div>
 
             {{-- Diapo 24 : cette ligne de contact est entièrement en bleu de marque --}}
-            <p class="mx-auto mt-14 max-w-4xl text-center leading-relaxed text-brand-500">Pour découvrir et expérimenter ces avantages par vous-même, appelez nos dentistes experts au <a href="tel:+212693133170" class="font-semibold underline">+212 693 133 170</a> ou envoyez-nous un courriel à <a href="mailto:contact@cleartrack.ma" class="font-semibold underline">contact@cleartrack.ma</a> pour une consultation GRATUITE avec nos orthodontistes certifiés</p>
+            <p class="mx-auto mt-14 max-w-4xl text-center leading-relaxed text-ppt-blue">Pour découvrir et expérimenter ces avantages par vous-même, appelez nos dentistes experts au <a href="tel:+212693133170" class="font-semibold underline">+212 693 133 170</a> ou envoyez-nous un courriel à <a href="mailto:contact@cleartrack.ma" class="font-semibold underline">contact@cleartrack.ma</a> pour une consultation GRATUITE avec nos orthodontistes certifiés</p>
         </div>
     </section>
 @endsection

@@ -145,14 +145,66 @@ Suivi vivant du projet (règle Phase 6 : checklist maintenue en continu).
 - [x] **Le PowerPoint ne contient aucune animation** : recherche exhaustive de `p:transition`, `p:timing`, `animEffect`, `animMotion`, `p:anim`, `videoFile`, `p:audio` sur **toutes** les parties XML du fichier → **0 occurrence**. Les 89 diapos sont statiques. Les animations du site ne viennent donc pas du deck mais de la réunion client (Phase 3, Étape 8)
 - [ ] **Seul écart réel : la question FAQ de la diapo 38** — voir **D28**, réponse à obtenir du client
 
+## ✅ Retours client du 25/08/2026
+
+### Échelle et couleurs (tout le site)
+- [x] **Site ramené à 80 %**, comme à 80 % de zoom navigateur : une règle `html { font-size: 80% }`, toute la maquette étant en `rem` — D34
+- [x] **Boutons agrandis** en compensation (`.btn` : `text-base px-7 py-3`) — D34
+- [x] **Le bleu des textes devient le bleu des fonds** (`#1586C8`) ; les aplats et boutons gardent `#2A9EFC` — D35
+
+### Accueil
+- [x] Héro : « Choisissez » remonte sur la ligne de **SANS FIL**, le **logo** remplace le texte « ClearTrack Align » — D36
+- [x] Héro : les deux boutons passent au gabarit `.btn-grand`
+- [x] **Les cinq qualités de la diapo 3 rétablies** (Amovible, Hygiénique, Confortable, Discret, Efficace), aux coordonnées exactes du PPT — D37
+- [x] « En savoir plus » de la diapo 3 → page **Fabrication** (au lieu de Pourquoi) — D38
+- [x] « Votre Sourire est Magnifique ! » : **soulignement retiré** — D39
+- [x] Photo du bloc sourire : plus agrandie au-delà de sa définition native (473 px) — D39
+
+### Pourquoi
+- [x] **Main gantée à l'horizontale**, comme le `rot="270°"` de la diapo 18 — D40
+- [x] **Rendu 3D agrandi** (32/44 rem) et débordant jusqu'au bord gauche, comme le x = −29,48 % de la diapo 19 — D41
+- [x] Comparatif matériau : **une seule section, barre de bascule supprimée** — D42
+
+### À propos
+- [x] « Nos standards » : **fond bleu retiré**, section en blanc à courbes — D43
+- [x] « Nous aimons votre sourire ! » : photo affichée à sa définition native, sans étirement ni recadrage — D44
+
+### Fabrication (« Comment sont-ils fabriqués ? »)
+- [x] **Visuel de la diapo 52 rétabli** dans l'en-tête — D45
+- [x] **Icônes docteur et microscope** de la diapo 54 sur « Étapes cliniques » / « Étapes de laboratoire » — D46
+- [x] **Coches remplacées par des numéros** (`<ul>` → `<ol>`), ici et sur « Instructions de base » — D46
+- [x] **Procédure de laboratoire : chaque texte avec sa photo** du PPT ; le portrait de dentiste retrouve sa place sur « Instructions de base » — D47
+
+### Politique de confidentialité
+- [x] **Bandeau photo + logo** de la diapo 59 en en-tête — D48
+
+### Prendre RDV
+- [x] **GIF de la diapo 70** à droite du titre, avec image fixe en version statique et sous `prefers-reduced-motion` — D49
+- [x] **Étoiles sur les six photos**, et validation serveur qui les exige réellement — D50
+- [x] **Casablanca alignée sur Mohammedia** : les 3 fiches placeholder « Dr. M. XXXXX » sont supprimées — D51
+
+### Suppressions
+- [x] Page **« Instructions d'utilisation »** retirée (route, gabarit, liens, sitemap, tests) — D52
+- [x] Page **« Aligner Care Instructions »** retirée — D52
+- [x] **Blog masqué** derrière `CLEARTRACK_BLOG` (défaut `false`) : plus de lien, plus de sitemap, URL en 404 — D53
+
+### Vérifications
+- [x] `php artisan test` — **42 tests, 120 assertions, tout au vert** (4 nouveaux tests : photos obligatoires ×2, pages d'instructions retirées, blog masqué puis rallumé)
+- [x] `./vendor/bin/pint` — aucun écart de style
+- [x] `npm run build` — build Vite propre
+- [x] Statuts HTTP relevés page par page : les 6 pages modifiées en 200, `/blog`, `/instructions` et `/aligner-care-instructions` en 404
+- [x] Aucune référence morte : plus aucun `route('instructions')`, `route('aligner-care')` ni `text-brand-500/600/700`
+
 ## En attente du client (bloquants réels)
 - [ ] **Réponse à « Pourquoi ne pas me faire livrer directement chez moi et devoir passer chez un dentiste ? »** (seule question du PPT absente du site — D28)
 - [ ] Les **3 PDF** du centre de téléchargement (fiche de prescription, consentement éclairé, consentement contention)
 - [ ] **Vraies photos avant/après** consenties par écrit (6 cas) — les cartes actuelles utilisent les photos du PPT
-- [ ] **Vraies fiches cabinets** (3 fiches « Dr. M. XXXXX » placeholder, Casablanca)
+- [ ] **Vraies fiches cabinets** ville par ville — l'annuaire est désormais entièrement vide, les placeholders de Casablanca ayant été retirés (D51)
 - [ ] **URL des réseaux sociaux** (Facebook / YouTube / Instagram — actuellement `href="#"`)
 - [ ] **Fichier audio de la voix off** (+ préciser : piste seule ou bande sonore d'une vidéo à monter ?)
 - [ ] Validation de l'usage des vidéos `Impression.mp4` et `Pose des attachements.mp4` sur l'Espace Médecin
-- [ ] Arbitrages à confirmer : **D17-bis** (délais devis), **D19** (contraste nav), **D22** (corps de texte 20 px vs 24 px)
+- [ ] **Deux photos en haute définition** : la patiente du bloc « Votre Sourire est Magnifique ! » (473 px aujourd'hui, D39) et les trois jeunes femmes de « Nous aimons votre sourire ! » (600 × 600, D44) — ni le PPT ni les 11 documents Word ne contiennent mieux
+- [ ] **Textes pour « Hygiénique », « Confortable » et « Discret »** si ces trois mots de la diapo 3 doivent se déployer comme les deux autres (D37)
+- [ ] Arbitrages à confirmer : **D17-bis** (délais devis), **D19** (contraste nav), **D22** (corps de texte 20 px vs 24 px), **D34** (corps de texte à 12,8 px après la réduction à 80 %), **D50** (photos du RDV obligatoires — un patient sans photos ne peut plus réserver)
 
 ## Étape 9 — Déploiement Heberjahiz

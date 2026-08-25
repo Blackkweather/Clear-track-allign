@@ -35,7 +35,7 @@
                          class="h-24 w-24 shrink-0 object-contain sm:h-28 sm:w-28" loading="lazy">
                     <div>
                         {{-- Diapos 27-29 : les titres d'avantage sont soulignés --}}
-                        <h2 class="text-xl font-bold text-brand-500 underline decoration-2 underline-offset-4 md:text-2xl">{{ $a['titre'] }}</h2>
+                        <h2 class="text-xl font-bold text-ppt-blue underline decoration-2 underline-offset-4 md:text-2xl">{{ $a['titre'] }}</h2>
                         <p class="mt-2 leading-relaxed">{{ $a['texte'] }}</p>
                     </div>
                 </article>

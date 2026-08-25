@@ -45,8 +45,12 @@ class RdvController extends Controller
             'email' => ['required', 'email', 'max:150'],
             'message' => ['nullable', 'string', 'max:2000'],
         ];
+        // Retour client : les six photos deviennent obligatoires — l'astérisque
+        // affiché sur chaque zone de dépôt doit correspondre à une vraie exigence
+        // (voir CONTENT-DECISIONS.md D50). Le PPT les annonçait « facultatif » :
+        // c'est un écart demandé explicitement par le client.
         foreach (array_keys(self::TYPES_PHOTOS) as $type) {
-            $regles["photo_$type"] = ['nullable', 'image', 'mimes:jpg,jpeg,png', 'max:10240'];
+            $regles["photo_$type"] = ['required', 'image', 'mimes:jpg,jpeg,png', 'max:10240'];
         }
 
         $messages = [

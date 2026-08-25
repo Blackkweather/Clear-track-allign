@@ -25,12 +25,10 @@ class PagesPubliquesTest extends TestCase
             'cas-traitables' => ['/cas-traitables'],
             'fabrication' => ['/fabrication'],
             'faq' => ['/faq'],
-            'instructions' => ['/instructions'],
             'a-propos' => ['/a-propos'],
             'prendre-rdv' => ['/prendre-rdv'],
             'confidentialite' => ['/politique-de-confidentialite'],
             'cgu' => ['/conditions-generales'],
-            'blog' => ['/blog'],
             'espace-medecin' => ['/espace-medecin'],
             'espace-medecin-demarrer' => ['/espace-medecin/demarrer-un-traitement'],
             'espace-medecin-certifie' => ['/espace-medecin/devenir-certifie'],
@@ -65,27 +63,54 @@ class PagesPubliquesTest extends TestCase
         $this->get('/admin')->assertRedirect('/admin/login');
     }
 
-    public function test_la_nav_expose_accueil_et_instructions(): void
+    public function test_la_nav_expose_accueil(): void
     {
         $response = $this->get('/');
         $response->assertSee('Accueil');
-        $response->assertSee('Instructions');
         // Le logo renvoie à l'accueil depuis n'importe quelle page
         $this->get('/pourquoi')->assertSee('aria-label="ClearTrack align — Accueil"', false);
     }
 
-    public function test_les_quatre_categories_d_instructions_sont_presentes(): void
+    /**
+     * Retours client du 25/08/2026 (D52) : les deux pages d'instructions sont
+     * retirées du site. Ni URL, ni lien, ni entrée de sitemap ne doivent
+     * subsister — une page supprimée qui reste atteignable par son adresse est
+     * une régression silencieuse.
+     */
+    public function test_les_pages_d_instructions_sont_retirees_du_site(): void
     {
-        $response = $this->get('/instructions');
-        foreach (['Mettre en place', 'Retirer', 'Rangement et entretien', 'Manger et boire'] as $categorie) {
-            $response->assertSee($categorie);
-        }
-        $response->assertSee('role="tablist"', false);
+        $this->get('/instructions')->assertStatus(404);
+        $this->get('/aligner-care-instructions')->assertStatus(404);
+
+        $sitemap = $this->get('/sitemap.xml')->getContent();
+        $this->assertStringNotContainsString('/instructions', $sitemap);
+        $this->assertStringNotContainsString('/aligner-care-instructions', $sitemap);
+
+        $accueil = $this->get('/')->getContent();
+        $this->assertStringNotContainsString('/aligner-care-instructions', $accueil);
     }
 
-    public function test_la_page_instructions_est_dans_le_sitemap(): void
+    /**
+     * Le blog est masqué tant que le client n'a pas d'articles (D53) : les URL
+     * répondent 404, aucun lien ne le désigne et il sort du sitemap. Le
+     * rallumage doit rester à un seul interrupteur.
+     */
+    public function test_le_blog_est_masque_par_defaut(): void
     {
-        $this->get('/sitemap.xml')->assertSee(route('instructions'), false);
+        $this->get('/blog')->assertStatus(404);
+
+        $accueil = $this->get('/')->getContent();
+        $this->assertStringNotContainsString('href="'.url('/blog').'"', $accueil);
+        $this->assertStringNotContainsString('/blog', $this->get('/sitemap.xml')->getContent());
+    }
+
+    public function test_le_blog_reapparait_quand_il_est_active(): void
+    {
+        config(['cleartrack.blog' => true]);
+
+        $this->get('/blog')->assertStatus(200);
+        $this->get('/')->assertSee('Blog');
+        $this->get('/sitemap.xml')->assertSee(route('blog.index'), false);
     }
 
     public function test_version_animee_charge_la_couche_animations(): void

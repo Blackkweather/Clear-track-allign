@@ -27,10 +27,10 @@
                             </a>
                         @endif
                         <div class="flex flex-1 flex-col p-6">
-                            <time datetime="{{ $post->publie_le->toDateString() }}" class="text-xs font-medium uppercase tracking-wide text-brand-500">
+                            <time datetime="{{ $post->publie_le->toDateString() }}" class="text-xs font-medium uppercase tracking-wide text-ppt-blue">
                                 {{ $post->publie_le->translatedFormat('j F Y') }}
                             </time>
-                            <h2 class="mt-2 text-lg font-bold text-brand-700">
+                            <h2 class="mt-2 text-lg font-bold text-ppt-blue">
                                 <a href="{{ route('blog.show', $post) }}" class="hover:underline">{{ $post->titre }}</a>
                             </h2>
                             <p class="mt-3 flex-1 text-sm leading-relaxed text-slate-600">{{ \Illuminate\Support\Str::limit($post->extrait, 160) }}</p>

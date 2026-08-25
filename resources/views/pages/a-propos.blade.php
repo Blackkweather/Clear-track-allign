@@ -46,13 +46,18 @@
         </div>
     </section>
 
-    {{-- ══ Diapo 42 — Nos standards (BLEU, texte à gauche, photo à droite) ══ --}}
-    <section class="bg-waves">
+    {{-- ══ Diapo 42 — Nos standards (texte à gauche, photo à droite) ══
+         Retour client : « nos standards needs to remove the background blue ».
+         La section passe du fond bleu à courbes au fond BLANC à courbes, comme
+         les deux blocs qui la précèdent — titre, texte et bouton repassent donc
+         en bleu sur blanc. C'est un écart assumé avec la diapo 42, qui est bleue :
+         le client préfère la continuité des trois blocs. D43. --}}
+    <section class="bg-waves-light">
         <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-2">
-            <div class="text-white">
-                <h2 class="section-title-invert">Nos standards</h2>
-                <p class="mt-8 leading-relaxed text-white/90">Nous mettons au point des solutions de qualité à des prix équitables. Cleartrack innove mais ne négocie pas sur la qualité. Des orthodontistes qualifiés examinent chaque cas pour s’assurer que le traitement répond à un standard médical élevé.</p>
-                <a href="{{ route('fabrication') }}" class="btn-outline-white mt-8">Comment sont ils fabriqués&nbsp;?</a>
+            <div>
+                <h2 class="section-title">Nos standards</h2>
+                <p class="mt-8 leading-relaxed">Nous mettons au point des solutions de qualité à des prix équitables. Cleartrack innove mais ne négocie pas sur la qualité. Des orthodontistes qualifiés examinent chaque cas pour s’assurer que le traitement répond à un standard médical élevé.</p>
+                <a href="{{ route('fabrication') }}" class="btn-outline-brand mt-8">Comment sont ils fabriqués&nbsp;?</a>
             </div>
             {{-- Diapo 42 : la photo occupe toute la moitié droite et sort du cadre à droite --}}
             <div class="flex justify-center md:justify-end">
@@ -65,12 +70,23 @@
 
     {{-- ══ Diapo 43 — Nous aimons votre sourire ! (BLANC, photo à gauche) ══
          La photo touche le bord gauche de l'écran, comme sur la diapositive. --}}
+    {{-- Retour client : « nous aimons votre sourire needs to be enhanced in terms
+         of quality ». La photo était étirée sur toute la moitié gauche de l'écran
+         (h-64 puis h-[32rem], largeur libre) alors que le fichier ne fait que
+         600 × 600 : au-delà de ~600 px le navigateur l'agrandissait, d'où le rendu
+         mou et le recadrage serré des visages.
+         Elle est désormais affichée dans son format carré d'origine, bornée à sa
+         résolution native, et non plus rognée (object-cover → format respecté).
+         Le PPT (diapo 43, ppt/media/image79.jpg) ne contient pas de version plus
+         définie : un tirage haute résolution reste à demander au client pour
+         pouvoir l'afficher pleine largeur. D44. --}}
     <section class="bg-waves-light overflow-hidden">
-        <div class="grid items-center gap-10 md:grid-cols-2">
+        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 md:grid-cols-2">
             <img src="{{ asset('assets/a-propos/nous-aimons-votre-sourire.jpg') }}"
                  alt="Trois jeunes femmes souriantes sur fond bleu" loading="lazy"
-                 class="h-64 w-full object-cover md:h-[32rem]">
-            <div class="px-4 pb-16 pt-4 sm:px-6 md:py-16 md:pr-10">
+                 width="600" height="600"
+                 class="mx-auto h-auto w-full max-w-[600px] rounded-2xl">
+            <div class="pb-16 pt-4 md:py-16">
                 <h2 class="section-title">Nous aimons votre sourire&nbsp;!</h2>
                 <p class="mt-6 leading-relaxed">Rendons-le plus beau …</p>
                 <p class="mt-4 leading-relaxed">Nous éliminons les espaces entre les dents</p>
