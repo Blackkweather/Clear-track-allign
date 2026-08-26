@@ -211,6 +211,16 @@ Suivi vivant du projet (règle Phase 6 : checklist maintenue en continu).
 - [x] **Page « Instructions d'utilisation » rétablie** en français, sur la mise en page de l'ancienne page anglaise — D58 (annule en partie D52)
 - [x] `php artisan test` — **45 tests, 128 assertions, tout au vert**
 
+### Performance (26/08/2026)
+- [x] **Toutes les images redimensionnées** à ~2× leur taille d'affichage (certaines étaient servies à 3700 px pour une vignette de 264 px) — D62
+- [x] **Photos détourées PNG → WebP** (alpha conservé, ~10× plus léger) ; deux PNG sans transparence → JPEG (−94 % et −87 %) — D62
+- [x] **GIF de la page RDV → WebP animé** : 338 Ko → 102 Ko, cadence et transparence vérifiées dans les chunks ANMF — D62
+- [x] **Accueil : 5 073 Ko → 1 019 Ko d'images (−80 %)** ; racine web 50 Mo → 22 Mo — mesuré page par page
+- [x] **15,8 Mo jamais servis déplacés** hors de `public/` vers `storage/app/medias-origine/non-utilises/` (n'accélère pas les pages, allège le déploiement) — D63
+- [x] Logo du pied de page en chargement différé ; dimensions posées sur les images pour éviter les sauts de mise en page
+- [x] Main gantée bridée à sa définition réelle : elle était affichée à 178 % et donc floue — D64
+- [x] `php artisan test` — **45 tests, 128 assertions** ; aucune image manquante après renommage
+
 ## En attente du client (bloquants réels)
 - [ ] **Réponse à « Pourquoi ne pas me faire livrer directement chez moi et devoir passer chez un dentiste ? »** (seule question du PPT absente du site — D28)
 - [ ] Les **3 PDF** du centre de téléchargement (fiche de prescription, consentement éclairé, consentement contention)

@@ -63,7 +63,7 @@
                  la main y est horizontale, paume vers le haut. Le site publiait le
                  fichier d'origine non tourné, donc à la verticale.
                  La rotation est appliquée une fois pour toutes dans le fichier
-                 (main-gantee-horizontale.png, 411 × 309) plutôt qu'en CSS : une
+                 (main-gantee-horizontale.webp, 411 × 309) plutôt qu'en CSS : une
                  image tournée par transform garde la boîte de l'original et
                  déséquilibrerait la grille. L'original vertical reste à côté. D40. --}}
             {{-- Retour client : « this picture needs to come from the max right ».
@@ -74,10 +74,10 @@
                  Mobile : l'image reste centrée dans sa colonne, sans quoi
                  overflow-x: clip la rognerait. D55. --}}
             <div class="bleed-right flex justify-center md:justify-end">
-                <img src="{{ asset('assets/pourquoi/main-gantee-horizontale.png') }}"
+                <img src="{{ asset('assets/pourquoi/main-gantee-horizontale.webp') }}"
                      alt="Aligneur Cleartrack® tenu par une main gantée" loading="lazy"
                      width="411" height="309"
-                     class="h-auto w-full max-w-sm drop-shadow-2xl md:w-[38vw] md:max-w-none">
+                     class="h-auto w-full max-w-sm drop-shadow-2xl md:w-[26rem] md:max-w-none lg:w-[32rem]">
             </div>
         </div>
 
@@ -99,7 +99,7 @@
                      large que l'écran et overflow-x: clip rognait le texte à droite
                      au lieu de le faire revenir à la ligne. Le débordement voulu
                      ne commence donc qu'à partir de md. --}}
-                <img src="{{ asset('assets/pourquoi/aligneur-3d.png') }}"
+                <img src="{{ asset('assets/pourquoi/aligneur-3d.webp') }}"
                      alt="Rendu 3D d’un aligneur Cleartrack® align" loading="lazy"
                      class="img-bleed h-auto w-full max-w-xs drop-shadow-2xl md:h-[32rem] md:w-auto md:max-w-none md:-ml-56 lg:h-[44rem] lg:-ml-[22rem]">
             </div>

@@ -23,7 +23,7 @@
                 'cle' => 'mise-en-place',
                 'titre' => 'Mettre en place vos aligneurs',
                 'onglet' => 'Mettre en place',
-                'image' => 'assets/aligneur-doigts.png',
+                'image' => 'assets/aligneur-doigts.webp',
                 'alt' => 'Mise en place d’un aligneur Cleartrack avec les doigts',
                 'intro' => 'Il est important d’insérer vos aligneurs correctement : un aligneur mal posé ne déplace pas les dents comme prévu.',
                 'points' => [
@@ -38,7 +38,7 @@
                 'cle' => 'retrait',
                 'titre' => 'Retirer vos aligneurs',
                 'onglet' => 'Retirer',
-                'image' => 'assets/aligneur-serre.png',
+                'image' => 'assets/aligneur-serre.webp',
                 'alt' => 'Retrait d’un aligneur Cleartrack',
                 'intro' => 'Retirez vos aligneurs pour manger, pour boire autre chose que de l’eau froide, et pour vous brosser les dents.',
                 'points' => [
@@ -53,7 +53,7 @@
                 'cle' => 'rangement',
                 'titre' => 'Rangement et entretien',
                 'onglet' => 'Rangement et entretien',
-                'image' => 'assets/photo-aligneur-main-detoure.png',
+                'image' => 'assets/photo-aligneur-main-detoure.webp',
                 'alt' => 'Manipulation d’un aligneur Cleartrack avec les mains propres',
                 'intro' => 'Le nettoyage des gouttières est essentiel pour garder une bonne hygiène buccale — et des aligneurs qui restent transparents.',
                 'points' => [

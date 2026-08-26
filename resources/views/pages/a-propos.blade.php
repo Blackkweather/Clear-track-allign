@@ -18,7 +18,7 @@
     <section class="bg-waves-light">
         <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-2">
             <div class="flex justify-center md:order-1">
-                <img src="{{ asset('assets/a-propos/notre-histoire.png') }}"
+                <img src="{{ asset('assets/a-propos/notre-histoire.jpg') }}"
                      alt="Un aligneur Cleartrack® transparent tenu à la lumière du jour"
                      class="w-full max-w-md" loading="lazy">
             </div>

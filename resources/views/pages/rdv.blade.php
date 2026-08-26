@@ -11,8 +11,10 @@
          se replacent progressivement. C'est le seul fichier animé de tout le
          PowerPoint ; il est repris tel quel.
 
-         Un GIF s'anime en boucle et ne peut être ni mis en pause ni ralenti par
-         CSS. Deux garde-fous, donc, tous deux servant une image FIXE de mêmes
+         L'animation est servie en WebP animé plutôt qu'en GIF : même dessin,
+         même cadence, mais 102 Ko au lieu de 338 (le GIF est limité à 256
+         couleurs et compresse mal). Elle ne peut être ni mise en pause ni
+         ralentie par CSS. Deux garde-fous, donc, tous deux servant une image FIXE de mêmes
          dimensions (première vignette du GIF), la mise en page restant identique
          au pixel près :
            — version statique du site (CLEARTRACK_ANIMATIONS=false) : test Blade ;
@@ -30,7 +32,7 @@
                 @if (config('cleartrack.animations'))
                     <picture>
                         <source srcset="{{ asset('assets/rdv/alignement-fixe.png') }}" media="(prefers-reduced-motion: reduce)">
-                        <img src="{{ asset('assets/rdv/alignement.gif') }}" alt="" aria-hidden="true"
+                        <img src="{{ asset('assets/rdv/alignement.webp') }}" alt="" aria-hidden="true"
                              width="450" height="305" class="h-auto w-full max-w-[225px] rounded-2xl">
                     </picture>
                 @else

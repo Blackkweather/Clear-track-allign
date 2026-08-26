@@ -129,7 +129,7 @@
         $procedure = [
             [
                 'titre' => 'Imagerie 3D et planification du traitement',
-                'image' => 'imagerie-3d.png',
+                'image' => 'imagerie-3d.webp',
                 'alt' => 'Scan 3D des arcades dentaires réalisé au laboratoire Cleartrack',
                 'paragraphes' => [
                     'Un scanner ou une empreinte en 3D est réalisé pour obtenir une réplique de vos dents. Une fois l’imagerie prête, des modèles 3D sont fabriqués pour chaque étape du traitement Cleartrack®. Une configuration virtuelle est alors préparée pour montrer au médecin le traitement prévu à chaque étape ainsi que le résultat final. Cela donne un avantage au traitement Cleartrack® par rapport au traitement orthodontique traditionnel, car le médecin voit le résultat final avant même que vous ne commenciez le traitement.',
@@ -149,7 +149,7 @@
             ],
             [
                 'titre' => 'Thermoformage',
-                'image' => 'thermoformage.png',
+                'image' => 'thermoformage.jpg',
                 'alt' => 'Thermoformage d’un aligneur sur son modèle imprimé en 3D',
                 'paragraphes' => [
                     'L’étape du thermoformage est celle où les modèles imprimés en 3D rencontrent le matériau thermoplastique utilisé pour créer les aligneurs Cleartrack®. Le thermoformage à haute pression est nécessaire pour former les aligneurs sur les modèles imprimés en 3D. Cette étape est importante car, pour créer des aligneurs clairs avec un mouvement dentaire prévisible, une précision est nécessaire sur les dents, la définition de la ligne gingivale et les textures gingivales.',

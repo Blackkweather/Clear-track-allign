@@ -48,7 +48,7 @@
             </div>
             {{-- Diapo 2 : l'arcade occupe toute la moitié droite et sort du cadre à droite --}}
             <div class="flex justify-center md:justify-end">
-                <img src="{{ asset('assets/hero-aligner.png') }}"
+                <img src="{{ asset('assets/hero-aligner.webp') }}"
                      alt="Aligneur dentaire transparent ClearTrack align"
                      class="animate-float no-reveal w-72 max-w-full drop-shadow-2xl md:-mr-24 md:w-[34rem] md:max-w-none lg:-mr-40 lg:w-[44rem]" fetchpriority="high">
             </div>
@@ -122,7 +122,7 @@
 
         {{-- Desktop / tablette : diagramme annoté fidèle au PPT — bord à bord --}}
         <div class="relative hidden aspect-[16/9] w-full md:block">
-            <img src="{{ asset('assets/ppt/slide04_0.png') }}" alt="" aria-hidden="true"
+            <img src="{{ asset('assets/ppt/slide04_0.webp') }}" alt="" aria-hidden="true"
                  class="absolute inset-0 h-full w-full object-contain object-left" loading="lazy">
 
             {{-- Traits de rappel — géométrie RELEVÉE dans le PPT, plus estimée.
@@ -197,7 +197,7 @@
         {{-- Mobile : liste simple (le diagramme annoté ne tient pas sur petit écran) --}}
         <div class="px-4 py-12 sm:px-6 md:hidden">
             <div class="flex justify-center">
-                <img src="{{ asset('assets/ppt/slide04_0.png') }}" alt="Aligneur ClearTrack tenu entre deux doigts"
+                <img src="{{ asset('assets/ppt/slide04_0.webp') }}" alt="Aligneur ClearTrack tenu entre deux doigts"
                      class="h-40 w-auto object-contain" loading="lazy">
             </div>
             {{-- Grille à 2 colonnes : les cinq pavés sont le MÊME élément avec les
@@ -402,7 +402,7 @@
                  définition de cette photo reste à fournir par le client pour
                  pouvoir l'afficher plus grand. D39. --}}
             <div class="flex justify-center md:order-1">
-                <img src="{{ asset('assets/photo-aligneur-main-detoure.png') }}"
+                <img src="{{ asset('assets/photo-aligneur-main-detoure.webp') }}"
                      alt="Patiente tenant un aligneur Cleartrack® transparent"
                      width="473" height="538"
                      class="h-auto w-full max-w-[473px]" loading="lazy">
