@@ -95,8 +95,8 @@
         <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 sm:px-6 md:grid-cols-2">
             <img src="{{ asset('assets/a-propos/nous-aimons-votre-sourire.jpg') }}"
                  alt="Trois jeunes femmes souriantes sur fond bleu" loading="lazy"
-                 width="600" height="600"
-                 class="mx-auto h-auto w-full max-w-[600px] rounded-2xl">
+                 width="1400" height="1400"
+                 class="mx-auto h-auto w-full max-w-2xl rounded-2xl">
             <div class="pb-16 pt-4 md:py-16">
                 <h2 class="section-title">Nous aimons votre sourire&nbsp;!</h2>
                 <p class="mt-6 leading-relaxed">Rendons-le plus beau …</p>

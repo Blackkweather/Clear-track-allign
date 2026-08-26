@@ -221,6 +221,15 @@ Suivi vivant du projet (règle Phase 6 : checklist maintenue en continu).
 - [x] Main gantée bridée à sa définition réelle : elle était affichée à 178 % et donc floue — D64
 - [x] `php artisan test` — **45 tests, 128 assertions** ; aucune image manquante après renommage
 
+### Performance, 2e passe (26/08/2026)
+- [x] **Poppins auto-hébergée** (44 Ko, 5 graisses, sous-ensemble latin) : plus aucune requête tierce bloquante dans le `<head>` — D66
+- [x] **116 Ko de police fantôme supprimés** : `Instrument Sans` était construite et déployée alors que le site n'utilise que Poppins — D66
+- [x] **Graisse 400 préchargée** (`crossorigin`, sinon double téléchargement)
+- [x] **En-têtes de cache Vercel** : `/build/*` immutable 1 an (noms empreintés), `/assets/*` 7 jours — D67
+- [x] **Trois photos agrandies par IA** à la demande du client, détourage réappliqué ; réserve sur les visages reconstruits acceptée — D68
+- [x] **Pictogramme « Manger et boire » rendu visible** : il était blanc sur fond blanc — D65
+- [x] Chemin critique : **192 Ko non compressé** (HTML + CSS + JS + police)
+
 ## En attente du client (bloquants réels)
 - [ ] **Réponse à « Pourquoi ne pas me faire livrer directement chez moi et devoir passer chez un dentiste ? »** (seule question du PPT absente du site — D28)
 - [ ] Les **3 PDF** du centre de téléchargement (fiche de prescription, consentement éclairé, consentement contention)

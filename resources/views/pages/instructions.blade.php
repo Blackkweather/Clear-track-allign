@@ -70,6 +70,15 @@
                 'onglet' => 'Manger et boire',
                 'image' => 'assets/pourquoi/icone-alimentation.png',
                 'alt' => 'Manger et boire avec des aligneurs Cleartrack',
+                // Les trois autres sections ont une photo ; celle-ci n'a qu'un
+                // PICTOGRAMME, et il est BLANC sur fond transparent. Posé tel
+                // quel sur le panneau blanc, il était invisible — le client a
+                // signalé « pas de photo ». Il est donc rendu sur un disque bleu,
+                // exactement comme la page Pourquoi le fait pour la même icône
+                // (D25). Le PPT ne contient aucune photo d'alimentation : mieux
+                // vaut le pictogramme du client, rendu lisible, qu'une image
+                // rapportée d'ailleurs. D65.
+                'pictogramme' => true,
                 'intro' => 'Contrairement aux appareils dentaires classiques, aucun aliment ne vous est interdit : il suffit de retirer vos aligneurs pour manger.',
                 'points' => [
                     'Retirez systématiquement vos aligneurs pour manger : aucune restriction alimentaire pendant le traitement.',
@@ -130,8 +139,16 @@
                          x-transition:enter-end="opacity-100 translate-y-0"
                          class="grid items-center gap-10 md:grid-cols-2">
                         <div class="flex justify-center">
-                            <img src="{{ asset($s['image']) }}" alt="{{ $s['alt'] }}"
-                                 class="w-full max-w-sm object-contain" loading="lazy">
+                            @if ($s['pictogramme'] ?? false)
+                                {{-- Pictogramme blanc : il lui faut un fond coloré pour exister (D65) --}}
+                                <span class="flex h-48 w-48 items-center justify-center rounded-full bg-brand-500 p-10 shadow-md">
+                                    <img src="{{ asset($s['image']) }}" alt="{{ $s['alt'] }}"
+                                         class="h-full w-full object-contain" loading="lazy">
+                                </span>
+                            @else
+                                <img src="{{ asset($s['image']) }}" alt="{{ $s['alt'] }}"
+                                     class="w-full max-w-sm object-contain" loading="lazy">
+                            @endif
                         </div>
                         <div>
                             <h3 class="text-2xl font-bold text-ppt-blue md:text-3xl">{{ $s['titre'] }}</h3>

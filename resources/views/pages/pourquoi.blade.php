@@ -76,8 +76,8 @@
             <div class="bleed-right flex justify-center md:justify-end">
                 <img src="{{ asset('assets/pourquoi/main-gantee-horizontale.webp') }}"
                      alt="Aligneur Cleartrack® tenu par une main gantée" loading="lazy"
-                     width="411" height="309"
-                     class="h-auto w-full max-w-sm drop-shadow-2xl md:w-[26rem] md:max-w-none lg:w-[32rem]">
+                     width="1100" height="830"
+                     class="h-auto w-full max-w-sm drop-shadow-2xl md:w-[32rem] md:max-w-none lg:w-[40rem]">
             </div>
         </div>
 

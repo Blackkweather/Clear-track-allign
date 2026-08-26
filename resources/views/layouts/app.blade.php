@@ -32,8 +32,18 @@
     <meta name="twitter:card" content="summary_large_image">
 
     <link rel="icon" type="image/png" href="{{ asset('assets/brand/favicon.png') }}">
-    <link rel="preconnect" href="https://fonts.bunny.net">
-    <link href="https://fonts.bunny.net/css?family=poppins:400,500,600,700,800&display=swap" rel="stylesheet">
+    {{-- Poppins est désormais servie depuis notre propre domaine (voir les
+         @font-face en tête de app.css, D66). Les deux <link> vers
+         fonts.bunny.net sont supprimés : la feuille de style tierce bloquait
+         le premier affichage le temps d'un DNS, d'un TLS et d'un aller-retour.
+
+         La graisse 400 est préchargée : c'est celle du corps de texte, donc
+         la seule dont le navigateur a besoin immédiatement. Sans ce preload,
+         il ne la découvrirait qu'après avoir analysé le CSS. `crossorigin`
+         est obligatoire sur un preload de police, même en même origine —
+         sans lui le fichier serait téléchargé deux fois. --}}
+    <link rel="preload" as="font" type="font/woff2" crossorigin
+          href="{{ asset('assets/fonts/poppins-latin-400-normal.woff2') }}">
     @vite(array_merge(
         ['resources/css/app.css', 'resources/js/app.js'],
         $animations ? ['resources/css/animations.css', 'resources/js/animations.js'] : []

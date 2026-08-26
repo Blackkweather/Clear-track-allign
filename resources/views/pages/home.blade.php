@@ -404,8 +404,8 @@
             <div class="flex justify-center md:order-1">
                 <img src="{{ asset('assets/photo-aligneur-main-detoure.webp') }}"
                      alt="Patiente tenant un aligneur Cleartrack® transparent"
-                     width="473" height="538"
-                     class="h-auto w-full max-w-[473px]" loading="lazy">
+                     width="1150" height="1305"
+                     class="h-auto w-full max-w-xl" loading="lazy">
             </div>
             {{-- Diapo 12 : titre souligné, puis cinq lignes centrées, sans puces.
                  « dents inclinés » est la graphie du PPT, conservée telle quelle (D23). --}}

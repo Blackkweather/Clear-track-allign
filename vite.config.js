@@ -1,6 +1,5 @@
 import { defineConfig } from 'vite';
 import laravel from 'laravel-vite-plugin';
-import { bunny } from 'laravel-vite-plugin/fonts';
 import tailwindcss from '@tailwindcss/vite';
 
 export default defineConfig({
@@ -16,11 +15,13 @@ export default defineConfig({
                 'resources/js/animations.js',
             ],
             refresh: true,
-            fonts: [
-                bunny('Instrument Sans', {
-                    weights: [400, 500, 600],
-                }),
-            ],
+            // La déclaration `fonts: [bunny('Instrument Sans')]` a été retirée :
+            // elle téléchargeait et embarquait six fichiers de police (116 Ko)
+            // pour une famille que le site n'utilise NULLE PART — la maquette
+            // est en Poppins. Le fonts-*.css produit n'était d'ailleurs jamais
+            // chargé par le layout : 116 Ko construits et déployés pour rien.
+            // Poppins, elle, est désormais auto-hébergée via des @font-face
+            // écrits à la main dans app.css (D66).
         }),
         tailwindcss(),
     ],

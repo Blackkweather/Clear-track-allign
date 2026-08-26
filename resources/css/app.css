@@ -1,5 +1,54 @@
 @import 'tailwindcss';
 
+/* ── Poppins, servie depuis notre propre domaine ────────────────────────
+   Elle venait de fonts.bunny.net par une feuille de style BLOQUANTE : avant
+   le premier affichage, le navigateur devait résoudre un DNS tiers, ouvrir
+   une connexion TLS, télécharger le CSS, puis seulement découvrir les
+   fichiers de police. Trois allers-retours sur le chemin critique.
+
+   Les cinq graisses réellement utilisées (400 normal, 500 medium,
+   600 semibold, 700 bold, 800 extrabold) sont désormais dans
+   public/assets/fonts/ — 44 Ko au total. Seul le sous-ensemble « latin » est
+   embarqué : il couvre tout le français (é è ê à ç ù, et même œ en U+0153).
+
+   font-display: swap — le texte s'affiche immédiatement dans la police de
+   repli, puis bascule sur Poppins. Jamais de texte invisible. D66. */
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 400;
+    font-display: swap;
+    src: url('/assets/fonts/poppins-latin-400-normal.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 500;
+    font-display: swap;
+    src: url('/assets/fonts/poppins-latin-500-normal.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 600;
+    font-display: swap;
+    src: url('/assets/fonts/poppins-latin-600-normal.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+    src: url('/assets/fonts/poppins-latin-700-normal.woff2') format('woff2');
+}
+@font-face {
+    font-family: 'Poppins';
+    font-style: normal;
+    font-weight: 800;
+    font-display: swap;
+    src: url('/assets/fonts/poppins-latin-800-normal.woff2') format('woff2');
+}
+
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 @source '../views';
