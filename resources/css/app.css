@@ -32,15 +32,17 @@
         scroll-behavior: smooth;
     }
 
-    /* ── Échelle générale : 80 % (retour client) ────────────────────────
-       Le client a relu le site à 80 % de zoom navigateur et a demandé que
-       « le site ressemble à ce 80 pour cent de zoom ». D34.
+    /* ── Échelle générale : 90 % (retour client) ────────────────────────
+       Le client a d'abord demandé que « le site ressemble à ce 80 pour cent
+       de zoom », puis, l'ayant vu, a trouvé le résultat « a bit smaller ».
+       La valeur est donc remontée de 80 % à 90 % (racine à 14,4 px au lieu
+       de 12,8). C'est le SEUL chiffre à changer pour réajuster. D34.
 
-       Une police racine à 80 % (12,8 px au lieu de 16 px) reproduit ce zoom
-       sans toucher une seule vue : toute la maquette est en rem — tailles de
-       texte, marges, largeurs de conteneur (max-w-7xl = 80rem), hauteurs
-       d'images. Tout se réduit du même facteur, et les conteneurs centrés
-       laissent plus de blanc sur les côtés, exactement comme à 80 % de zoom.
+       Réduire la police racine reproduit un zoom arrière sans toucher une
+       seule vue : toute la maquette est en rem — tailles de texte, marges,
+       largeurs de conteneur (max-w-7xl = 80rem), hauteurs d'images. Tout se
+       réduit du même facteur, et les conteneurs centrés laissent plus de
+       blanc sur les côtés, exactement comme un zoom navigateur.
 
        Deux écarts assumés avec le vrai zoom navigateur, tous deux souhaitables :
        les points de rupture Tailwind sont évalués en rem sur la taille racine
@@ -51,7 +53,7 @@
        Pour revenir à l'échelle d'origine : supprimer cette règle. Rien
        d'autre n'en dépend. */
     html {
-        font-size: 80%;
+        font-size: 90%;
     }
     [x-cloak] {
         display: none !important;
@@ -72,13 +74,23 @@
 
 /* Bouton pilule de base (maquettes PPT) — @utility pour être applicable
    Retour client : « making button a bit bigger so it follows the website ».
-   À 80 % d'échelle, l'ancien gabarit (text-sm / px-6 / py-2.5) tombait à
-   11 px de texte et 33 px de haut : les boutons ne « suivaient » plus le
-   reste de la page. Ils repassent à text-base / px-7 / py-3, soit ~38 px de
-   haut à la nouvelle échelle — visiblement plus généreux qu'une simple
-   réduction, sans dépasser la taille qu'ils avaient à 100 %. D34. */
+   À l'échelle réduite, l'ancien gabarit (text-sm / px-6 / py-2.5) tombait
+   sous 35 px de haut : les boutons ne « suivaient » plus le reste de la
+   page. Ils repassent à text-base / px-7 / py-3, soit ~43 px de haut à
+   90 % — visiblement plus généreux qu'une simple réduction. D34. */
 @utility btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-7 py-3 text-base font-semibold transition-all duration-300 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+    @apply inline-flex items-center justify-center gap-2 rounded-full font-semibold transition-all duration-300 ease-out focus:outline-none focus-visible:ring-2 focus-visible:ring-offset-2;
+    /* Retour client : « make the buttons a bit bigger for all buttons with
+       7 percent ». Les trois valeurs du gabarit sont donc celles de px-7 /
+       py-3 / text-base majorées de 7 % — écrites en clair pour que le
+       facteur reste lisible et réajustable :
+         1,75rem × 1,07 = 1,8725rem   (horizontal)
+         0,75rem × 1,07 = 0,8025rem   (vertical)
+         1rem    × 1,07 = 1,07rem     (texte) */
+    padding-inline: 1.8725rem;
+    padding-block: 0.8025rem;
+    font-size: 1.07rem;
+    line-height: 1.5;
 }
 
     /* ── Le bleu des TEXTES = le bleu des FONDS ─────────────────────────
@@ -204,9 +216,18 @@
     }
 
     /* Boutons agrandis, demandés par le client sur plusieurs sections
-       (« Agrandir taille + animation »). */
+       (« Agrandir taille + animation »). Mêmes 7 % que .btn :
+       px-10 → 2,675rem, py-4 → 1,07rem, text-lg → 1,204rem,
+       text-xl → 1,3375rem. */
     .btn-grand {
-        @apply px-10 py-4 text-lg md:text-xl;
+        padding-inline: 2.675rem;
+        padding-block: 1.07rem;
+        font-size: 1.204rem;
+    }
+    @media (min-width: 768px) {
+        .btn-grand {
+            font-size: 1.3375rem;
+        }
     }
 
     /* Mots-qualités de la diapo 3 : agrandis à la demande du client et rendus
@@ -224,19 +245,6 @@
         background-color: rgb(255 255 255 / 0.18);
         border-color: rgb(255 255 255 / 0.9);
         outline: none;
-    }
-
-    /* Mot de la diapo 3 sans explication fournie (Hygiénique, Confortable,
-       Discret) : même pastille, mais rien ne se déploie au clic. Ni curseur
-       « main » ni effet de survol, pour ne pas promettre une interaction
-       inexistante. D37. */
-    .qualite-mot-inerte {
-        @apply cursor-default;
-    }
-    .qualite-mot-inerte:hover {
-        transform: none;
-        background-color: rgb(255 255 255 / 0.08);
-        border-color: rgb(255 255 255 / 0.5);
     }
 
     /* État ouvert : le mot reste visiblement sélectionné */
@@ -259,6 +267,37 @@
     .section-bleed {
         position: relative;
         z-index: 10;
+    }
+
+    /* Débordement jusqu'au BORD DROIT DE L'ÉCRAN, depuis un conteneur centré.
+       Utilisé par la main gantée de la diapo 18, que le PPT pose de 60 % à
+       exactement 100 % de la largeur : elle touche le bord (D55).
+
+       Une marge négative fixe (-mr-40 et consorts, comme ailleurs sur le site)
+       ne suffit pas ici : sur un écran large, il reste plusieurs centaines de
+       pixels entre le conteneur et le bord. Le calcul reprend donc la distance
+       réelle — la moitié de ce qui dépasse du conteneur (max-w-7xl = 80rem),
+       plus son padding droit (sm:px-6 = 1,5rem). Le min(0px, …) neutralise le
+       calcul sous 80rem, où le conteneur touche déjà les bords.
+
+       À partir de md seulement : sur mobile l'image doit rester dans sa
+       colonne, sinon overflow-x: clip la rogne. */
+    @media (min-width: 768px) {
+        .bleed-right {
+            margin-right: calc(min(0px, (80rem - 100vw) / 2) - 1.5rem);
+        }
+    }
+
+    /* Bord gauche estompé — pour une photo qui porte son PROPRE fond et qu'on
+       pose sur une section de couleur voisine. Sans ce fondu, la photo dessine
+       un rectangle net au milieu du bandeau : c'est ce que le client a vu sur
+       « Nos standards », dont le fichier a son propre dégradé bleu (D43).
+       Le masque ne touche pas l'image : il rend simplement ses 30 premiers
+       pour-cent progressivement transparents, et le fond de la section reprend
+       la main. -webkit- reste nécessaire pour Safari. */
+    .fondu-gauche {
+        -webkit-mask-image: linear-gradient(to right, transparent 0%, black 30%);
+        mask-image: linear-gradient(to right, transparent 0%, black 30%);
     }
 
     /* Image qui dépasse verticalement de sa section (haut et bas).

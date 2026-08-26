@@ -9,11 +9,11 @@ class SeoController extends Controller
 {
     public function sitemap(): Response
     {
-        // « instructions » et « aligner-care » ont été retirées du site (D52) :
-        // elles n'existent plus comme routes et ne peuvent donc plus figurer ici.
+        // « aligner-care » (page anglaise) a été retirée du site (D52) ; la page
+        // française « instructions » a, elle, été rétablie (D58).
         $staticRoutes = [
             'home', 'pourquoi', 'avantages', 'cas-traitables', 'fabrication', 'faq',
-            'a-propos', 'rdv', 'confidentialite', 'cgu',
+            'instructions', 'a-propos', 'rdv', 'confidentialite', 'cgu',
             'medecin.index', 'medecin.demarrer', 'medecin.certifie',
             'medecin.telechargements', 'medecin.faq',
         ];

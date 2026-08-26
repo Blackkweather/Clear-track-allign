@@ -46,24 +46,35 @@
         </div>
     </section>
 
-    {{-- ══ Diapo 42 — Nos standards (texte à gauche, photo à droite) ══
-         Retour client : « nos standards needs to remove the background blue ».
-         La section passe du fond bleu à courbes au fond BLANC à courbes, comme
-         les deux blocs qui la précèdent — titre, texte et bouton repassent donc
-         en bleu sur blanc. C'est un écart assumé avec la diapo 42, qui est bleue :
-         le client préfère la continuité des trois blocs. D43. --}}
-    <section class="bg-waves-light">
+    {{-- ══ Diapo 42 — Nos standards (BLEU, texte à gauche, photo à droite) ══
+         Le fond bleu de la diapo 42 est RÉTABLI. Une première lecture du retour
+         « nos standards needs to remove the background blue » avait fait passer
+         toute la section en blanc ; le client a précisé : « doit être en fond
+         bleu, fallait juste enlever le fond et mettre la photo au max à droite ».
+
+         Ce qu'il fallait retirer, c'est le fond PROPRE À LA PHOTO : le fichier
+         porte son propre dégradé bleu, plus sombre et plus saturé que le bleu
+         des sections, qui dessinait donc un rectangle visible au milieu du
+         bandeau. La photo est désormais poussée jusqu'au bord droit de l'écran
+         (.bleed-right, comme la main gantée de la page Pourquoi, D55) et son
+         bord gauche est fondu au masque : plus de couture, le dégradé se
+         raccorde au fond de la section. D43. --}}
+    <section class="bg-waves overflow-hidden">
         <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-2">
-            <div>
-                <h2 class="section-title">Nos standards</h2>
-                <p class="mt-8 leading-relaxed">Nous mettons au point des solutions de qualité à des prix équitables. Cleartrack innove mais ne négocie pas sur la qualité. Des orthodontistes qualifiés examinent chaque cas pour s’assurer que le traitement répond à un standard médical élevé.</p>
-                <a href="{{ route('fabrication') }}" class="btn-outline-brand mt-8">Comment sont ils fabriqués&nbsp;?</a>
+            <div class="text-white">
+                <h2 class="section-title-invert">Nos standards</h2>
+                <p class="mt-8 leading-relaxed text-white/90">Nous mettons au point des solutions de qualité à des prix équitables. Cleartrack innove mais ne négocie pas sur la qualité. Des orthodontistes qualifiés examinent chaque cas pour s’assurer que le traitement répond à un standard médical élevé.</p>
+                <a href="{{ route('fabrication') }}" class="btn-outline-white mt-8">Comment sont ils fabriqués&nbsp;?</a>
             </div>
-            {{-- Diapo 42 : la photo occupe toute la moitié droite et sort du cadre à droite --}}
-            <div class="flex justify-center md:justify-end">
+            {{-- Diapo 42 : la photo occupe toute la moitié droite et va jusqu'au
+                 bord de l'écran. `.fondu-gauche` estompe son bord gauche pour que
+                 son dégradé bleu propre se raccorde au fond de la section au lieu
+                 d'y dessiner un rectangle. --}}
+            <div class="bleed-right flex justify-center md:justify-end">
                 <img src="{{ asset('assets/a-propos/nos-standards.jpg') }}"
                      alt="Un aligneur Cleartrack® tenu entre deux doigts"
-                     class="w-full max-w-none md:-mr-16 lg:-mr-28" loading="lazy">
+                     width="2633" height="1263"
+                     class="fondu-gauche h-auto w-full max-w-none" loading="lazy">
             </div>
         </div>
     </section>

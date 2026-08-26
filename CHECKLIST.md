@@ -148,7 +148,7 @@ Suivi vivant du projet (règle Phase 6 : checklist maintenue en continu).
 ## ✅ Retours client du 25/08/2026
 
 ### Échelle et couleurs (tout le site)
-- [x] **Site ramené à 80 %**, comme à 80 % de zoom navigateur : une règle `html { font-size: 80% }`, toute la maquette étant en `rem` — D34
+- [x] **Site ramené à 90 %** : posé d’abord à 80 % comme demandé, remonté après relecture du client (« a bit smaller ») — une seule règle `html { font-size: 90% }`, toute la maquette étant en `rem` — D34
 - [x] **Boutons agrandis** en compensation (`.btn` : `text-base px-7 py-3`) — D34
 - [x] **Le bleu des textes devient le bleu des fonds** (`#1586C8`) ; les aplats et boutons gardent `#2A9EFC` — D35
 
@@ -156,12 +156,14 @@ Suivi vivant du projet (règle Phase 6 : checklist maintenue en continu).
 - [x] Héro : « Choisissez » remonte sur la ligne de **SANS FIL**, le **logo** remplace le texte « ClearTrack Align » — D36
 - [x] Héro : les deux boutons passent au gabarit `.btn-grand`
 - [x] **Les cinq qualités de la diapo 3 rétablies** (Amovible, Hygiénique, Confortable, Discret, Efficace), aux coordonnées exactes du PPT — D37
+- [x] **Les cinq se déploient au clic** : les explications de Hygiénique, Confortable et Discret retrouvées dans `CLEARTRACK - Part 2.docx` et la page Avantages — D54
 - [x] « En savoir plus » de la diapo 3 → page **Fabrication** (au lieu de Pourquoi) — D38
 - [x] « Votre Sourire est Magnifique ! » : **soulignement retiré** — D39
 - [x] Photo du bloc sourire : plus agrandie au-delà de sa définition native (473 px) — D39
 
 ### Pourquoi
 - [x] **Main gantée à l'horizontale**, comme le `rot="270°"` de la diapo 18 — D40
+- [x] **Main gantée poussée jusqu'au bord droit de l'écran** (utilitaire `.bleed-right`) : le PPT la pose de 60 % à exactement 100 % — D55
 - [x] **Rendu 3D agrandi** (32/44 rem) et débordant jusqu'au bord gauche, comme le x = −29,48 % de la diapo 19 — D41
 - [x] Comparatif matériau : **une seule section, barre de bascule supprimée** — D42
 
@@ -180,8 +182,9 @@ Suivi vivant du projet (règle Phase 6 : checklist maintenue en continu).
 
 ### Prendre RDV
 - [x] **GIF de la diapo 70** à droite du titre, avec image fixe en version statique et sous `prefers-reduced-motion` — D49
+- [x] **Fond du GIF détouré** (20 images, remplissage depuis les bords) : il formait un rectangle gris clair sur le bandeau bleu — D49
 - [x] **Étoiles sur les six photos**, et validation serveur qui les exige réellement — D50
-- [x] **Casablanca alignée sur Mohammedia** : les 3 fiches placeholder « Dr. M. XXXXX » sont supprimées — D51
+- [x] **Casablanca alignée sur Mohammedia** : les 3 fiches placeholder « Dr. M. XXXXX » sont supprimées, et le seeder rejoué sur la base de dev — D51
 
 ### Suppressions
 - [x] Page **« Instructions d'utilisation »** retirée (route, gabarit, liens, sitemap, tests) — D52
@@ -195,6 +198,19 @@ Suivi vivant du projet (règle Phase 6 : checklist maintenue en continu).
 - [x] Statuts HTTP relevés page par page : les 6 pages modifiées en 200, `/blog`, `/instructions` et `/aligner-care-instructions` en 404
 - [x] Aucune référence morte : plus aucun `route('instructions')`, `route('aligner-care')` ni `text-brand-500/600/700`
 
+### Retours du 26/08/2026 (suite)
+- [x] **Échelle remontée de 80 % à 90 %** après relecture du client (« a bit smaller ») — D34
+- [x] **Tous les boutons +7 %** (`.btn` et `.btn-grand`, valeurs écrites en clair) — D56
+- [x] **Nav à la même taille que le reste** : libellés au corps de texte, bouton « Espace Médecin » au gabarit standard — D56
+- [x] **Logo du héro centré** sur le bloc de texte (conteneur `inline-block`) — D56
+- [x] **Les 7 traits de la diapo 3 relevés dans le PPT** : Amovible et Hygiénique retrouvent leur segment diagonal, aucun trait ne touche une lettre, les pastilles sont ancrées par leur centre — D59
+- [x] **L'explication revient dans le cadre**, en bande basse sur voile bleu — D60
+- [x] **« Nos standards » : fond bleu rétabli**, photo au bord droit et bord gauche estompé (`.fondu-gauche`) — D43 corrigée
+- [x] **En-tête Fabrication en bandeau pleine largeur**, recadré comme le PPT (ratio 3,26), titre en dessous — D57
+- [x] **GIF à 30 % (225 px) et boucle accélérée** (200 ms → 120 ms) ; fichier 440 Ko → 338 Ko — D61
+- [x] **Page « Instructions d'utilisation » rétablie** en français, sur la mise en page de l'ancienne page anglaise — D58 (annule en partie D52)
+- [x] `php artisan test` — **45 tests, 128 assertions, tout au vert**
+
 ## En attente du client (bloquants réels)
 - [ ] **Réponse à « Pourquoi ne pas me faire livrer directement chez moi et devoir passer chez un dentiste ? »** (seule question du PPT absente du site — D28)
 - [ ] Les **3 PDF** du centre de téléchargement (fiche de prescription, consentement éclairé, consentement contention)
@@ -204,7 +220,6 @@ Suivi vivant du projet (règle Phase 6 : checklist maintenue en continu).
 - [ ] **Fichier audio de la voix off** (+ préciser : piste seule ou bande sonore d'une vidéo à monter ?)
 - [ ] Validation de l'usage des vidéos `Impression.mp4` et `Pose des attachements.mp4` sur l'Espace Médecin
 - [ ] **Deux photos en haute définition** : la patiente du bloc « Votre Sourire est Magnifique ! » (473 px aujourd'hui, D39) et les trois jeunes femmes de « Nous aimons votre sourire ! » (600 × 600, D44) — ni le PPT ni les 11 documents Word ne contiennent mieux
-- [ ] **Textes pour « Hygiénique », « Confortable » et « Discret »** si ces trois mots de la diapo 3 doivent se déployer comme les deux autres (D37)
-- [ ] Arbitrages à confirmer : **D17-bis** (délais devis), **D19** (contraste nav), **D22** (corps de texte 20 px vs 24 px), **D34** (corps de texte à 12,8 px après la réduction à 80 %), **D50** (photos du RDV obligatoires — un patient sans photos ne peut plus réserver)
+- [ ] Arbitrages à confirmer : **D17-bis** (délais devis), **D19** (contraste nav), **D22** (corps de texte 20 px vs 24 px), **D34** (corps de texte à 14,4 px après la réduction à 90 %), **D54** (rattachement des cinq explications de la diapo 3), **D50** (photos du RDV obligatoires — un patient sans photos ne peut plus réserver)
 
 ## Étape 9 — Déploiement Heberjahiz

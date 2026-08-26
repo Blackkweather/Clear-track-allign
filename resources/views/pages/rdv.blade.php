@@ -31,11 +31,11 @@
                     <picture>
                         <source srcset="{{ asset('assets/rdv/alignement-fixe.png') }}" media="(prefers-reduced-motion: reduce)">
                         <img src="{{ asset('assets/rdv/alignement.gif') }}" alt="" aria-hidden="true"
-                             width="750" height="509" class="h-auto w-full max-w-md rounded-2xl">
+                             width="450" height="305" class="h-auto w-full max-w-[225px] rounded-2xl">
                     </picture>
                 @else
                     <img src="{{ asset('assets/rdv/alignement-fixe.png') }}" alt="" aria-hidden="true"
-                         width="750" height="509" class="h-auto w-full max-w-md rounded-2xl">
+                         width="450" height="305" class="h-auto w-full max-w-[225px] rounded-2xl">
                 @endif
             </div>
         </div>

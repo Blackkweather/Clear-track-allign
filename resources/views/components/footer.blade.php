@@ -30,8 +30,8 @@
                     <ul class="mt-4 space-y-2 text-sm">
                         <li><a href="{{ route('pourquoi') }}" class="hover:underline">Pourquoi CT&nbsp;?</a></li>
                         <li><a href="{{ route('avantages') }}" class="hover:underline">Avantages</a></li>
-                        {{-- « Instructions d'utilisation » et « Aligner Care Instructions »
-                             ont été retirées du site à la demande du client (D52). --}}
+                        <li><a href="{{ route('instructions') }}" class="hover:underline">Instructions d’utilisation</a></li>
+                        {{-- « Aligner Care Instructions » (page anglaise) reste retirée du site (D52). --}}
                         @if (config('cleartrack.blog'))
                             <li><a href="{{ route('blog.index') }}" class="hover:underline">Blog</a></li>
                         @endif

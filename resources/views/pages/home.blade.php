@@ -18,14 +18,23 @@
                      ferme la phrase après le logo. D36.
                      La phrase reste lisible en synthèse vocale : l'alternative du
                      logo est exactement le texte qu'il remplace. --}}
-                <div class="hero-in-2 mt-2 flex flex-wrap items-baseline gap-x-6 gap-y-1">
-                    <h1 class="text-5xl font-extrabold leading-none tracking-tight md:text-[3.5rem]">SANS FIL</h1>
-                    <span class="text-xl font-semibold md:text-[1.75rem]">Choisissez</span>
-                </div>
-                <div class="hero-in-3 mt-4 flex items-center gap-3">
-                    <img src="{{ asset('assets/brand/logo-on-blue.png') }}" alt="ClearTrack Align"
-                         class="h-16 w-auto md:h-24" fetchpriority="high">
-                    <span class="text-xl font-semibold md:text-[1.75rem]" aria-hidden="true">!</span>
+                {{-- Retour client : « the logo in the hero needs to be centralized
+                     with the text ». Le logo était aligné sur le bord gauche, sous
+                     un bloc de texte plus large : il paraissait décroché. Les deux
+                     lignes sont donc réunies dans un conteneur `inline-block`, dont
+                     la largeur est celle de la ligne la plus longue (« SANS FIL
+                     Choisissez ») ; le logo se centre là-dedans, et non dans toute
+                     la colonne de grille. D56. --}}
+                <div class="inline-block">
+                    <div class="hero-in-2 mt-2 flex flex-wrap items-baseline gap-x-6 gap-y-1">
+                        <h1 class="text-5xl font-extrabold leading-none tracking-tight md:text-[3.5rem]">SANS FIL</h1>
+                        <span class="text-xl font-semibold md:text-[1.75rem]">Choisissez</span>
+                    </div>
+                    <div class="hero-in-3 mt-4 flex items-center justify-center gap-3">
+                        <img src="{{ asset('assets/brand/logo-on-blue.png') }}" alt="ClearTrack Align"
+                             class="h-16 w-auto md:h-24" fetchpriority="high">
+                        <span class="text-xl font-semibold md:text-[1.75rem]" aria-hidden="true">!</span>
+                    </div>
                 </div>
 
                 {{-- Diapo 2 : les deux boutons sont des pilules blanches à texte bleu.
@@ -52,44 +61,58 @@
          à deux (« Amovible » et « Efficace ») lors d'un retour précédent ; le
          client revient sur cette suppression. D37.
 
-         Chaque mot garde la position exacte relevée dans le PPT (a:off en EMU).
-         Les deux mots pour lesquels le client a fourni un texte restent cliquables
-         et déploient leur explication ; les trois autres sont de simples libellés,
-         comme sur la diapositive — la maquette ne porte que le mot, et rien ne
-         serait inventé ici (voir la règle « pas de copie inventée »). --}}
+         Chaque mot garde la position exacte relevée dans le PPT (a:off en EMU) et
+         déploie une explication au clic.
+
+         AUCUN de ces textes n'est inventé : la diapo 3 ne porte que les cinq mots,
+         mais les cinq explications existent ailleurs dans les sources du client.
+         La provenance de chacune est indiquée en commentaire — c'est le seul
+         travail fait ici : rattacher à chaque mot le passage du client qui le
+         décrit, sans en réécrire une ligne. D54. --}}
     @php
         $qualites = [
             [
                 'cle' => 'amovible',
                 'mot' => 'Amovible',
-                'texte' => 'Ce qui vous permet de vous brosser les dents, d’utiliser du fil dentaire et de maintenir une bonne hygiène buccale. Les aligneurs Cleartrack® sont amovibles, ce qui vous permet de continuer à manger et à boire ce que vous voulez, et de faire du sport ou d’autres activités similaires.',
+                // Page Avantages / diapo 28, « Sûr et amovible » — seconde moitié.
+                // La première moitié parle de brossage et d'hygiène : elle est
+                // allée à « Hygiénique », à qui elle revient, plutôt que d'ouvrir
+                // les deux explications sur la même phrase.
+                'texte' => 'Les aligneurs Cleartrack® sont amovibles, ce qui vous permet de continuer à manger et à boire ce que vous voulez, et de faire du sport ou d’autres activités similaires.',
                 // Position exacte relevée dans le PPT (diapo 3, a:off/a:ext en EMU)
-                'pos' => 'left: 8.14%; top: 17.10%;',
+                'pos' => 'left: 8.14%; top: 20.33%;',
             ],
             [
                 'cle' => 'hygienique',
                 'mot' => 'Hygiénique',
-                'texte' => null,
-                'pos' => 'left: 66.46%; top: 16.80%;',
+                // Page Avantages / diapo 28, « Sûr et amovible » — première moitié,
+                // qui traite précisément de l'hygiène bucco-dentaire.
+                'texte' => 'Ce qui vous permet de vous brosser les dents, d’utiliser du fil dentaire et de maintenir une bonne hygiène buccale. Les appareils dentaires traditionnels présentent des problèmes tels que les bouts de nourriture coincés dans les fils et les brackets, ce qui entraîne des caries et des maladies des gencives.',
+                'pos' => 'left: 66.46%; top: 19.56%;',
             ],
             [
                 'cle' => 'confortable',
                 'mot' => 'Confortable',
-                'texte' => null,
-                'pos' => 'left: 66.46%; top: 33.77%;',
+                // CLEARTRACK - Part 2.docx, « Principaux avantages du traitement
+                // Cleartrack® », entrée « Confortable », recopiée mot pour mot.
+                'texte' => 'Les aligneurs Cleartrack® sont confortables à porter. Il n’y a pas de coupures ou d’irritations dues aux fils ou aux brackets comme avec les appareils dentaires traditionnels.',
+                'pos' => 'left: 66.46%; top: 37.80%;',
             ],
             [
                 'cle' => 'discret',
                 'mot' => 'Discret',
-                'texte' => null,
-                'pos' => 'left: 66.46%; top: 47.31%;',
+                // CLEARTRACK - Part 2.docx, même section, entrée « Transparent,
+                // sans fils, pas de brackets », recopiée mot pour mot.
+                'texte' => 'Pas besoin de cacher votre sourire. Les aligneurs sont si transparents que beaucoup de gens ne remarqueront même pas que vous les portez. Souriez autant que vous le souhaitez.',
+                'pos' => 'left: 66.46%; top: 50.32%;',
             ],
             [
                 'cle' => 'efficace',
                 'mot' => 'Efficace',
+                // Page Avantages / diapo 28, « Des résultats rapides ».
                 'texte' => 'Comparé à d’autres méthodes d’alignement des dents, Cleartrack® agit rapidement. En moyenne, la durée totale du traitement est entre 3 à 12 mois et de nombreuses personnes remarquent des résultats en quelques semaines.',
                 // Position exacte relevée dans le PPT (diapo 3, a:off/a:ext en EMU)
-                'pos' => 'left: 66.46%; top: 60.71%;',
+                'pos' => 'left: 66.46%; top: 63.40%;',
             ],
         ];
     @endphp
@@ -102,28 +125,65 @@
             <img src="{{ asset('assets/ppt/slide04_0.png') }}" alt="" aria-hidden="true"
                  class="absolute inset-0 h-full w-full object-contain object-left" loading="lazy">
 
-            {{-- Les cinq traits de rappel de la diapo 3, rétablis avec les mots --}}
+            {{-- Traits de rappel — géométrie RELEVÉE dans le PPT, plus estimée.
+                 Retour client : « les traits d'Hygiénique et Amovible ne sont pas
+                 bien placés, ils doivent partir du modèle, être diagonaux et ne
+                 pas toucher la lettre ».
+
+                 La diapo 3 contient effectivement 7 connecteurs (<p:cxnSp>) que le
+                 site n'avait pas repris : il en dessinait 5, tous droits et posés
+                 à vue. Les voici tels quels — coordonnées converties depuis les
+                 EMU, x = % × 10 et y = % × 5,63 dans ce viewBox 1000 × 563 :
+
+                   Amovible    trait droit puis DIAGONAL qui plonge vers le modèle
+                   Hygiénique  DIAGONAL depuis le modèle puis trait droit
+                   Confortable, Discret, Efficace : un seul trait droit
+
+                 Tous s'arrêtent à x = 659,2 (soit 65,92 %) alors que les mots
+                 commencent à 66,46 % : le PPT ménage lui-même l'espace, les traits
+                 ne touchent donc aucune lettre. --}}
             <svg viewBox="0 0 1000 563" class="pointer-events-none absolute inset-0 h-full w-full" aria-hidden="true">
-                <line x1="160" y1="115" x2="270" y2="140" stroke="white" stroke-width="1.5"/>
-                <line x1="510" y1="112" x2="655" y2="112" stroke="white" stroke-width="1.5"/>
-                <line x1="520" y1="212" x2="655" y2="212" stroke="white" stroke-width="1.5"/>
-                <line x1="475" y1="285" x2="655" y2="285" stroke="white" stroke-width="1.5"/>
-                <line x1="470" y1="365" x2="655" y2="365" stroke="white" stroke-width="1.5"/>
+                {{-- Amovible (mot à gauche) : depuis le mot vers le modèle --}}
+                <line x1="175.1" y1="114.5" x2="237.8" y2="114.5" stroke="white" stroke-width="1.5"/>
+                <line x1="237.8" y1="114.5" x2="274.2" y2="135.2" stroke="white" stroke-width="1.5"/>
+                {{-- Hygiénique : diagonale depuis le modèle, puis palier vers le mot --}}
+                <line x1="507.3" y1="143.8" x2="553.4" y2="109.4" stroke="white" stroke-width="1.5"/>
+                <line x1="553.4" y1="110.1" x2="659.2" y2="110.1" stroke="white" stroke-width="1.5"/>
+                {{-- Confortable, Discret, Efficace --}}
+                <line x1="521.7" y1="212.8" x2="659.2" y2="212.8" stroke="white" stroke-width="1.5"/>
+                <line x1="507.3" y1="283.3" x2="659.2" y2="283.3" stroke="white" stroke-width="1.5"/>
+                <line x1="476.2" y1="356.9" x2="659.2" y2="356.9" stroke="white" stroke-width="1.5"/>
             </svg>
 
             @foreach ($qualites as $q)
-                @if ($q['texte'])
-                    <button type="button" class="qualite-mot absolute" style="{{ $q['pos'] }}"
-                            @click="ouvert = (ouvert === '{{ $q['cle'] }}' ? null : '{{ $q['cle'] }}')"
-                            :class="ouvert === '{{ $q['cle'] }}' ? 'qualite-mot-actif' : ''"
-                            :aria-expanded="ouvert === '{{ $q['cle'] }}' ? 'true' : 'false'"
-                            aria-controls="qualite-{{ $q['cle'] }}">{{ $q['mot'] }}</button>
-                @else
-                    {{-- Mot sans explication fournie par le client : même pastille,
-                         mais rien à déployer — donc pas de <button> trompeur. --}}
-                    <span class="qualite-mot qualite-mot-inerte absolute" style="{{ $q['pos'] }}">{{ $q['mot'] }}</span>
-                @endif
+                <button type="button" class="qualite-mot absolute -translate-y-1/2" style="{{ $q['pos'] }}"
+                        @click="ouvert = (ouvert === '{{ $q['cle'] }}' ? null : '{{ $q['cle'] }}')"
+                        :class="ouvert === '{{ $q['cle'] }}' ? 'qualite-mot-actif' : ''"
+                        :aria-expanded="ouvert === '{{ $q['cle'] }}' ? 'true' : 'false'"
+                        aria-controls="qualite-{{ $q['cle'] }}">{{ $q['mot'] }}</button>
             @endforeach
+
+        {{-- Explication : DANS le cadre, pas en dessous.
+             Retour client : « the text showing needs to be on the frame where we
+             are, cause they need to be readable in the place of it ». Elle était
+             passée sous la diapositive pour ne pas recouvrir les mots rétablis
+             (D37) ; elle remonte donc dans le cadre.
+
+             Bande basse, sur toute la largeur : c'est la seule zone qui ne
+             chevauche ni les mots ni les traits. Le trait le plus bas est celui
+             d'« Efficace » à 63,40 % — la bande commence à 67 %. Le bouton
+             « En savoir plus » occupe les derniers pour-cent : elle s'arrête à
+             90 %. Un voile bleu foncé assure la lisibilité par-dessus la photo,
+             et overflow-y-auto protège des écrans courts. --}}
+        <div class="pointer-events-none absolute inset-x-[3%] top-[67%] bottom-[10%] flex items-center">
+            @foreach ($qualites as $q)
+                <p id="qualite-{{ $q['cle'] }}" x-show="ouvert === '{{ $q['cle'] }}'" x-cloak
+                   x-transition:enter="transition ease-out duration-300"
+                   x-transition:enter-start="opacity-0 translate-y-2"
+                   x-transition:enter-end="opacity-100 translate-y-0"
+                   class="max-h-full overflow-y-auto rounded-2xl bg-ppt-blue/85 px-6 py-4 text-center text-sm leading-relaxed text-white shadow-lg backdrop-blur-sm lg:text-base">{{ $q['texte'] }}</p>
+            @endforeach
+        </div>
 
             {{-- Le bouton reste en bas, centré : il ne dépend pas du rappel ouvert.
                  Retour client : « en savoir plus needs to be taking to comment sont
@@ -134,25 +194,6 @@
             </div>
         </div>
 
-        {{-- L'explication s'affiche SOUS la diapositive.
-             Elle occupait auparavant le vide en haut à droite (D30) — cette zone
-             était libre parce que trois des cinq mots avaient été retirés. Les
-             mots rétablis (D37) l'occupent de nouveau : le texte recouvrirait
-             « Hygiénique », « Confortable » et « Discret ». Il passe donc en flux
-             normal juste après l'image, où aucune largeur d'écran ne peut créer
-             de chevauchement. --}}
-        <div class="mx-auto hidden max-w-4xl px-6 md:block">
-            @foreach ($qualites as $q)
-                @if ($q['texte'])
-                    <p id="qualite-{{ $q['cle'] }}" x-show="ouvert === '{{ $q['cle'] }}'" x-cloak
-                       x-transition:enter="transition ease-out duration-300"
-                       x-transition:enter-start="opacity-0 translate-y-2"
-                       x-transition:enter-end="opacity-100 translate-y-0"
-                       class="pb-10 text-center text-base leading-relaxed text-white">{{ $q['texte'] }}</p>
-                @endif
-            @endforeach
-        </div>
-
         {{-- Mobile : liste simple (le diagramme annoté ne tient pas sur petit écran) --}}
         <div class="px-4 py-12 sm:px-6 md:hidden">
             <div class="flex justify-center">
@@ -160,32 +201,26 @@
                      class="h-40 w-auto object-contain" loading="lazy">
             </div>
             {{-- Grille à 2 colonnes : les cinq pavés sont le MÊME élément avec les
-                 MÊMES classes ; seuls les deux qui ont un texte réagissent au clic.
-                 Les explications s'affichent sous la grille, en pleine largeur,
-                 pour ne pas déformer une cellule.
+                 MÊMES classes, et tous réagissent au clic. Les explications
+                 s'affichent sous la grille, en pleine largeur, pour ne pas
+                 déformer une cellule.
                  L'ordre suit celui de la diapo 3, de haut en bas puis de gauche à
                  droite : Amovible (à gauche), puis les quatre de la colonne droite. --}}
             <ul class="mt-6 grid grid-cols-2 gap-4">
                 @foreach ($qualites as $q)
                     <li>
-                        @if ($q['texte'])
-                            <button type="button"
-                                    class="w-full rounded-xl border border-white/40 py-3 text-center font-bold text-white"
-                                    @click="ouvert = (ouvert === '{{ $q['cle'] }}' ? null : '{{ $q['cle'] }}')"
-                                    :aria-expanded="ouvert === '{{ $q['cle'] }}' ? 'true' : 'false'"
-                                    :class="ouvert === '{{ $q['cle'] }}' ? 'bg-white/20' : ''">{{ $q['mot'] }}</button>
-                        @else
-                            <span class="block w-full rounded-xl border border-white/40 py-3 text-center font-bold text-white">{{ $q['mot'] }}</span>
-                        @endif
+                        <button type="button"
+                                class="w-full rounded-xl border border-white/40 py-3 text-center font-bold text-white"
+                                @click="ouvert = (ouvert === '{{ $q['cle'] }}' ? null : '{{ $q['cle'] }}')"
+                                :aria-expanded="ouvert === '{{ $q['cle'] }}' ? 'true' : 'false'"
+                                :class="ouvert === '{{ $q['cle'] }}' ? 'bg-white/20' : ''">{{ $q['mot'] }}</button>
                     </li>
                 @endforeach
             </ul>
 
             @foreach ($qualites as $q)
-                @if ($q['texte'])
-                    <p x-show="ouvert === '{{ $q['cle'] }}'" x-cloak x-collapse
-                       class="mt-4 rounded-xl bg-white/10 p-4 text-sm leading-relaxed text-white/90">{{ $q['texte'] }}</p>
-                @endif
+                <p x-show="ouvert === '{{ $q['cle'] }}'" x-cloak x-collapse
+                   class="mt-4 rounded-xl bg-white/10 p-4 text-sm leading-relaxed text-white/90">{{ $q['texte'] }}</p>
             @endforeach
             <div class="mt-6 text-center">
                 <a href="{{ route('fabrication') }}" class="btn-white">En savoir plus</a>

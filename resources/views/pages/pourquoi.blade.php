@@ -66,11 +66,18 @@
                  (main-gantee-horizontale.png, 411 × 309) plutôt qu'en CSS : une
                  image tournée par transform garde la boîte de l'original et
                  déséquilibrerait la grille. L'original vertical reste à côté. D40. --}}
-            <div class="flex justify-center">
+            {{-- Retour client : « this picture needs to come from the max right ».
+                 La diapo 18 pose ce visuel à droite du texte, et il vient buter
+                 contre le bord de la diapositive. Il sort donc du conteneur
+                 centré par une marge négative à droite — le pendant exact du
+                 rendu 3D de la diapo 19, qui déborde par la gauche (D41).
+                 Mobile : l'image reste centrée dans sa colonne, sans quoi
+                 overflow-x: clip la rognerait. D55. --}}
+            <div class="bleed-right flex justify-center md:justify-end">
                 <img src="{{ asset('assets/pourquoi/main-gantee-horizontale.png') }}"
                      alt="Aligneur Cleartrack® tenu par une main gantée" loading="lazy"
                      width="411" height="309"
-                     class="h-auto w-full max-w-sm drop-shadow-2xl md:max-w-md">
+                     class="h-auto w-full max-w-sm drop-shadow-2xl md:w-[38vw] md:max-w-none">
             </div>
         </div>
 

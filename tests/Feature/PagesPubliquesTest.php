@@ -25,6 +25,7 @@ class PagesPubliquesTest extends TestCase
             'cas-traitables' => ['/cas-traitables'],
             'fabrication' => ['/fabrication'],
             'faq' => ['/faq'],
+            'instructions' => ['/instructions'],
             'a-propos' => ['/a-propos'],
             'prendre-rdv' => ['/prendre-rdv'],
             'confidentialite' => ['/politique-de-confidentialite'],
@@ -72,22 +73,34 @@ class PagesPubliquesTest extends TestCase
     }
 
     /**
-     * Retours client du 25/08/2026 (D52) : les deux pages d'instructions sont
-     * retirées du site. Ni URL, ni lien, ni entrée de sitemap ne doivent
-     * subsister — une page supprimée qui reste atteignable par son adresse est
-     * une régression silencieuse.
+     * La page anglaise « Aligner Care Instructions » reste retirée (D52), mais la
+     * page FRANÇAISE a été rétablie le 26/08/2026 (D58) : elle doit répondre,
+     * figurer au sitemap et être liée depuis la nav. La régression se joue dans
+     * les deux sens — une page supprimée qui reste atteignable, ou une page
+     * rétablie que plus rien ne désigne.
      */
-    public function test_les_pages_d_instructions_sont_retirees_du_site(): void
+    public function test_la_page_francaise_dinstructions_est_retablie(): void
     {
-        $this->get('/instructions')->assertStatus(404);
+        $this->get('/instructions')->assertStatus(200)->assertSee('Instructions d’utilisation', false);
+        $this->get('/sitemap.xml')->assertSee(route('instructions'), false);
+        $this->get('/')->assertSee('Instructions');
+    }
+
+    public function test_la_page_anglaise_aligner_care_reste_retiree(): void
+    {
         $this->get('/aligner-care-instructions')->assertStatus(404);
 
-        $sitemap = $this->get('/sitemap.xml')->getContent();
-        $this->assertStringNotContainsString('/instructions', $sitemap);
-        $this->assertStringNotContainsString('/aligner-care-instructions', $sitemap);
+        $this->assertStringNotContainsString('/aligner-care-instructions', $this->get('/sitemap.xml')->getContent());
+        $this->assertStringNotContainsString('/aligner-care-instructions', $this->get('/')->getContent());
+    }
 
-        $accueil = $this->get('/')->getContent();
-        $this->assertStringNotContainsString('/aligner-care-instructions', $accueil);
+    public function test_les_quatre_categories_d_instructions_sont_presentes(): void
+    {
+        $response = $this->get('/instructions');
+        foreach (['Mettre en place', 'Retirer', 'Rangement et entretien', 'Manger et boire'] as $categorie) {
+            $response->assertSee($categorie);
+        }
+        $response->assertSee('role="tablist"', false);
     }
 
     /**

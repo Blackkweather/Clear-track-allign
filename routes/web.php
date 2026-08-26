@@ -23,10 +23,14 @@ Route::get('/faq', function () {
         'traitement' => Faq::actif()->where('groupe', 'patient-traitement')->get(),
     ]);
 })->name('faq');
-// Retours client du 25/08/2026 : « instructions d'utilisation — remove them » et
-// « remove Aligner Care Instructions from the website ». Les deux pages sont
-// supprimées (routes, gabarits, liens de nav et de pied de page, sitemap) ; leur
-// contenu reste dans l'historique Git si le client revenait sur sa décision. D52.
+// Page « Instructions d'utilisation » RÉTABLIE le 26/08/2026 : le client, qui
+// avait demandé sa suppression la veille (D52), la veut de nouveau au même
+// endroit et en français, mais sur la mise en page de l'ancienne page anglaise
+// — onglets et panneau illustré. D58.
+Route::view('/instructions', 'pages.instructions')->name('instructions');
+
+// « Aligner Care Instructions », la page anglaise, reste supprimée (D52) : son
+// contenu demeure dans l'historique Git si le client revenait sur sa décision.
 Route::view('/a-propos', 'pages.a-propos')->name('a-propos');
 Route::get('/prendre-rdv', [RdvController::class, 'show'])->name('rdv');
 Route::post('/prendre-rdv', [RdvController::class, 'store'])

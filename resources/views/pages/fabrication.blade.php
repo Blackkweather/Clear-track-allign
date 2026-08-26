@@ -10,17 +10,25 @@
          les aligneurs thermoformés sur leurs modèles bleus), que le site avait
          laissé de côté — l'en-tête n'était qu'un bandeau de titre. Il est repris
          tel quel, à droite du titre comme sur la diapositive. D45. --}}
+    {{-- Retour client : « this picture needs to be showing as a banner as in the
+         ppt, stick one to another ». Sur la diapo 52 ce visuel n'est pas une
+         vignette à droite du titre : il court d'un bord à l'autre (x = 0 % à
+         100,52 %, y = 14,95 % à 69,75 %), et le titre vient EN DESSOUS, à
+         gauche, avec le bouton à sa droite.
+
+         Le fichier a donc été recadré comme le PPT le recadre lui-même
+         (`srcRect t="27230" b="28948"`) : une bande horizontale prise au milieu
+         de l'image, 3535 × 1084, ratio 3,26 — exactement celui du cadre de la
+         diapositive, donc aucune déformation. Il est servi pleine largeur,
+         collé au bandeau de titre. D57. --}}
     <section class="bg-waves">
-        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-14 sm:px-6 md:grid-cols-2">
-            <div>
-                <h1 class="page-title text-white">Comment les aligneurs Cleartrack® align sont fabriqués</h1>
-                <a href="{{ route('rdv') }}" class="btn-white mt-6">Démarrer mon traitement</a>
-            </div>
-            <div class="flex justify-center md:justify-end">
-                <img src="{{ asset('assets/fabrication/entete-aligneurs.jpg') }}"
-                     alt="Aligneurs Cleartrack® thermoformés sur leurs modèles imprimés en 3D"
-                     class="w-full max-w-xl rounded-2xl shadow-xl" fetchpriority="high">
-            </div>
+        <img src="{{ asset('assets/fabrication/entete-aligneurs.jpg') }}"
+             alt="Aligneurs Cleartrack® thermoformés sur leurs modèles imprimés en 3D"
+             width="3535" height="1084"
+             class="block h-auto w-full" fetchpriority="high">
+        <div class="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-10 sm:px-6 md:flex-row md:items-center md:justify-between">
+            <h1 class="page-title text-white">Comment les aligneurs Cleartrack® align sont fabriqués</h1>
+            <a href="{{ route('rdv') }}" class="btn-white shrink-0">Démarrer mon traitement</a>
         </div>
     </section>
 
