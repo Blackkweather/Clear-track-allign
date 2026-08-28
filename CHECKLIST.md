@@ -230,6 +230,29 @@ Suivi vivant du projet (règle Phase 6 : checklist maintenue en continu).
 - [x] **Pictogramme « Manger et boire » rendu visible** : il était blanc sur fond blanc — D65
 - [x] Chemin critique : **192 Ko non compressé** (HTML + CSS + JS + police)
 
+### Retours du 27/08/2026
+- [x] **Héro** : « SANS FIL » et « Choisissez » à la même taille, « ! » retiré après le logo, logo agrandi (h-16/h-24 → h-20/h-28) — D69
+- [x] **« En savoir plus »** : section des 5 qualités → Avantages (au lieu de Fabrication) ; section Dentistes experts → Fabrication (au lieu de la prise de RDV) — D69 (révise D38)
+- [x] **Étape 1 « Consultation gratuite »** → « Consultation gratuite chez le dentiste » — D70 (interprétation à confirmer)
+- [x] **Cas traitables** : logo retiré de l'en-tête, nom de marque repris en texte — D69
+- [x] **« Traitement orthodontique invisible »** : les 3 boutons alignés en largeur égale (`w-full` dans `max-w-sm`) — D69
+- [x] **Pied de page** : adresse postale retirée, téléphone et e-mail conservés — D69
+- [x] **Instructions** : 2 onglets ajoutés (« Porter vos aligneurs », « Hygiène ») d'après la maquette française du client ; « Mettre en place » perd son 4e point (chewies) ; « Retirer », 2e point reformulé — D71
+- [x] **Fabrication — Étapes cliniques** : points 3 et 4 remplacés (« Photographies intra et exobuccales » ; « Radiographie panoramique et de profil ») — D72
+- [x] **Espace Médecin** : coche verte au lieu de bleue (liste des services) — D73
+- [x] **Espace Médecin — Démarrer un traitement** : étoiles retirées des intitulés de photos, validation serveur inchangée — D73
+- [x] Test `test_les_quatre_categories_d_instructions_sont_presentes` renommé et étendu à 6 catégories
+- [x] **Page RDV** : animation remontée à sa résolution native (225 px → 450 px), repli statique inclus — D75
+- [x] **Page RDV** : animation encore agrandie de 50 % (450 px → 675 px), au-delà de sa résolution native — D76 (perte de netteté possible, à surveiller)
+- [x] **Page RDV** : animation doublée (675 px → 1350 px, 3× la résolution native) — D77, flou probable signalé au client
+- [x] `./vendor/bin/pint --test` — aucun écart de style
+- [x] `php artisan test` — **45 tests, 130 assertions, tout au vert**
+
+### Retour du 28/08/2026 — dossier « Last pics »
+- [x] **Reçu directement dans la conversation** (zip, 20,8 Mo) — le Drive restait inaccessible depuis le compte connecté (D74)
+- [x] **Instructions : 4 photos posées** (Porter vos aligneurs, Rangement et entretien, Manger et boire, Hygiène) en WebP dans `public/assets/instructions/`, à la place des rendus 3D/pictogrammes génériques — D78
+- [x] **Page RDV : animation remplacée** par le fichier source `gif/x2.gif` du client (1500 × 1018) — à 1350 px d'affichage (D77), le flou signalé est résolu sans agrandissement CSS au-delà du fichier — D78
+
 ## En attente du client (bloquants réels)
 - [ ] **Réponse à « Pourquoi ne pas me faire livrer directement chez moi et devoir passer chez un dentiste ? »** (seule question du PPT absente du site — D28)
 - [ ] Les **3 PDF** du centre de téléchargement (fiche de prescription, consentement éclairé, consentement contention)
@@ -240,5 +263,8 @@ Suivi vivant du projet (règle Phase 6 : checklist maintenue en continu).
 - [ ] Validation de l'usage des vidéos `Impression.mp4` et `Pose des attachements.mp4` sur l'Espace Médecin
 - [ ] **Deux photos en haute définition** : la patiente du bloc « Votre Sourire est Magnifique ! » (473 px aujourd'hui, D39) et les trois jeunes femmes de « Nous aimons votre sourire ! » (600 × 600, D44) — ni le PPT ni les 11 documents Word ne contiennent mieux
 - [ ] Arbitrages à confirmer : **D17-bis** (délais devis), **D19** (contraste nav), **D22** (corps de texte 20 px vs 24 px), **D34** (corps de texte à 14,4 px après la réduction à 90 %), **D54** (rattachement des cinq explications de la diapo 3), **D50** (photos du RDV obligatoires — un patient sans photos ne peut plus réserver)
+- [ ] **Confirmer l'étape 1 « Consultation gratuite chez le dentiste »** — formulation client ambiguë, interprétation appliquée à valider (D70)
+- [ ] **Arbitrer la contradiction dentifrice** entre les onglets « Hygiène » (dentifrice non abrasif) et « Rangement et entretien » (pas de dentifrice) de la page Instructions (D71)
+- [ ] **Confirmer si les photos « Démarrer un traitement » doivent rester obligatoires** malgré la disparition du marqueur * (D73)
 
 ## Étape 9 — Déploiement Heberjahiz

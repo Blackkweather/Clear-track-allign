@@ -17,6 +17,22 @@
          Le texte est donc celui de la version française d'avant suppression,
          repris mot pour mot ; seule la mise en page change. La page anglaise,
          elle, reste supprimée. D58. --}}
+    {{-- Retour client du 27/08/2026, avec captures d'écran annotées envoyées sur
+         WhatsApp :
+         (1) « in instructions 2 are left wearing your alligners and hygiene » —
+         la page anglaise « Aligner Care Instructions » (D52) portait SIX
+         catégories (Inserting, Removing, Wearing, Caring, Food, Hygiene) ; la
+         restauration D58 n'en a repris que quatre. Les deux manquantes sont
+         ajoutées ici — « Porter vos aligneurs » et « Hygiène » — dans le texte
+         FRANÇAIS fourni par le client lui-même (capture de sa propre maquette
+         traduite), et non retraduit depuis l'anglais.
+         (2) « mettre en place vos alligneurs remove the fourth paragraph » : le
+         4e point (« chewies ») est supprimé — le client l'a rayé sur une capture
+         du site en ligne.
+         (3) Une capture du site en ligne montre aussi une correction sur
+         « Retirer vos aligneurs », 2e point : « c'est le meilleur moyen de
+         déformer l'aligneur » devient « vous risquez de déformer l'aligneur ».
+         D71. --}}
     @php
         $sections = [
             [
@@ -30,7 +46,6 @@
                     'Insérez d’abord l’aligneur sur les dents de devant, puis poussez-le doucement vers le bas (ou vers le haut) sur les dents du fond.',
                     'Vous pouvez aussi procéder de l’arrière vers l’avant, ou d’un côté à l’autre : commencez par un côté, avancez vers les dents antérieures, puis appuyez sur l’autre côté.',
                     'Appuyez uniquement avec les doigts. Ne mordez jamais l’aligneur pour le mettre en place : vous risquez de le déformer ou de le fissurer.',
-                    'Utilisez les «&nbsp;chewies&nbsp;», ce petit cylindre de matériau souple fourni dans la boîte : quelques secondes de mordillage aident l’aligneur à bien s’asseoir sur chaque dent, surtout au passage à une nouvelle étape.',
                     'Rincez toujours vos aligneurs à l’eau froide avant de les remettre en bouche.',
                 ],
             ],
@@ -43,18 +58,43 @@
                 'intro' => 'Retirez vos aligneurs pour manger, pour boire autre chose que de l’eau froide, et pour vous brosser les dents.',
                 'points' => [
                     'Commencez par décoller l’aligneur au niveau des molaires, d’un côté puis de l’autre, avant de le dégager vers l’avant.',
-                    'Ne tirez pas d’un coup sec sur les dents de devant : c’est le meilleur moyen de déformer l’aligneur.',
+                    'Ne tirez pas d’un coup sec sur les dents de devant : vous risquez de déformer l’aligneur.',
                     'Vos aligneurs semblent «&nbsp;collés&nbsp;»&nbsp;? La viscosité de la salive crée parfois un joint avec les dents. Faites circuler vigoureusement de l’eau dans votre bouche en vous aidant des joues pour briser ce joint.',
                     'Si vous n’arrivez toujours pas à les retirer, contactez votre dentiste dès que possible — n’insistez pas avec un objet.',
                     'Dès qu’ils sont retirés, rangez-les immédiatement dans leur étui (voir l’onglet «&nbsp;Rangement et entretien&nbsp;»).',
                 ],
             ],
             [
+                'cle' => 'porter',
+                'titre' => 'Porter vos aligneurs',
+                'onglet' => 'Porter',
+                // Retour client du 28/08/2026 : « all the new assets are in last
+                // pics ». Photo reprise du dossier Drive du client (fichier
+                // hbhiigjdz.jpeg), la même que celle de l'onglet « Wearing Your
+                // Aligners » de l'ancienne page anglaise — remplace le rendu 3D
+                // générique. D78.
+                'image' => 'assets/instructions/porter-sourire-aligneur.webp',
+                'alt' => 'Sourire avec un aligneur Cleartrack transparent en place',
+                'intro' => 'Le bon aligneur, porté dans le bon ordre : c’est ce qui fait avancer le traitement comme prévu.',
+                'points' => [
+                    'Portez vos gouttières dans l’ordre numérique correct (chaque sachet de gouttière est étiqueté).',
+                    'Votre dentiste ou votre orthodontiste vous indiquera quand changer de jeu de gouttières, en fonction de l’évaluation et du suivi.',
+                    'Il est important d’éviter de laisser les gouttières hors de la bouche pendant plus de 30 minutes, en particulier pendant les 3 premiers jours de chaque nouvelle gouttière.',
+                    'Conservez tous vos anciens aligneurs et apportez-les lors de vos rendez-vous chez le dentiste.',
+                    'Si vous perdez un aligneur, prévenez immédiatement le cabinet dentaire. Le personnel vous indiquera s’il faut passer directement à l’aligneur suivant.',
+                    'Si vous voyagez, emportez toujours un aligneur supplémentaire avec vous, au cas où.',
+                ],
+            ],
+            [
                 'cle' => 'rangement',
                 'titre' => 'Rangement et entretien',
                 'onglet' => 'Rangement et entretien',
-                'image' => 'assets/photo-aligneur-main-detoure.webp',
-                'alt' => 'Manipulation d’un aligneur Cleartrack avec les mains propres',
+                // Retour client du 28/08/2026 : « all the new assets are in last
+                // pics ». Photo reprise du dossier Drive du client, la même que
+                // celle de l'onglet « Caring For Your Aligners » de l'ancienne
+                // page anglaise (brosse à dents et fil dentaire). D78.
+                'image' => 'assets/instructions/entretien-brosse-fil.webp',
+                'alt' => 'Brosse à dents et fil dentaire pour l’entretien d’un aligneur Cleartrack',
                 'intro' => 'Le nettoyage des gouttières est essentiel pour garder une bonne hygiène buccale — et des aligneurs qui restent transparents.',
                 'points' => [
                     'Rangez toujours vos aligneurs dans l’étui fourni dès que vous les retirez. Jamais dans une serviette en papier : c’est ainsi qu’on les jette par mégarde.',
@@ -68,17 +108,14 @@
                 'cle' => 'alimentation',
                 'titre' => 'Manger et boire',
                 'onglet' => 'Manger et boire',
-                'image' => 'assets/pourquoi/icone-alimentation.png',
-                'alt' => 'Manger et boire avec des aligneurs Cleartrack',
-                // Les trois autres sections ont une photo ; celle-ci n'a qu'un
-                // PICTOGRAMME, et il est BLANC sur fond transparent. Posé tel
-                // quel sur le panneau blanc, il était invisible — le client a
-                // signalé « pas de photo ». Il est donc rendu sur un disque bleu,
-                // exactement comme la page Pourquoi le fait pour la même icône
-                // (D25). Le PPT ne contient aucune photo d'alimentation : mieux
-                // vaut le pictogramme du client, rendu lisible, qu'une image
-                // rapportée d'ailleurs. D65.
-                'pictogramme' => true,
+                // Le pictogramme D65 (blanc sur fond transparent, posé sur un
+                // disque bleu faute de mieux) est remplacé par une vraie photo.
+                // Retour client du 28/08/2026 : « all the new assets are in last
+                // pics ». Photo reprise du dossier Drive du client, la même que
+                // celle de l'onglet « Food And Drinks » de l'ancienne page
+                // anglaise (pomme et modèle dentaire). D78 (révise D65).
+                'image' => 'assets/instructions/manger-pomme-modele.webp',
+                'alt' => 'Pomme verte et modèle dentaire, pour illustrer l’alimentation avec des aligneurs Cleartrack',
                 'intro' => 'Contrairement aux appareils dentaires classiques, aucun aliment ne vous est interdit : il suffit de retirer vos aligneurs pour manger.',
                 'points' => [
                     'Retirez systématiquement vos aligneurs pour manger : aucune restriction alimentaire pendant le traitement.',
@@ -86,6 +123,29 @@
                     'Retirez-les aussi pour les boissons sucrées ou colorées : le liquide reste piégé contre l’émail et peut tacher l’aligneur.',
                     'Pas de chewing-gum avec les aligneurs : il colle au matériau. Retirez-les si vous souhaitez en mâcher.',
                     'Brossez-vous les dents après chaque repas avant de remettre vos aligneurs : sous la gouttière, la salive ne reminéralise plus l’émail comme d’habitude.',
+                ],
+            ],
+            [
+                'cle' => 'hygiene',
+                'titre' => 'Hygiène',
+                'onglet' => 'Hygiène',
+                // Retour client du 28/08/2026 : « all the new assets are in last
+                // pics ». Photo reprise du dossier Drive du client, la même que
+                // celle de l'onglet « Hygiene » de l'ancienne page anglaise
+                // (brossage d'un aligneur tenu à la main) — remplace le
+                // pictogramme générique « confort ». D78.
+                'image' => 'assets/instructions/hygiene-brossage-aligneur.webp',
+                'alt' => 'Brossage d’un aligneur Cleartrack tenu à la main',
+                // Écart assumé avec « Rangement et entretien » : cette section
+                // (fournie par le client) dit d'utiliser un dentifrice NON
+                // ABRASIF, quand « Rangement et entretien » dit de ne PAS utiliser
+                // de dentifrice du tout. Les deux passages sont reproduits fidèlement
+                // — voir CONTENT-DECISIONS.md.
+                'intro' => 'Un entretien simple suffit à garder des aligneurs propres et transparents tout au long du traitement.',
+                'points' => [
+                    'Nettoyez vos aligneurs à l’aide d’un dentifrice non abrasif et d’une brosse à poils souples.',
+                    'N’utilisez pas de produit nettoyant (alcool ou savon).',
+                    'N’utilisez pas d’eau bouillante ni d’eau chaude sur vos aligneurs.',
                 ],
             ],
         ];

@@ -94,10 +94,16 @@ class PagesPubliquesTest extends TestCase
         $this->assertStringNotContainsString('/aligner-care-instructions', $this->get('/')->getContent());
     }
 
-    public function test_les_quatre_categories_d_instructions_sont_presentes(): void
+    /**
+     * Retour client du 27/08/2026 (D71) : deux catégories manquaient par rapport
+     * au modèle anglais « Aligner Care Instructions » (D52, six onglets) — cette
+     * page n'en avait repris que quatre lors de la restauration D58. « Porter »
+     * et « Hygiène » complètent désormais la liste.
+     */
+    public function test_les_six_categories_d_instructions_sont_presentes(): void
     {
         $response = $this->get('/instructions');
-        foreach (['Mettre en place', 'Retirer', 'Rangement et entretien', 'Manger et boire'] as $categorie) {
+        foreach (['Mettre en place', 'Retirer', 'Porter', 'Rangement et entretien', 'Manger et boire', 'Hygiène'] as $categorie) {
             $response->assertSee($categorie);
         }
         $response->assertSee('role="tablist"', false);

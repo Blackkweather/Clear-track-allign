@@ -14,10 +14,7 @@
                      text of ClearTrack Align ». La diapo 2 empilait trois lignes de
                      texte ; « Choisissez » remonte donc sur la ligne de SANS FIL, et
                      le nom de marque cède la place au logo, qui prend la ligne
-                     suivante — trop large pour tenir en ligne avec le mot. Le « ! »
-                     ferme la phrase après le logo. D36.
-                     La phrase reste lisible en synthèse vocale : l'alternative du
-                     logo est exactement le texte qu'il remplace. --}}
+                     suivante — trop large pour tenir en ligne avec le mot. D36. --}}
                 {{-- Retour client : « the logo in the hero needs to be centralized
                      with the text ». Le logo était aligné sur le bord gauche, sous
                      un bloc de texte plus large : il paraissait décroché. Les deux
@@ -25,15 +22,19 @@
                      la largeur est celle de la ligne la plus longue (« SANS FIL
                      Choisissez ») ; le logo se centre là-dedans, et non dans toute
                      la colonne de grille. D56. --}}
+                {{-- Retour client du 27/08/2026 : « SANS FIL » et « Choisissez »
+                     doivent être de la même taille — « Choisissez » reprend donc le
+                     gabarit de « SANS FIL » au lieu de son propre texte plus petit.
+                     Le « ! » qui fermait la phrase après le logo est retiré, et le
+                     logo est agrandi (« un peu plus grand »). D69. --}}
                 <div class="inline-block">
                     <div class="hero-in-2 mt-2 flex flex-wrap items-baseline gap-x-6 gap-y-1">
                         <h1 class="text-5xl font-extrabold leading-none tracking-tight md:text-[3.5rem]">SANS FIL</h1>
-                        <span class="text-xl font-semibold md:text-[1.75rem]">Choisissez</span>
+                        <span class="text-5xl font-semibold leading-none tracking-tight md:text-[3.5rem]">Choisissez</span>
                     </div>
                     <div class="hero-in-3 mt-4 flex items-center justify-center gap-3">
                         <img src="{{ asset('assets/brand/logo-on-blue.png') }}" alt="ClearTrack Align"
-                             class="h-16 w-auto md:h-24" fetchpriority="high">
-                        <span class="text-xl font-semibold md:text-[1.75rem]" aria-hidden="true">!</span>
+                             class="h-20 w-auto md:h-28" fetchpriority="high">
                     </div>
                 </div>
 
@@ -186,11 +187,15 @@
         </div>
 
             {{-- Le bouton reste en bas, centré : il ne dépend pas du rappel ouvert.
-                 Retour client : « en savoir plus needs to be taking to comment sont
-                 ils fabriqués » — il pointe désormais vers la page Fabrication et
-                 non plus vers Pourquoi. D38. --}}
+                 Retour client du 25/08/2026 : « en savoir plus needs to be taking to
+                 comment sont ils fabriqués » — il pointait vers Fabrication (D38).
+                 Retour client du 27/08/2026 : « 1er bouton en savoir plus doit tirer
+                 vers avantages » — cette section (les cinq qualités) pointe donc vers
+                 Avantages ; c'est le bouton « En savoir plus » de la section
+                 Dentistes experts, juste après, qui reprend la destination
+                 Fabrication. D69 (révise D38). --}}
             <div class="absolute inset-x-0 bottom-6 px-6 text-center">
-                <a href="{{ route('fabrication') }}" class="btn-outline-white inline-block">En savoir plus</a>
+                <a href="{{ route('avantages') }}" class="btn-outline-white inline-block">En savoir plus</a>
             </div>
         </div>
 
@@ -223,7 +228,7 @@
                    class="mt-4 rounded-xl bg-white/10 p-4 text-sm leading-relaxed text-white/90">{{ $q['texte'] }}</p>
             @endforeach
             <div class="mt-6 text-center">
-                <a href="{{ route('fabrication') }}" class="btn-white">En savoir plus</a>
+                <a href="{{ route('avantages') }}" class="btn-white">En savoir plus</a>
             </div>
         </div>
     </section>
@@ -236,8 +241,11 @@
                 <div class="mt-4 h-1 w-16 rounded bg-white/70"></div>
                 {{-- Retour client : « Animation Typing + justifier » --}}
                 <p class="texte-ppt mt-6 text-justify text-white/90" data-typing>Votre traitement sera mené, géré et suivi par nos dentistes certifiés dans des cliniques dentaires entièrement équipées afin de garantir un traitement facile et sans douleurs.</p>
-                {{-- Retour client : « Agrandir taille + animation » --}}
-                <a href="{{ route('rdv') }}" class="btn-white btn-grand btn-anime mt-8">En savoir plus</a>
+                {{-- Retour client : « Agrandir taille + animation ». Retour du
+                     27/08/2026 : « 2e bouton en savoir plus doit prendre vers comment
+                     sont ils fabriqués » — il pointait vers la prise de RDV, il
+                     pointe désormais vers Fabrication. D69. --}}
+                <a href="{{ route('fabrication') }}" class="btn-white btn-grand btn-anime mt-8">En savoir plus</a>
             </div>
             <div class="flex justify-center">
                 {{-- Retour client : « Rendre l'image homogène sans coupure ».
@@ -273,13 +281,18 @@
     {{-- Retour client : « Mettre le fond blanc avec la meme identité graphique »
          (déjà .bg-waves-light : blanc + courbes du PPT) et « Agrandir + animation
          lors du scroll vers ce slide ». --}}
+    {{-- Retour client du 27/08/2026 : « replace consultation gratuite chez le
+         dentist » — le titre de l'étape 1 précise désormais où elle a lieu,
+         cohérent avec son propre texte (« une de nos cliniques partenaires ou
+         cabinets... »). D69. INTERPRÉTATION À CONFIRMER : la demande ne précisait
+         pas le texte de départ, voir CONTENT-DECISIONS.md. --}}
     <section class="bg-waves-light" aria-labelledby="etapes-titre" data-etapes>
         <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6">
         <h2 id="etapes-titre" class="section-title text-center text-4xl md:text-5xl">Cleartrack® align en 4 étapes</h2>
         <div class="mt-12 grid gap-8 md:grid-cols-2 xl:grid-cols-4">
             @php
                 $etapes = [
-                    ['n' => 1, 'titre' => 'Consultation gratuite', 'texte' => 'Une de nos cliniques partenaires ou cabinets proches de chez vous effectueront un examen et vous feront savoir si votre sourire peut être amélioré grâce aux aligneurs Cleartrack®.', 'img' => 'assets/ppt/slide05_0.jpg'],
+                    ['n' => 1, 'titre' => 'Consultation gratuite chez le dentiste', 'texte' => 'Une de nos cliniques partenaires ou cabinets proches de chez vous effectueront un examen et vous feront savoir si votre sourire peut être amélioré grâce aux aligneurs Cleartrack®.', 'img' => 'assets/ppt/slide05_0.jpg'],
                     ['n' => 2, 'titre' => 'Nous prenons vos empreintes', 'texte' => 'Nous avons besoin d’une empreinte de vos dents que nous numériserons et utiliserons pour créer un fichier de conception assistée par ordinateur (CAO). Nous utilisons les dernières technologies en matière de dentisterie numérique pour concevoir le plan de traitement le plus approprié pour vous.', 'img' => 'assets/ppt/slide06_0.jpg'],
                     ['n' => 3, 'titre' => 'Vérification de votre plan de traitement', 'texte' => 'Une simulation de votre plan de traitement en 3D et vidéos sont envoyés à vous et à votre médecin pour approbation. Une fois votre approbation obtenue, nous procédons à la fabrication de vos aligneurs sur mesure.', 'img' => 'assets/ppt/slide07_0.jpg'],
                     ['n' => 4, 'titre' => 'Préparez-vous à avoir un sourire hollywoodien !', 'texte' => 'Nous vous enverrons une série de gouttières que vous devrez porter successivement en changeant vos gouttières tous les 15 jours. Vos dents se déplaceront lentement vers les positions souhaitées.', 'img' => 'assets/ppt/slide08_0.jpg'],
@@ -454,11 +467,18 @@
         <div>
             <h2 id="invisible-titre" class="section-title text-4xl md:text-5xl">Un traitement orthodontique invisible…</h2>
             <p class="texte-ppt mt-6">Les aligneurs Cleartrack® sont fréquemment prescrits pour corriger divers cas de dents mal alignées, d’espaces entre les dents et de rotation des dents.</p>
-            <div class="mt-8 flex flex-col items-start gap-3">
-                <a href="{{ route('faq') }}" class="btn-outline-brand">Questions fréquemment posées</a>
-                <a href="{{ route('fabrication') }}" class="btn-outline-brand">Comment sont-ils fabriqués&nbsp;?</a>
+            {{-- Retour client du 27/08/2026 : « les trois buttons doit etre alligne
+                 et de la meme taille ». Les trois pilules avaient chacune la largeur
+                 de leur propre texte (l'une avec icône, les deux autres sans) :
+                 alignées à gauche mais de tailles visiblement différentes. Le
+                 conteneur est borné (`max-w-sm`) et chaque bouton passe en
+                 `w-full` : les trois occupent désormais la même largeur, bord à
+                 bord. D69. --}}
+            <div class="mt-8 flex max-w-sm flex-col items-stretch gap-3">
+                <a href="{{ route('faq') }}" class="btn-outline-brand w-full">Questions fréquemment posées</a>
+                <a href="{{ route('fabrication') }}" class="btn-outline-brand w-full">Comment sont-ils fabriqués&nbsp;?</a>
                 {{-- Diapo 13 : ce bouton est vert WhatsApp, pas bleu --}}
-                <a href="https://wa.me/212693133170" target="_blank" rel="noopener" class="btn bg-whatsapp text-white shadow hover:brightness-95 focus-visible:ring-whatsapp">
+                <a href="https://wa.me/212693133170" target="_blank" rel="noopener" class="btn w-full bg-whatsapp text-white shadow hover:brightness-95 focus-visible:ring-whatsapp">
                     Parler à un représentant
                     <svg class="h-4 w-4" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
                 </a>

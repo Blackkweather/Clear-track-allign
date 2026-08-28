@@ -5,18 +5,17 @@
 
 @section('content')
     {{-- En-tête (PPT diapo 46) : fond blanc, « Cas traitables avec » suivi du logo,
-         et la photo profil noir&blanc / couleur qui sort du cadre en haut à droite. --}}
+         et la photo profil noir&blanc / couleur qui sort du cadre en haut à droite.
+         Retour client du 27/08/2026 : « cas traitables and remove the logo » — le
+         logo est retiré ; le nom de marque reste en clair pour que la phrase garde
+         un sens (« avec » sans complément serait incomplet). D69. --}}
     <section class="bg-waves-light relative overflow-hidden">
         {{-- La photo est collée au coin haut-droit et sort du cadre, comme sur la diapositive --}}
         <img src="{{ asset('assets/cas/entete-sourire.jpg') }}"
              alt="Profil comparant un appareil dentaire métallique et un aligneur transparent"
              class="absolute right-0 top-0 hidden w-[38%] md:block" loading="lazy">
         <div class="relative mx-auto max-w-7xl px-4 pb-10 pt-16 sm:px-6">
-            <h1 class="flex flex-wrap items-center gap-x-8 gap-y-3 text-3xl font-bold text-ppt-blue md:text-5xl">
-                Cas traitables avec
-                <img src="{{ asset('assets/brand/logo-on-white.svg') }}" alt="Cleartrack® align"
-                     class="h-24 w-auto md:h-40">
-            </h1>
+            <h1 class="text-3xl font-bold text-ppt-blue md:text-5xl">Cas traitables avec Cleartrack® align</h1>
         </div>
         <p class="mx-auto max-w-7xl px-4 pb-10 text-center text-slate-500 sm:px-6 md:text-xl">Cleartrack® align peut traiter</p>
     </section>

@@ -58,6 +58,9 @@
          Les coches sont remplacées par des numéros — chaque liste devient une
          suite d'étapes ordonnées, ce qu'elle est réellement ; <ol> plutôt que
          <ul>, pour que la numérotation soit aussi dans la structure. D46. --}}
+    {{-- Retour client du 27/08/2026 : « etape clinique doit changer 2 points par
+         ce qui est sur le screenshot sur whatsapp » — capture du site en ligne,
+         annotée en rouge : les points 3 et 4 sont remplacés. D72. --}}
     <section class="bg-waves">
         <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6">
             <h2 class="text-center text-3xl font-bold text-white md:text-4xl">La fabrication des aligneurs comporte quelques étapes pour obtenir ce sourire magique&nbsp;!</h2>
@@ -69,8 +72,8 @@
                         'etapes' => [
                             'Contrôle de la santé bucco-dentaire par le dentiste',
                             'Empreintes — numériques ou physiques',
-                            'Images de contrôle de la qualité',
-                            'Rayons X',
+                            'Photographies intra et exobuccales',
+                            'Radiographie panoramique et de profil',
                         ],
                     ],
                     [

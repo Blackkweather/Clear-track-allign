@@ -143,12 +143,18 @@
             </fieldset>
 
             {{-- Dossier photos / radios --}}
+            {{-- Retour client du 27/08/2026 : « demarrer un traitemet epace medcin
+                 oblige a enlever les etoiles par rapport au photo » — les astérisques
+                 posées sur les intitulés des zones de dépôt sont retirées, ainsi que
+                 la phrase qui les expliquait. Validation serveur INCHANGÉE : les 9
+                 types obligatoires (EspaceMedecinController::TYPES_FICHIERS) restent
+                 exigés, seul le marqueur visuel disparaît. D73. --}}
             <fieldset>
                 <legend class="text-lg font-bold text-ppt-blue">Photos et radios du patient</legend>
-                <p class="mt-1 text-sm text-slate-500">Formats acceptés&nbsp;: JPG, PNG ou PDF — 15&nbsp;Mo max par fichier. Les champs marqués * sont requis.</p>
+                <p class="mt-1 text-sm text-slate-500">Formats acceptés&nbsp;: JPG, PNG ou PDF — 15&nbsp;Mo max par fichier.</p>
                 <div class="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
                     @foreach ($typesFichiers as $type => [$label, $requis])
-                        <x-photo-drop :name="'fichier_' . $type" :label="$label . ($requis ? ' *' : '')"
+                        <x-photo-drop :name="'fichier_' . $type" :label="$label"
                                       accept="image/jpeg,image/png,application/pdf" />
                     @endforeach
                 </div>

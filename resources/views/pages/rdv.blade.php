@@ -21,7 +21,22 @@
            — `prefers-reduced-motion: reduce` : <source media> dans <picture>,
              évalué par le navigateur, seul moyen de substituer un fichier.
          L'animation est décorative : alt vide et aria-hidden, elle n'ajoute rien
-         à ce que dit déjà le titre. D49. --}}
+         à ce que dit déjà le titre. D49.
+
+         Retour client du 27/08/2026, en trois temps : (1) « make it bigger » —
+         l'affichage remonte de 225 px (30 %, D61) à 450 px, la résolution
+         native du fichier stocké. D75. (2) « bigger by 50 percent » — 675 px.
+         D76. (3) « double the size » — 1350 px, au-delà de la résolution
+         native d'alors (450 px) : flou signalé. D77.
+
+         Retour client du 28/08/2026 : « all the new assets are in last pics » —
+         le dossier contenait `gif/x2.gif`, un agrandissement ×2 (1500 × 1018)
+         du GIF d'origine (750 × 509, image99.gif), déjà fourni par le client.
+         Le fichier stocké (`alignement.webp`/`alignement-fixe.png`) est
+         remplacé par cette version : à 1350 px, l'affichage tient désormais
+         **sous** sa résolution native (1500 px) — le flou signalé en D77 est
+         résolu sans toucher à la taille affichée. `width`/`height` mis à jour
+         en conséquence (aspect ratio inchangé : 450:305 ≈ 1500:1018). D78. --}}
     <section class="bg-waves">
         <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-14 sm:px-6 md:grid-cols-2">
             <div>
@@ -33,11 +48,11 @@
                     <picture>
                         <source srcset="{{ asset('assets/rdv/alignement-fixe.png') }}" media="(prefers-reduced-motion: reduce)">
                         <img src="{{ asset('assets/rdv/alignement.webp') }}" alt="" aria-hidden="true"
-                             width="450" height="305" class="h-auto w-full max-w-[225px] rounded-2xl">
+                             width="450" height="305" class="h-auto w-full max-w-[1350px] rounded-2xl">
                     </picture>
                 @else
                     <img src="{{ asset('assets/rdv/alignement-fixe.png') }}" alt="" aria-hidden="true"
-                         width="450" height="305" class="h-auto w-full max-w-[225px] rounded-2xl">
+                         width="450" height="305" class="h-auto w-full max-w-[1350px] rounded-2xl">
                 @endif
             </div>
         </div>
