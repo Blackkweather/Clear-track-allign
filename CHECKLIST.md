@@ -262,6 +262,7 @@ Suivi vivant du projet (règle Phase 6 : checklist maintenue en continu).
 - [x] **Photo « aligneur tenu entre deux doigts » (accueil mobile)** : recadrée à part (`slide04_0-mobile.webp`) — le fichier partagé avec le diagramme desktop avait un vide transparent de 48 % à droite, invisible au code mais visible à l'écran — D80
 - [x] **Même photo, plaquée au bord gauche** (`.bleed-mobile-left`) au lieu de rester centrée — D81
 - [x] **Page RDV : fond gris retiré** de l'animation et du repli statique (détourage par remplissage depuis les bords, pas un filtrage naïf par couleur) — D82
+- [x] **Étape 1 confirmée** : « Consultation chez le dentiste » (le mot « gratuite » est retiré) — D83, clôt D70
 
 ## En attente du client (bloquants réels)
 - [ ] **Réponse à « Pourquoi ne pas me faire livrer directement chez moi et devoir passer chez un dentiste ? »** (seule question du PPT absente du site — D28)
@@ -273,7 +274,6 @@ Suivi vivant du projet (règle Phase 6 : checklist maintenue en continu).
 - [ ] Validation de l'usage des vidéos `Impression.mp4` et `Pose des attachements.mp4` sur l'Espace Médecin
 - [ ] **Deux photos en haute définition** : la patiente du bloc « Votre Sourire est Magnifique ! » (473 px aujourd'hui, D39) et les trois jeunes femmes de « Nous aimons votre sourire ! » (600 × 600, D44) — ni le PPT ni les 11 documents Word ne contiennent mieux
 - [ ] Arbitrages à confirmer : **D17-bis** (délais devis), **D19** (contraste nav), **D22** (corps de texte 20 px vs 24 px), **D34** (corps de texte à 14,4 px après la réduction à 90 %), **D54** (rattachement des cinq explications de la diapo 3), **D50** (photos du RDV obligatoires — un patient sans photos ne peut plus réserver)
-- [ ] **Confirmer l'étape 1 « Consultation gratuite chez le dentiste »** — formulation client ambiguë, interprétation appliquée à valider (D70)
 - [ ] **Arbitrer la contradiction dentifrice** entre les onglets « Hygiène » (dentifrice non abrasif) et « Rangement et entretien » (pas de dentifrice) de la page Instructions (D71)
 - [ ] **Confirmer si les photos « Démarrer un traitement » doivent rester obligatoires** malgré la disparition du marqueur * (D73)
 

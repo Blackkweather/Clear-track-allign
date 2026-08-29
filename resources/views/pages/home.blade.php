@@ -299,15 +299,16 @@
     {{-- Retour client du 27/08/2026 : « replace consultation gratuite chez le
          dentist » — le titre de l'étape 1 précise désormais où elle a lieu,
          cohérent avec son propre texte (« une de nos cliniques partenaires ou
-         cabinets... »). D69. INTERPRÉTATION À CONFIRMER : la demande ne précisait
-         pas le texte de départ, voir CONTENT-DECISIONS.md. --}}
+         cabinets... »). D69/D70, confirmé et corrigé le 29/08/2026 : « change le
+         en consultation chez dentiste pas gratuite » — le mot « gratuite » est
+         retiré du titre (le texte de l'étape reste inchangé). D83. --}}
     <section class="bg-waves-light" aria-labelledby="etapes-titre" data-etapes>
         <div class="mx-auto max-w-7xl px-4 py-12 sm:py-20 sm:px-6">
         <h2 id="etapes-titre" class="section-title text-center text-4xl md:text-5xl">Cleartrack® align en 4 étapes</h2>
         <div class="mt-12 grid gap-8 md:grid-cols-2 xl:grid-cols-4">
             @php
                 $etapes = [
-                    ['n' => 1, 'titre' => 'Consultation gratuite chez le dentiste', 'texte' => 'Une de nos cliniques partenaires ou cabinets proches de chez vous effectueront un examen et vous feront savoir si votre sourire peut être amélioré grâce aux aligneurs Cleartrack®.', 'img' => 'assets/ppt/slide05_0.jpg'],
+                    ['n' => 1, 'titre' => 'Consultation chez le dentiste', 'texte' => 'Une de nos cliniques partenaires ou cabinets proches de chez vous effectueront un examen et vous feront savoir si votre sourire peut être amélioré grâce aux aligneurs Cleartrack®.', 'img' => 'assets/ppt/slide05_0.jpg'],
                     ['n' => 2, 'titre' => 'Nous prenons vos empreintes', 'texte' => 'Nous avons besoin d’une empreinte de vos dents que nous numériserons et utiliserons pour créer un fichier de conception assistée par ordinateur (CAO). Nous utilisons les dernières technologies en matière de dentisterie numérique pour concevoir le plan de traitement le plus approprié pour vous.', 'img' => 'assets/ppt/slide06_0.jpg'],
                     ['n' => 3, 'titre' => 'Vérification de votre plan de traitement', 'texte' => 'Une simulation de votre plan de traitement en 3D et vidéos sont envoyés à vous et à votre médecin pour approbation. Une fois votre approbation obtenue, nous procédons à la fabrication de vos aligneurs sur mesure.', 'img' => 'assets/ppt/slide07_0.jpg'],
                     ['n' => 4, 'titre' => 'Préparez-vous à avoir un sourire hollywoodien !', 'texte' => 'Nous vous enverrons une série de gouttières que vous devrez porter successivement en changeant vos gouttières tous les 15 jours. Vos dents se déplaceront lentement vers les positions souhaitées.', 'img' => 'assets/ppt/slide08_0.jpg'],
