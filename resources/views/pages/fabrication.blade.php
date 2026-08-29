@@ -26,7 +26,7 @@
              alt="Aligneurs Cleartrack® thermoformés sur leurs modèles imprimés en 3D"
              width="3535" height="1084"
              class="block h-auto w-full" fetchpriority="high">
-        <div class="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-10 sm:px-6 md:flex-row md:items-center md:justify-between">
+        <div class="mx-auto flex max-w-7xl flex-col gap-6 px-4 py-7 sm:py-10 sm:px-6 md:flex-row md:items-center md:justify-between">
             <h1 class="page-title text-white">Comment les aligneurs Cleartrack® align sont fabriqués</h1>
             <a href="{{ route('rdv') }}" class="btn-white shrink-0">Démarrer mon traitement</a>
         </div>
@@ -34,7 +34,7 @@
 
     {{-- Introduction (PPT slide 53) — fond blanc à vagues (section pleine largeur, grille centrée à l'intérieur) --}}
     <section class="bg-waves-light">
-        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-2">
+        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-10 sm:py-16 sm:px-6 md:grid-cols-2">
         <div>
             <h2 class="section-title">Voyons d’abord ce que sont les aligneurs Cleartrack® align</h2>
             <p class="mt-4 leading-relaxed">Prescrits par votre dentiste, les aligneurs Cleartrack® align sont des gouttières transparentes qui ont été développées spécifiquement pour aligner vos dents de manière prévisible, douce, claire et confortable. Au lieu d’attaches métalliques, de fils ou de vis, vous porterez un matériau thermoplastique qui vous permettra d’obtenir les résultats souhaités, tout en passant inaperçu aux yeux de votre entourage.</p>
@@ -62,7 +62,7 @@
          ce qui est sur le screenshot sur whatsapp » — capture du site en ligne,
          annotée en rouge : les points 3 et 4 sont remplacés. D72. --}}
     <section class="bg-waves">
-        <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6">
+        <div class="mx-auto max-w-7xl px-4 py-10 sm:py-16 sm:px-6">
             <h2 class="text-center text-3xl font-bold text-white md:text-4xl">La fabrication des aligneurs comporte quelques étapes pour obtenir ce sourire magique&nbsp;!</h2>
             @php
                 $groupesEtapes = [
@@ -172,7 +172,7 @@
     @endphp
 
     <section class="bg-waves-light">
-        <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6">
+        <div class="mx-auto max-w-7xl px-4 py-10 sm:py-16 sm:px-6">
         <h2 class="section-title text-center">Procédure de laboratoire Cleartrack®</h2>
         <div class="mt-10 space-y-14">
             @foreach ($procedure as $etape)
@@ -201,7 +201,7 @@
          celui-là même qui illustrait à tort le thermoformage. Il retrouve ici
          sa place, et les coches passent en numéros comme sur la diapo 54. D47. --}}
     <section class="bg-waves">
-        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-2">
+        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-10 sm:py-16 sm:px-6 md:grid-cols-2">
             <div>
                 <h2 class="text-3xl font-bold text-white md:text-4xl">Instructions de base</h2>
                 <ol class="mt-6 space-y-3 text-white/90">

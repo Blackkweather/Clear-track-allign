@@ -22,7 +22,7 @@
         {{-- Voile bleu : la photo s'éclaircit vers la droite et le texte blanc doit
              rester lisible par-dessus, quelle que soit la largeur du bandeau. --}}
         <div class="absolute inset-0 bg-ppt-blue/70"></div>
-        <div class="relative mx-auto flex max-w-7xl items-center gap-8 px-4 py-14 sm:px-6">
+        <div class="relative mx-auto flex max-w-7xl items-center gap-8 px-4 py-9 sm:py-14 sm:px-6">
             <img src="{{ asset('assets/brand/logo-on-blue.png') }}" alt="ClearTrack® align"
                  class="hidden h-20 w-auto shrink-0 sm:block">
             <h1 class="text-3xl font-bold text-white md:text-4xl">Politique de confidentialité</h1>
@@ -32,7 +32,7 @@
     {{-- Texte intégral (PPT slides 59-64) — fond blanc à vagues (voir cgu.blade.php
          pour le pourquoi de la section pleine largeur + conteneur centré interne). --}}
     <section class="bg-waves-light">
-        <div class="mx-auto max-w-4xl space-y-6 px-4 py-16 leading-relaxed sm:px-6">
+        <div class="mx-auto max-w-4xl space-y-6 px-4 py-10 sm:py-16 leading-relaxed sm:px-6">
         <p>Go dental SARL (numéro du registre de commerce 147751) («&nbsp;Go dental&nbsp;», «&nbsp;nous&nbsp;» et «&nbsp;notre&nbsp;», «&nbsp;Cleartrack&nbsp;») respecte votre vie privée (l’utilisateur de ce site web) et prend au sérieux la protection de vos informations personnelles. À cette fin, la présente politique de confidentialité («&nbsp;Politique de confidentialité&nbsp;») explique comment nous recueillons, traitons, protégeons, conservons et partageons vos informations personnelles lorsque vous utilisez ce site web (www.cleartrack.ma, ci-après «&nbsp;le site web&nbsp;») et ses fonctionnalités connexes.</p>
         <p>Il convient de noter qu’en utilisant le site web et les fonctionnalités connexes, vous acceptez les conditions, les pratiques et les politiques relatives à la présente politique de confidentialité, vous consentez à la collecte et au traitement de toutes les informations (y compris les informations spéciales) et déclarez que vous avez plus de 18 ans. Si vous n’êtes pas d’accord avec les conditions, les pratiques et les politiques relatives à l’utilisation du site web telles qu’elles figurent dans la présente politique de confidentialité, il vous est interdit d’en faire usage. La divulgation et la fourniture d’informations personnelles sont volontaires. La poursuite de l’utilisation du site web et de ses fonctionnalités sera considérée comme une acceptation de toutes les dispositions, politiques et conditions contenues dans le présent document.</p>
         <p>En outre, il convient de noter que les conditions de la politique de confidentialité de Cleartrack peuvent être modifiées de temps à autre sans préavis. Il est de votre responsabilité de vous assurer que vous êtes au courant de ces changements lorsque vous utilisez le site web. La poursuite de votre utilisation sera considérée comme une acceptation de ces changements. Si vous n’êtes pas d’accord avec ces modifications, vous devez immédiatement cesser d’utiliser le site web.</p>

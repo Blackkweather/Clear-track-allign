@@ -6,7 +6,7 @@
 @section('content')
     {{-- En-tête + chapô (PPT diapo 27 : fond blanc, titre bleu centré, chapô gris centré) --}}
     <section class="bg-waves-light">
-        <div class="mx-auto max-w-7xl px-4 py-14 text-center sm:px-6">
+        <div class="mx-auto max-w-7xl px-4 py-9 sm:py-14 text-center sm:px-6">
             <h1 class="section-title">Avantages de Cleartrack® align</h1>
             <p class="mx-auto mt-3 max-w-4xl text-slate-500 md:text-xl">Nos médecins certifiés vous tiendront toujours informés de l’évolution de votre cas, vous assurant un confort tout au long du traitement</p>
         </div>
@@ -14,7 +14,7 @@
 
     {{-- Les 7 avantages (PPT diapos 27-29) — icône à gauche, texte à droite, dans l'ordre des diapos --}}
     <section class="bg-waves-light">
-        <div class="mx-auto max-w-7xl px-4 pb-16 sm:px-6">
+        <div class="mx-auto max-w-7xl px-4 pb-10 sm:pb-16 sm:px-6">
         <div class="space-y-10">
             {{-- Textes recopiés mot pour mot des diapos 27-29, coquilles du PPT comprises
                  (« sont pratiquement invisible », « vous aide à se sentir mieux ») — D23. --}}
@@ -48,7 +48,7 @@
          d'invitation vient en dessous en plus petit. Libellé sans trait d'union,
          comme dans le PPT (D23). --}}
     <section class="bg-waves">
-        <div class="mx-auto max-w-7xl px-4 py-14 text-center text-white sm:px-6">
+        <div class="mx-auto max-w-7xl px-4 py-9 sm:py-14 text-center text-white sm:px-6">
             <h2 class="section-title-invert">Qu’attendez vous&nbsp;?</h2>
             <p class="mx-auto mt-4 max-w-4xl text-white/90 md:text-lg">Nous sommes impatients de vous offrir le meilleur sourire que vous méritez. Planifiez une première consultation avec un orthodontiste entièrement gratuite&nbsp;!</p>
             <a href="{{ route('rdv') }}" class="btn-white mt-8">Démarrer</a>

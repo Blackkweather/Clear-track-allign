@@ -5,7 +5,7 @@
 
 @section('content')
     <section class="bg-waves">
-        <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6">
+        <div class="mx-auto max-w-7xl px-4 py-9 sm:py-14 sm:px-6">
             <h1 class="text-3xl font-bold text-white md:text-4xl">Conditions générales d’utilisation</h1>
         </div>
     </section>
@@ -15,7 +15,7 @@
          conteneur centré passe à l'intérieur : porté par le conteneur, les courbes
          s'arrêteraient à 896 px et laisseraient des marges blanches sur les côtés. --}}
     <section class="bg-waves-light">
-        <div class="mx-auto max-w-4xl space-y-6 px-4 py-16 leading-relaxed sm:px-6">
+        <div class="mx-auto max-w-4xl space-y-6 px-4 py-10 sm:py-16 leading-relaxed sm:px-6">
         <p class="text-lg font-semibold text-ppt-blue">Bienvenue sur Cleartrack&nbsp;!</p>
         <p>Les présentes conditions d’utilisation («&nbsp;Conditions&nbsp;», «&nbsp;Conditions de service&nbsp;») régissent votre utilisation de notre site web www.cleartrack.ma (ensemble ou individuellement «&nbsp;Service&nbsp;») exploité par Go dental sarl.</p>
         <p>Notre politique de confidentialité régit également votre utilisation de notre service et explique comment nous recueillons, protégeons et divulguons les informations résultant de votre utilisation de nos pages web.</p>

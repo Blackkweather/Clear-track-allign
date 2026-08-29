@@ -16,7 +16,7 @@
 @section('content')
     {{-- ══ Diapo 40 — Notre histoire (BLANC) ══ --}}
     <section class="bg-waves-light">
-        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-2">
+        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-10 sm:py-16 sm:px-6 md:grid-cols-2">
             <div class="flex justify-center md:order-1">
                 <img src="{{ asset('assets/a-propos/notre-histoire.jpg') }}"
                      alt="Un aligneur Cleartrack® transparent tenu à la lumière du jour"
@@ -32,7 +32,7 @@
 
     {{-- ══ Diapo 41 — Notre mission (BLANC, texte à gauche) ══ --}}
     <section class="bg-waves-light">
-        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-2">
+        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-10 sm:py-16 sm:px-6 md:grid-cols-2">
             <div class="md:order-1">
                 <h2 class="section-title">Notre mission</h2>
                 <p class="mt-4 leading-relaxed">Tout le monde mérite d’avoir confiance en soi, mais plusieurs personnes sont freinées ou complexées à cause de leur sourire. Pour certains, c’est parce que les appareils dentaires ne sont pas une option, et pour d’autres, c’est le coût élevé des traitements orthodontiques. Nous voulons changer cela. Nous pensons que la première impression compte et qu’un sourire confiant véhicule une image positive puissante.</p>
@@ -60,7 +60,7 @@
          bord gauche est fondu au masque : plus de couture, le dégradé se
          raccorde au fond de la section. D43. --}}
     <section class="bg-waves overflow-hidden">
-        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-2">
+        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-10 sm:py-16 sm:px-6 md:grid-cols-2">
             <div class="text-white">
                 <h2 class="section-title-invert">Nos standards</h2>
                 <p class="mt-8 leading-relaxed text-white/90">Nous mettons au point des solutions de qualité à des prix équitables. Cleartrack innove mais ne négocie pas sur la qualité. Des orthodontistes qualifiés examinent chaque cas pour s’assurer que le traitement répond à un standard médical élevé.</p>
@@ -69,8 +69,12 @@
             {{-- Diapo 42 : la photo occupe toute la moitié droite et va jusqu'au
                  bord de l'écran. `.fondu-gauche` estompe son bord gauche pour que
                  son dégradé bleu propre se raccorde au fond de la section au lieu
-                 d'y dessiner un rectangle. --}}
-            <div class="bleed-right flex justify-center md:justify-end">
+                 d'y dessiner un rectangle.
+                 Mobile : retour client du 29/08/2026, même remarque que sur la page
+                 Pourquoi (D79) — la photo restait centrée dans sa colonne au lieu de
+                 toucher le bord droit comme demandé (« mettre la photo au max à
+                 droite », D43). .bleed-mobile-right l'y amène désormais. --}}
+            <div class="bleed-right bleed-mobile-right flex justify-end">
                 <img src="{{ asset('assets/a-propos/nos-standards.jpg') }}"
                      alt="Un aligneur Cleartrack® tenu entre deux doigts"
                      width="2633" height="1263"
@@ -97,7 +101,7 @@
                  alt="Trois jeunes femmes souriantes sur fond bleu" loading="lazy"
                  width="1400" height="1400"
                  class="mx-auto h-auto w-full max-w-2xl rounded-2xl">
-            <div class="pb-16 pt-4 md:py-16">
+            <div class="pb-10 pt-4 sm:pb-16 md:py-16">
                 <h2 class="section-title">Nous aimons votre sourire&nbsp;!</h2>
                 <p class="mt-6 leading-relaxed">Rendons-le plus beau …</p>
                 <p class="mt-4 leading-relaxed">Nous éliminons les espaces entre les dents</p>

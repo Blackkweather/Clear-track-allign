@@ -337,6 +337,36 @@
         }
     }
 
+    /* Débordement jusqu'au bord de l'écran SUR MOBILE, là où .bleed-right ne
+       s'applique pas encore (D55 : elle ne commence qu'à md, pour ne pas
+       casser overflow-x: clip — voir le commentaire de .img-bleed plus bas
+       pour le bug déjà rencontré avec une largeur intrinsèque non bridée).
+       Retour client du 29/08/2026 : la main gantée et le modèle 3D restaient
+       centrés dans leur colonne sur mobile, avec un espace visible du côté où
+       ils devraient au contraire toucher le bord — l'effet recherché (D41,
+       D55) ne s'y voyait donc pas. La technique reste bornée et sûre : elle
+       annule seulement le padding horizontal PROPRE à la section (px-4, puis
+       sm:px-6), jamais plus — contrairement à un calque en vw, elle ne peut
+       donc jamais rendre la ligne plus large que l'écran. À utiliser avec
+       `w-full` sur l'image (jamais `w-auto`/`max-w-none` en dessous de md) et
+       `justify-start`/`justify-end` sur le conteneur flex, selon le côté. */
+    @media (max-width: 767px) {
+        .bleed-mobile-right {
+            margin-right: -1rem;
+        }
+        .bleed-mobile-left {
+            margin-left: -1rem;
+        }
+    }
+    @media (min-width: 640px) and (max-width: 767px) {
+        .bleed-mobile-right {
+            margin-right: -1.5rem;
+        }
+        .bleed-mobile-left {
+            margin-left: -1.5rem;
+        }
+    }
+
     /* Bord gauche estompé — pour une photo qui porte son PROPRE fond et qu'on
        pose sur une section de couleur voisine. Sans ce fondu, la photo dessine
        un rectangle net au milieu du bandeau : c'est ce que le client a vu sur

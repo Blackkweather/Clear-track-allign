@@ -5,7 +5,7 @@
 @section('content')
     {{-- HÉRO (PPT slide 2) --}}
     <section class="bg-waves relative overflow-hidden">
-        <div class="mx-auto grid max-w-7xl items-center gap-8 px-4 py-16 sm:px-6 md:grid-cols-2 md:py-24">
+        <div class="mx-auto grid max-w-7xl items-center gap-8 px-4 py-10 sm:py-16 sm:px-6 md:grid-cols-2 md:py-24">
             <div class="text-white">
                 {{-- Échelle PPT slide 2 : sur-titre 28 pt (~42 px), « SANS FIL » 36 pt en gras --}}
                 <p class="hero-in-1 text-2xl font-medium md:text-[2.5rem] md:leading-tight">Optez pour la solution</p>
@@ -200,7 +200,7 @@
         </div>
 
         {{-- Mobile : liste simple (le diagramme annoté ne tient pas sur petit écran) --}}
-        <div class="px-4 py-12 sm:px-6 md:hidden">
+        <div class="px-4 py-8 sm:py-12 sm:px-6 md:hidden">
             <div class="flex justify-center">
                 <img src="{{ asset('assets/ppt/slide04_0.webp') }}" alt="Aligneur ClearTrack tenu entre deux doigts"
                      class="h-40 w-auto object-contain" loading="lazy">
@@ -235,7 +235,7 @@
 
     {{-- DENTISTES EXPERTS (PPT slide 4) --}}
     <section class="bg-waves" aria-labelledby="experts-titre">
-        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-16 sm:px-6 md:grid-cols-2">
+        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-10 sm:py-16 sm:px-6 md:grid-cols-2">
             <div class="text-white">
                 <h2 id="experts-titre" class="section-title-invert">Traitement fourni par des dentistes experts dans des cabinets et cliniques dentaires</h2>
                 <div class="mt-4 h-1 w-16 rounded bg-white/70"></div>
@@ -261,7 +261,7 @@
          donc devant la section « en 4 étapes ». Le fond blanc à courbes est
          conservé (« Garder ce fond lorsque le fond est blanc »). --}}
     <section class="bg-waves-light" aria-labelledby="video-titre">
-        <div class="mx-auto max-w-5xl px-4 py-16 sm:px-6">
+        <div class="mx-auto max-w-5xl px-4 py-10 sm:py-16 sm:px-6">
             <h2 id="video-titre" class="section-title text-center">Regardez comment ça marche</h2>
             <div class="mt-8">
                 <x-video-facade src="assets/videos/comment-ca-marche.mp4" poster="assets/videos/comment-ca-marche-poster.jpg" label="Lancer la vidéo Comment ça marche" />
@@ -287,7 +287,7 @@
          cabinets... »). D69. INTERPRÉTATION À CONFIRMER : la demande ne précisait
          pas le texte de départ, voir CONTENT-DECISIONS.md. --}}
     <section class="bg-waves-light" aria-labelledby="etapes-titre" data-etapes>
-        <div class="mx-auto max-w-7xl px-4 py-20 sm:px-6">
+        <div class="mx-auto max-w-7xl px-4 py-12 sm:py-20 sm:px-6">
         <h2 id="etapes-titre" class="section-title text-center text-4xl md:text-5xl">Cleartrack® align en 4 étapes</h2>
         <div class="mt-12 grid gap-8 md:grid-cols-2 xl:grid-cols-4">
             @php
@@ -318,7 +318,7 @@
 
     {{-- RÉSULTATS (PPT slides 9-10) — carrousel — section 6/10 : BLANC --}}
     <section class="bg-waves-light" aria-labelledby="resultats-titre">
-        <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6">
+        <div class="mx-auto max-w-7xl px-4 py-10 sm:py-16 sm:px-6">
             <div class="text-center">
                 {{-- Retour client : « les résultats sont visibles à partir de trois
                      mois, pas six mois ». La mention « en 6 mois en moyenne » de la
@@ -359,7 +359,7 @@
 
     {{-- AVANTAGES 3 COLONNES (PPT slide 11) — BLANC --}}
     <section class="bg-waves-light" aria-labelledby="avantages-titre">
-        <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6">
+        <div class="mx-auto max-w-7xl px-4 py-10 sm:py-16 sm:px-6">
         {{-- Retour client : « Agrandir » toute la section, fond blanc conservé --}}
         <h2 id="avantages-titre" class="section-title text-center text-4xl md:text-5xl">Obtenez des dents parfaitement alignées</h2>
         <p class="section-subtitle text-center text-lg md:text-xl">Cleartrack® présente des avantages de premier choix</p>
@@ -400,7 +400,7 @@
          Retours client : « Agrandir slide », « Suivre le modele sur PPT : fond blanc »
          et « Découper contour » (photo détourée, sans fond). --}}
     <section class="bg-waves-light" aria-labelledby="sourire-titre">
-        <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 py-24 sm:px-6 md:grid-cols-2">
+        <div class="mx-auto grid max-w-7xl items-center gap-12 px-4 py-14 sm:py-24 sm:px-6 md:grid-cols-2">
             {{-- Diapo 12 : la photo occupe la moitié gauche, le bloc de texte la moitié droite. --}}
             {{-- Retour client : « agrandir un tout petit peu le slide » et garder la
                  photo de la patiente, main levée tenant l'aligneur, détourée. --}}
@@ -463,7 +463,7 @@
          slide » et « Fond blanc avec rainures » — ce dernier est déjà le cas
          (.bg-waves-light = blanc + courbes du PPT). --}}
     <section class="bg-waves-light" aria-labelledby="invisible-titre">
-        <div class="mx-auto grid max-w-[90rem] items-center gap-14 px-4 py-24 sm:px-6 md:grid-cols-2">
+        <div class="mx-auto grid max-w-[90rem] items-center gap-14 px-4 py-14 sm:py-24 sm:px-6 md:grid-cols-2">
         <div>
             <h2 id="invisible-titre" class="section-title text-4xl md:text-5xl">Un traitement orthodontique invisible…</h2>
             <p class="texte-ppt mt-6">Les aligneurs Cleartrack® sont fréquemment prescrits pour corriger divers cas de dents mal alignées, d’espaces entre les dents et de rotation des dents.</p>

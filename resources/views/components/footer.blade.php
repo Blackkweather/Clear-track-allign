@@ -1,7 +1,7 @@
 {{-- Footer (référence : PPT slides 16, 24, 30…)
      Même bleu exact du PPT que la nav, pour la cohérence demandée en réunion (voir D19). --}}
 <footer class="bg-waves mt-0 text-white">
-    <div class="mx-auto max-w-7xl px-4 py-10 sm:px-6">
+    <div class="mx-auto max-w-7xl px-4 py-7 sm:py-10 sm:px-6">
         <div class="flex flex-col gap-10 lg:flex-row lg:justify-between">
 
             {{-- Logo + contact --}}

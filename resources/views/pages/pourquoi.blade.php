@@ -19,7 +19,7 @@
     {{-- ══ Diapo 18 — En-tête (BLEU) ══
          Titre et sous-titre centrés, comme sur la diapositive. --}}
     <section class="bg-waves">
-        <div class="mx-auto max-w-7xl px-4 pb-6 pt-14 text-center sm:px-6">
+        <div class="mx-auto max-w-7xl px-4 pb-6 pt-9 text-center sm:pt-14 sm:px-6">
             <h1 class="page-title mx-auto max-w-5xl text-white">Pourquoi choisir le traitement Cleartrack®align&nbsp;?</h1>
             <p class="mx-auto mt-4 max-w-4xl text-white/90">Les aligneurs Cleartrack® sont conçues et développées par des orthodontistes qualifiés et expérimentés</p>
         </div>
@@ -41,7 +41,7 @@
         <h2 id="raisons-titre" class="sr-only">Les raisons de choisir Cleartrack®align</h2>
 
         {{-- Diapo 18 --}}
-        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-12 sm:px-6 md:grid-cols-2">
+        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-8 sm:py-12 sm:px-6 md:grid-cols-2">
             <div class="space-y-10">
                 @foreach (array_slice($raisons, 0, 2) as $r)
                     <div class="flex gap-5">
@@ -71,19 +71,24 @@
                  contre le bord de la diapositive. Il sort donc du conteneur
                  centré par une marge négative à droite — le pendant exact du
                  rendu 3D de la diapo 19, qui déborde par la gauche (D41).
-                 Mobile : l'image reste centrée dans sa colonne, sans quoi
-                 overflow-x: clip la rognerait. D55. --}}
-            <div class="bleed-right flex justify-center md:justify-end">
+                 Mobile : retour client du 29/08/2026, « il y a de l'espacement,
+                 elle n'est pas au maximum de la gauche/droite » — l'image
+                 restait centrée dans sa colonne (D55) au lieu de toucher le
+                 bord. .bleed-mobile-right l'y amène désormais, sans le risque
+                 qui avait fait renoncer à un débordement mobile en D55/D41 :
+                 elle n'annule que le padding propre à la section, jamais plus
+                 (voir le commentaire de .bleed-mobile-right dans app.css). D79. --}}
+            <div class="bleed-right bleed-mobile-right flex justify-end">
                 <img src="{{ asset('assets/pourquoi/main-gantee-horizontale.webp') }}"
                      alt="Aligneur Cleartrack® tenu par une main gantée" loading="lazy"
                      width="1100" height="830"
-                     class="h-auto w-full max-w-sm drop-shadow-2xl md:w-[32rem] md:max-w-none lg:w-[40rem]">
+                     class="h-auto w-full drop-shadow-2xl md:w-[32rem] md:max-w-none lg:w-[40rem]">
             </div>
         </div>
 
         {{-- Diapo 19 --}}
-        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-12 sm:px-6 md:grid-cols-2">
-            <div class="flex justify-center md:order-1">
+        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-8 sm:py-12 sm:px-6 md:grid-cols-2">
+            <div class="bleed-mobile-left flex justify-start md:justify-center md:order-1">
                 {{-- Débordement volontaire hors du cadre, comme sur la diapo 19, qui
                      pose l'image à x = -29,48 % : près d'un tiers de sa largeur sort
                      par la GAUCHE de la diapositive.
@@ -93,15 +98,15 @@
                      gauche est calée sur le débordement du PPT — elle vient bien
                      mourir au bord gauche de l'écran au lieu de flotter au milieu
                      de sa colonne. D41.
-                     Mobile : l'image reste bridée à la largeur de sa colonne. Avec
-                     « w-auto max-w-none », l'image, très large, imposait sa largeur
-                     intrinsèque à la colonne de grille : la section devenait plus
-                     large que l'écran et overflow-x: clip rognait le texte à droite
-                     au lieu de le faire revenir à la ligne. Le débordement voulu
-                     ne commence donc qu'à partir de md. --}}
+                     Mobile : retour client du 29/08/2026, même remarque que pour la
+                     main gantée — .bleed-mobile-left amène désormais l'image jusqu'au
+                     bord gauche de l'écran. Le bug D41 (largeur intrinsèque non bridée
+                     qui élargissait toute la section) ne peut plus se reproduire : la
+                     classe ne retire que le padding de la section (borné), et l'image
+                     garde `w-full` — jamais `w-auto`/`max-w-none` en dessous de md. D79. --}}
                 <img src="{{ asset('assets/pourquoi/aligneur-3d.webp') }}"
                      alt="Rendu 3D d’un aligneur Cleartrack® align" loading="lazy"
-                     class="img-bleed h-auto w-full max-w-xs drop-shadow-2xl md:h-[32rem] md:w-auto md:max-w-none md:-ml-56 lg:h-[44rem] lg:-ml-[22rem]">
+                     class="img-bleed h-auto w-full drop-shadow-2xl md:h-[32rem] md:w-auto md:max-w-none md:-ml-56 lg:h-[44rem] lg:-ml-[22rem]">
             </div>
             <div class="space-y-10 md:order-2">
                 @foreach (array_slice($raisons, 2, 2) as $r)
@@ -139,7 +144,7 @@
     @endphp
 
     <section class="bg-waves-light overflow-hidden" aria-labelledby="materiau-titre">
-        <div class="py-16">
+        <div class="py-10 sm:py-16">
             <div class="mx-auto max-w-7xl px-4 sm:px-6">
                 <h2 id="materiau-titre" class="section-title text-center">Aligneurs avec matériau de meilleure qualité</h2>
                 <p class="mx-auto mt-3 max-w-3xl text-center text-slate-500">Un matériau biocompatible personnalisé de nos aligneurs, qui présente les avantages suivants</p>
@@ -192,7 +197,7 @@
 
     {{-- ══ Diapo 23 — Appel à la consultation gratuite (bandeau BLEU, bouton blanc) ══ --}}
     <section class="bg-waves">
-        <div class="mx-auto max-w-5xl px-4 py-14 text-center sm:px-6">
+        <div class="mx-auto max-w-5xl px-4 py-9 sm:py-14 text-center sm:px-6">
             <p class="text-2xl font-bold text-white md:text-3xl">Nous sommes impatients de vous offrir le meilleur sourire que vous méritez. Planifiez une première consultation avec un orthodontiste entièrement gratuite&nbsp;!</p>
             <a href="{{ route('rdv') }}" class="btn-white mt-8">Démarrer</a>
         </div>
@@ -208,7 +213,7 @@
     @endphp
 
     <section class="bg-waves-light" aria-labelledby="choix-titre">
-        <div class="mx-auto max-w-7xl px-4 pb-16 pt-4 sm:px-6">
+        <div class="mx-auto max-w-7xl px-4 pb-10 pt-4 sm:pb-16 sm:px-6">
             {{-- Diapo 23 : ce titre est gris, et non bleu comme les autres titres de section --}}
             <h2 id="choix-titre" class="section-title mx-auto max-w-4xl text-center !text-slate-400">Pourquoi les gens choisissent les aligneurs plutôt que les appareils dentaires conventionnels&nbsp;?</h2>
             <p class="mx-auto mt-6 max-w-4xl text-center leading-relaxed">La plupart des médecins et orthodontistes considèrent les aligneurs comme la solution idéale pour améliorer leur santé bucco-dentaire, leur confiance en eux et leur personnalité, car ils offrent les avantages d’un traitement orthodontique sans les compromis et les problèmes associés aux appareils conventionnels</p>

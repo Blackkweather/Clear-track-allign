@@ -14,7 +14,7 @@
         <img src="{{ asset('assets/cas/entete-sourire.jpg') }}"
              alt="Profil comparant un appareil dentaire métallique et un aligneur transparent"
              class="absolute right-0 top-0 hidden w-[38%] md:block" loading="lazy">
-        <div class="relative mx-auto max-w-7xl px-4 pb-10 pt-16 sm:px-6">
+        <div class="relative mx-auto max-w-7xl px-4 pb-7 pt-10 sm:pb-10 sm:pt-16 sm:px-6">
             <h1 class="text-3xl font-bold text-ppt-blue md:text-5xl">Cas traitables avec Cleartrack® align</h1>
         </div>
         <p class="mx-auto max-w-7xl px-4 pb-10 text-center text-slate-500 sm:px-6 md:text-xl">Cleartrack® align peut traiter</p>
@@ -23,7 +23,7 @@
     {{-- Les 7 cas (PPT diapos 46-50) : une rangée pleine largeur par cas,
          schéma à gauche, titre souligné et texte à droite. --}}
     <section class="bg-waves-light">
-        <div class="mx-auto max-w-7xl px-4 pb-16 sm:px-6">
+        <div class="mx-auto max-w-7xl px-4 pb-10 sm:pb-16 sm:px-6">
         <div class="space-y-12">
             {{-- Textes recopiés mot pour mot des diapos 46-50, coquilles du PPT comprises
                  (« peuvent être traités », « peut résoudre », « son projetées ») — D23. --}}
@@ -53,7 +53,7 @@
 
     {{-- CTA (PPT diapo 49) — même bloc que sur la page Avantages --}}
     <section class="bg-waves">
-        <div class="mx-auto max-w-7xl px-4 py-14 text-center text-white sm:px-6">
+        <div class="mx-auto max-w-7xl px-4 py-9 sm:py-14 text-center text-white sm:px-6">
             <h2 class="section-title-invert">Qu’attendez vous&nbsp;?</h2>
             <p class="mx-auto mt-4 max-w-4xl text-white/90 md:text-lg">Nous sommes impatients de vous offrir le meilleur sourire que vous méritez. Planifiez une première consultation avec un orthodontiste entièrement gratuite&nbsp;!</p>
             <a href="{{ route('rdv') }}" class="btn-white mt-8">Démarrer</a>

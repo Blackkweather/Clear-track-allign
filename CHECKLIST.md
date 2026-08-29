@@ -253,6 +253,13 @@ Suivi vivant du projet (règle Phase 6 : checklist maintenue en continu).
 - [x] **Instructions : 4 photos posées** (Porter vos aligneurs, Rangement et entretien, Manger et boire, Hygiène) en WebP dans `public/assets/instructions/`, à la place des rendus 3D/pictogrammes génériques — D78
 - [x] **Page RDV : animation remplacée** par le fichier source `gif/x2.gif` du client (1500 × 1018) — à 1350 px d'affichage (D77), le flou signalé est résolu sans agrandissement CSS au-delà du fichier — D78
 
+### Retour du 29/08/2026 — optimisation mobile
+- [x] **Main gantée et rendu 3D (Pourquoi), photo « Nos standards » (À propos)** : nouvelles classes `.bleed-mobile-left`/`-right` (app.css), elles touchent désormais le bord de l'écran sur mobile au lieu de rester centrées avec un espace — D79
+- [x] **Espacements verticaux resserrés sous `sm:`** sur 40 sections (9 pages) — valeur desktop/tablette inchangée à partir de `sm:`/`md:` — D79
+- [x] **Boutons** : audit du code des groupes de CTA, tous déjà en `flex-wrap`/`flex-col` sous leur point de bascule — aucune anomalie trouvée
+- [x] `./vendor/bin/pint --test`, `php artisan test` (45 tests, 130 assertions) et `npm run build` — tout au vert
+- [ ] **Non vérifié visuellement** (extension Chrome non connectée cette session) — à confirmer sur un vrai téléphone une fois déployé
+
 ## En attente du client (bloquants réels)
 - [ ] **Réponse à « Pourquoi ne pas me faire livrer directement chez moi et devoir passer chez un dentiste ? »** (seule question du PPT absente du site — D28)
 - [ ] Les **3 PDF** du centre de téléchargement (fiche de prescription, consentement éclairé, consentement contention)

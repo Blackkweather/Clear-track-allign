@@ -38,7 +38,7 @@
          résolu sans toucher à la taille affichée. `width`/`height` mis à jour
          en conséquence (aspect ratio inchangé : 450:305 ≈ 1500:1018). D78. --}}
     <section class="bg-waves">
-        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-14 sm:px-6 md:grid-cols-2">
+        <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-9 sm:py-14 sm:px-6 md:grid-cols-2">
             <div>
                 <h1 class="page-title text-white">Réservez une consultation dans un des cabinets certifiés Cleartrack® partout au Maroc</h1>
                 <p class="mt-4 text-white/90">Comment deviendra mon sourire après l’alignement des dents&nbsp;? Combien de temps faut-il pour aligner mes dents&nbsp;? Les aligneurs conviennent-ils à mon cas&nbsp;? Remplissez le formulaire ci-dessous afin que nous puissions réserver une consultation dentaire gratuite pour répondre à toutes vos questions.</p>
@@ -59,12 +59,12 @@
     </section>
 
     {{-- Bloc blanc à vagues : les « 2 visites » et le formulaire sont visuellement
-         continus (pt-14 puis py-14, sans césure). Un seul fond les couvre donc tous
+         continus (pt-9 sm:pt-14 puis py-9 sm:py-14, sans césure). Un seul fond les couvre donc tous
          les deux — deux .bg-waves-light accolés cadreraient chacun une portion
          différente du motif et la cassure se verrait à la jointure. --}}
     <div class="bg-waves-light">
     {{-- 2 visites (PPT slide 70) --}}
-    <section class="mx-auto max-w-7xl px-4 pt-14 sm:px-6">
+    <section class="mx-auto max-w-7xl px-4 pt-9 sm:pt-14 sm:px-6">
         <div class="card">
             <h2 class="text-xl font-bold text-ppt-blue">L’obtention de vos aligneurs Cleartrack® ne nécessite que deux visites chez l’un de nos médecins dentistes certifiés&nbsp;:</h2>
             <div class="mt-5 grid gap-6 md:grid-cols-2">
@@ -81,7 +81,7 @@
     </section>
 
     {{-- Formulaire (PPT slides 71-72) --}}
-    <section class="mx-auto max-w-4xl px-4 py-14 sm:px-6">
+    <section class="mx-auto max-w-4xl px-4 py-9 sm:py-14 sm:px-6">
         <x-avis-apercu />
         @if (session('succes'))
             <div class="mb-8 rounded-2xl border-2 border-green-500 bg-green-50 p-6 text-center" role="status">
@@ -165,7 +165,7 @@
 
     {{-- Annuaire des cabinets par ville (PPT slides 73-74) --}}
     <section class="bg-waves" aria-labelledby="annuaire-titre">
-        <div class="mx-auto max-w-4xl px-4 py-16 sm:px-6">
+        <div class="mx-auto max-w-4xl px-4 py-10 sm:py-16 sm:px-6">
             <h2 id="annuaire-titre" class="text-2xl font-bold text-white md:text-3xl">Ou contactez directement un de nos cabinets certifiés Cleartrack®</h2>
             <div class="mt-8 space-y-3">
                 @foreach ($villes as $ville)

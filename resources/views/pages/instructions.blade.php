@@ -153,14 +153,14 @@
 
     {{-- En-tête — BLEU --}}
     <section class="bg-waves">
-        <div class="mx-auto max-w-7xl px-4 py-14 sm:px-6">
+        <div class="mx-auto max-w-7xl px-4 py-9 sm:py-14 sm:px-6">
             <h1 class="page-title max-w-3xl text-white">Instructions d’utilisation</h1>
             <p class="texte-ppt mt-4 max-w-2xl text-white/90">Tout ce qu’il faut savoir pour porter vos aligneurs Cleartrack® correctement, jour après jour. En cas de doute, votre dentiste traitant reste votre premier interlocuteur.</p>
         </div>
     </section>
 
     <section class="bg-waves-light" aria-labelledby="instructions-titre">
-        <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6"
+        <div class="mx-auto max-w-7xl px-4 py-10 sm:py-16 sm:px-6"
              x-data="{ onglet: '{{ $sections[0]['cle'] }}' }">
             <h2 id="instructions-titre" class="section-title text-center">Comment porter vos aligneurs</h2>
             <p class="section-subtitle mx-auto max-w-2xl text-center">Portez vos aligneurs 22&nbsp;heures par jour et ne les retirez que pour manger, boire et vous brosser les dents.</p>
