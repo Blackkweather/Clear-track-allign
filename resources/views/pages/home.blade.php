@@ -211,8 +211,12 @@
                  desktop juste au-dessus (D59, calibré au pixel sur CE fichier).
                  Impossible d'y toucher sans désaligner ces traits. slide04_0-mobile
                  .webp est donc une version recadrée à part (724×672, même détourage,
-                 juste sans le vide), utilisée UNIQUEMENT ici. D80. --}}
-            <div class="flex justify-center">
+                 juste sans le vide), utilisée UNIQUEMENT ici. D80.
+                 Retour client immédiat : « straight in the middle instead of max
+                 left » — une fois la taille corrigée, elle reste centrée au lieu de
+                 toucher le bord gauche comme la main gantée/le modèle 3D de la page
+                 Pourquoi (D79). Même traitement ici : .bleed-mobile-left. D81. --}}
+            <div class="bleed-mobile-left flex justify-start">
                 <img src="{{ asset('assets/ppt/slide04_0-mobile.webp') }}" alt="Aligneur ClearTrack tenu entre deux doigts"
                      class="h-40 w-auto object-contain" loading="lazy">
             </div>

@@ -260,6 +260,7 @@ Suivi vivant du projet (règle Phase 6 : checklist maintenue en continu).
 - [x] `./vendor/bin/pint --test`, `php artisan test` (45 tests, 130 assertions) et `npm run build` — tout au vert
 - [x] **Vérifié en émulation mobile réelle** (Chrome DevTools, 390 px) une fois la connexion établie : les 3 images touchent bien le bord, aucun chevauchement image/texte sur les 15 pages publiques
 - [x] **Photo « aligneur tenu entre deux doigts » (accueil mobile)** : recadrée à part (`slide04_0-mobile.webp`) — le fichier partagé avec le diagramme desktop avait un vide transparent de 48 % à droite, invisible au code mais visible à l'écran — D80
+- [x] **Même photo, plaquée au bord gauche** (`.bleed-mobile-left`) au lieu de rester centrée — D81
 
 ## En attente du client (bloquants réels)
 - [ ] **Réponse à « Pourquoi ne pas me faire livrer directement chez moi et devoir passer chez un dentiste ? »** (seule question du PPT absente du site — D28)
