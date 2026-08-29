@@ -36,7 +36,18 @@
          remplacé par cette version : à 1350 px, l'affichage tient désormais
          **sous** sa résolution native (1500 px) — le flou signalé en D77 est
          résolu sans toucher à la taille affichée. `width`/`height` mis à jour
-         en conséquence (aspect ratio inchangé : 450:305 ≈ 1500:1018). D78. --}}
+         en conséquence (aspect ratio inchangé : 450:305 ≈ 1500:1018). D78.
+
+         Retour client du 29/08/2026 : « remove the background for this one ».
+         Les deux fichiers avaient un fond gris clair uni (#F6F6F6 / #F4F5F4,
+         hérité du GIF d'origine) qui dessinait un rectangle net sur le bandeau
+         bleu. Détourage par remplissage par diffusion depuis les bords (pas un
+         simple filtrage par couleur) : seule la région de fond RÉELLEMENT
+         connectée au bord devient transparente, avec un dégradé de quelques
+         niveaux sur le contour pour éviter un bord dentelé. Un filtrage par
+         couleur seul aurait aussi percé des trous dans les reflets clairs des
+         dents (constaté puis corrigé). `rounded-2xl` est retiré : il arrondissait
+         les coins de cette boîte, qui n'existe plus. D82. --}}
     <section class="bg-waves">
         <div class="mx-auto grid max-w-7xl items-center gap-10 px-4 py-9 sm:py-14 sm:px-6 md:grid-cols-2">
             <div>
@@ -48,11 +59,11 @@
                     <picture>
                         <source srcset="{{ asset('assets/rdv/alignement-fixe.png') }}" media="(prefers-reduced-motion: reduce)">
                         <img src="{{ asset('assets/rdv/alignement.webp') }}" alt="" aria-hidden="true"
-                             width="450" height="305" class="h-auto w-full max-w-[1350px] rounded-2xl">
+                             width="450" height="305" class="h-auto w-full max-w-[1350px]">
                     </picture>
                 @else
                     <img src="{{ asset('assets/rdv/alignement-fixe.png') }}" alt="" aria-hidden="true"
-                         width="450" height="305" class="h-auto w-full max-w-[1350px] rounded-2xl">
+                         width="450" height="305" class="h-auto w-full max-w-[1350px]">
                 @endif
             </div>
         </div>
