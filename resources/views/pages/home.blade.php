@@ -201,8 +201,19 @@
 
         {{-- Mobile : liste simple (le diagramme annoté ne tient pas sur petit écran) --}}
         <div class="px-4 py-8 sm:py-12 sm:px-6 md:hidden">
+            {{-- Retour client du 29/08/2026, capture à l'appui : « look at the hand
+                 holding the model » — le rendu paraissait tout petit, poussé à
+                 gauche, avec un grand vide à droite. Ce n'était pas un problème de
+                 centrage (le conteneur centrait bien la boîte de l'image) mais le
+                 fichier source lui-même : slide04_0.webp fait 1400×672, et le sujet
+                 (main + aligneur) n'occupe que les 724 premiers pixels — le reste
+                 est du vide transparent, réservé aux traits SVG du diagramme
+                 desktop juste au-dessus (D59, calibré au pixel sur CE fichier).
+                 Impossible d'y toucher sans désaligner ces traits. slide04_0-mobile
+                 .webp est donc une version recadrée à part (724×672, même détourage,
+                 juste sans le vide), utilisée UNIQUEMENT ici. D80. --}}
             <div class="flex justify-center">
-                <img src="{{ asset('assets/ppt/slide04_0.webp') }}" alt="Aligneur ClearTrack tenu entre deux doigts"
+                <img src="{{ asset('assets/ppt/slide04_0-mobile.webp') }}" alt="Aligneur ClearTrack tenu entre deux doigts"
                      class="h-40 w-auto object-contain" loading="lazy">
             </div>
             {{-- Grille à 2 colonnes : les cinq pavés sont le MÊME élément avec les

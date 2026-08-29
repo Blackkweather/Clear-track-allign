@@ -258,7 +258,8 @@ Suivi vivant du projet (règle Phase 6 : checklist maintenue en continu).
 - [x] **Espacements verticaux resserrés sous `sm:`** sur 40 sections (9 pages) — valeur desktop/tablette inchangée à partir de `sm:`/`md:` — D79
 - [x] **Boutons** : audit du code des groupes de CTA, tous déjà en `flex-wrap`/`flex-col` sous leur point de bascule — aucune anomalie trouvée
 - [x] `./vendor/bin/pint --test`, `php artisan test` (45 tests, 130 assertions) et `npm run build` — tout au vert
-- [ ] **Non vérifié visuellement** (extension Chrome non connectée cette session) — à confirmer sur un vrai téléphone une fois déployé
+- [x] **Vérifié en émulation mobile réelle** (Chrome DevTools, 390 px) une fois la connexion établie : les 3 images touchent bien le bord, aucun chevauchement image/texte sur les 15 pages publiques
+- [x] **Photo « aligneur tenu entre deux doigts » (accueil mobile)** : recadrée à part (`slide04_0-mobile.webp`) — le fichier partagé avec le diagramme desktop avait un vide transparent de 48 % à droite, invisible au code mais visible à l'écran — D80
 
 ## En attente du client (bloquants réels)
 - [ ] **Réponse à « Pourquoi ne pas me faire livrer directement chez moi et devoir passer chez un dentiste ? »** (seule question du PPT absente du site — D28)
