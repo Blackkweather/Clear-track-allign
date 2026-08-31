@@ -263,6 +263,9 @@ Suivi vivant du projet (règle Phase 6 : checklist maintenue en continu).
 - [x] **Même photo, plaquée au bord gauche** (`.bleed-mobile-left`) au lieu de rester centrée — D81
 - [x] **Page RDV : fond gris retiré** de l'animation et du repli statique (détourage par remplissage depuis les bords, pas un filtrage naïf par couleur) — D82
 - [x] **Étape 1 confirmée** : « Consultation chez le dentiste » (le mot « gratuite » est retiré) — D83, clôt D70
+- [x] **Héro de l'accueil recentré sur mobile** : sur-titre, titre, logo, boutons et photo partagent désormais un seul axe sous `md` (ils en avaient quatre différents) ; les deux boutons passent en colonne centrée de **même largeur** au lieu du repli en escalier — même traitement entre 768 et 1024 px, desktop inchangé au pixel près (mesuré) — D84
+- [x] **Héro : bascule bureau conditionnée à la hauteur** (`@custom-variant bureau`, largeur ≥ 48rem ET hauteur ≥ 34rem) — un téléphone en paysage (932 × 430) recevait la grille deux colonnes et la photo au gabarit desktop, hors écran ; il garde désormais la version mobile centrée. Tablette et desktop inchangés (mesurés) — D85
+- [x] **Vidéo « Comment ça marche » : la boîte 16/9 est réservée avant le chargement** — la vidéo n'avait pas été retirée (vérifié dans le HTML servi et sur le fichier lui-même) ; son affiche `loading="lazy"` n'avait aucune dimension déclarée, le bloc mesurait donc 0 px de haut jusqu'à son arrivée et la section paraissait vide sur téléphone. `aspect-video` + `width`/`height` sur l'affiche ; celle-ci sort du `<template x-if>` pour s'afficher sans attendre Alpine. Desktop inchangé au pixel près (878 × 494, mesuré avant/après) — D86
 
 ## En attente du client (bloquants réels)
 - [ ] **Réponse à « Pourquoi ne pas me faire livrer directement chez moi et devoir passer chez un dentiste ? »** (seule question du PPT absente du site — D28)

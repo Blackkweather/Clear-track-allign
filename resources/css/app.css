@@ -1,5 +1,32 @@
 @import 'tailwindcss';
 
+/* ── Variantes « vrai grand écran » : largeur ET hauteur ─────────────────
+   Problème constaté le 30/08/2026 sur téléphone : les points de rupture de
+   Tailwind ne regardent QUE la largeur. Un téléphone en PAYSAGE fait 932 ×
+   430 px — il dépasse donc `md` (768 px) et recevait la mise en page
+   « bureau » du héro : grille à deux colonnes, texte plaqué à gauche,
+   photo d'aligneur agrandie au gabarit desktop (34-44 rem) et débordant de
+   l'écran, boutons repoussés hors du champ. Exactement l'impression
+   d'« éléments à des endroits aléatoires » signalée par le client, mais
+   invisible en test portrait.
+
+   `bureau` / `bureau-lg` ajoutent donc une contrainte de HAUTEUR : la mise
+   en page à deux colonnes n'est servie qu'au-dessus de 34 rem (544 px) de
+   haut. Un téléphone en paysage (≤ 430 px de haut) garde la version mobile
+   centrée ; une tablette en paysage (768 px de haut), un portable et un
+   écran de bureau la dépassent tous largement et ne changent pas d'un
+   pixel. D85. */
+@custom-variant bureau {
+    @media (min-width: 48rem) and (min-height: 34rem) {
+        @slot;
+    }
+}
+@custom-variant bureau-lg {
+    @media (min-width: 64rem) and (min-height: 34rem) {
+        @slot;
+    }
+}
+
 /* ── Poppins, servie depuis notre propre domaine ────────────────────────
    Elle venait de fonts.bunny.net par une feuille de style BLOQUANTE : avant
    le premier affichage, le navigateur devait résoudre un DNS tiers, ouvrir

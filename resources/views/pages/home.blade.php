@@ -5,8 +5,17 @@
 @section('content')
     {{-- HÉRO (PPT slide 2) --}}
     <section class="bg-waves relative overflow-hidden">
-        <div class="mx-auto grid max-w-7xl items-center gap-8 px-4 py-10 sm:py-16 sm:px-6 md:grid-cols-2 md:py-24">
-            <div class="text-white">
+        <div class="mx-auto grid max-w-7xl items-center gap-8 px-4 py-10 sm:py-16 sm:px-6 bureau:grid-cols-2 bureau:py-24">
+            {{-- Retour client du 30/08/2026 : « center the elements of hero, the
+                 buttons [...] seeing elements in random spot ». Sous `md`, la
+                 colonne empilait quatre alignements différents : le sur-titre et
+                 le titre à gauche, le logo centré dans sa propre boîte (D56 —
+                 donc décroché vers la droite), les deux boutons collés à gauche
+                 et de largeurs inégales, puis la photo d'aligneur centrée.
+                 Tout le bloc passe en `text-center` sous `md` ; l'alignement à
+                 gauche du desktop, validé par le client, est rétabli tel quel à
+                 partir de `md`. D84. --}}
+            <div class="text-center text-white bureau:text-left">
                 {{-- Échelle PPT slide 2 : sur-titre 28 pt (~42 px), « SANS FIL » 36 pt en gras --}}
                 <p class="hero-in-1 text-2xl font-medium md:text-[2.5rem] md:leading-tight">Optez pour la solution</p>
 
@@ -28,13 +37,13 @@
                      Le « ! » qui fermait la phrase après le logo est retiré, et le
                      logo est agrandi (« un peu plus grand »). D69. --}}
                 <div class="inline-block">
-                    <div class="hero-in-2 mt-2 flex flex-wrap items-baseline gap-x-6 gap-y-1">
+                    <div class="hero-in-2 mt-2 flex flex-wrap items-baseline justify-center gap-x-6 gap-y-1 bureau:justify-start">
                         <h1 class="text-5xl font-extrabold leading-none tracking-tight md:text-[3.5rem]">SANS FIL</h1>
                         <span class="text-5xl font-semibold leading-none tracking-tight md:text-[3.5rem]">Choisissez</span>
                     </div>
                     <div class="hero-in-3 mt-4 flex items-center justify-center gap-3">
                         <img src="{{ asset('assets/brand/logo-on-blue.png') }}" alt="ClearTrack Align"
-                             class="h-20 w-auto md:h-28" fetchpriority="high">
+                             class="h-20 w-auto bureau:h-28" fetchpriority="high">
                     </div>
                 </div>
 
@@ -42,16 +51,35 @@
                      Retour client : « making button a bit bigger so it follows the
                      website » — ils passent au gabarit .btn-grand déjà utilisé plus
                      bas dans la page. --}}
-                <div class="hero-in-4 mt-8 flex flex-wrap gap-4">
-                    <a href="{{ route('pourquoi') }}" class="btn-white btn-grand">Découvrir</a>
-                    <a href="{{ route('rdv') }}" class="btn-white btn-grand">Prendre RDV</a>
+                {{-- Sous `sm`, les deux pilules ne tiennent pas côte à côte au
+                     gabarit .btn-grand (~176 px + ~200 px + gouttière > 358 px de
+                     large utile sur un écran de 390 px) : `flex-wrap` les
+                     empilait, chacune à sa largeur propre, d'où l'escalier signalé
+                     par le client. Elles passent en colonne centrée et prennent la
+                     MÊME largeur (`w-full max-w-xs`) ; à partir de `sm` elles
+                     retrouvent la ligne d'origine. Le gabarit des boutons n'est
+                     pas réduit — le client l'a explicitement demandé plus grand
+                     (D34).
+
+                     `sm:flex-wrap` conserve le repli d'origine : entre 768 et
+                     1024 px la grille passe à deux colonnes, la colonne de texte
+                     devient plus étroite que la ligne de boutons, et sans lui
+                     elle déborderait. Mais ce repli y reproduisait le même
+                     escalier que sur mobile (deux pilules empilées de largeurs
+                     inégales) — d'où `md:max-lg:` qui leur redonne la largeur
+                     commune dans cette seule fenêtre. À partir de `lg` les deux
+                     boutons tiennent sur une ligne : la mise en page desktop
+                     validée par le client est inchangée au pixel près. D84. --}}
+                <div class="hero-in-4 mt-8 flex flex-col items-center gap-4 sm:flex-row sm:flex-wrap sm:justify-center bureau:justify-start">
+                    <a href="{{ route('pourquoi') }}" class="btn-white btn-grand w-full max-w-xs sm:w-auto sm:max-w-none bureau:max-lg:w-full bureau:max-lg:max-w-xs">Découvrir</a>
+                    <a href="{{ route('rdv') }}" class="btn-white btn-grand w-full max-w-xs sm:w-auto sm:max-w-none bureau:max-lg:w-full bureau:max-lg:max-w-xs">Prendre RDV</a>
                 </div>
             </div>
             {{-- Diapo 2 : l'arcade occupe toute la moitié droite et sort du cadre à droite --}}
-            <div class="flex justify-center md:justify-end">
+            <div class="flex justify-center bureau:justify-end">
                 <img src="{{ asset('assets/hero-aligner.webp') }}"
                      alt="Aligneur dentaire transparent ClearTrack align"
-                     class="animate-float no-reveal w-72 max-w-full drop-shadow-2xl md:-mr-24 md:w-[34rem] md:max-w-none lg:-mr-40 lg:w-[44rem]" fetchpriority="high">
+                     class="animate-float no-reveal w-72 max-w-full drop-shadow-2xl bureau:-mr-24 bureau:w-[34rem] bureau:max-w-none bureau-lg:-mr-40 bureau-lg:w-[44rem]" fetchpriority="high">
             </div>
         </div>
     </section>
