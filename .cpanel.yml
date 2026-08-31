@@ -1,53 +1,28 @@
 ---
-# Déploiement cPanel (Heberjahiz) — cPanel → Git™ Version Control → « Deploy ».
+# Deploiement cPanel (Heberjahiz). Voir DEPLOIEMENT-HEBERJAHIZ.md pour le
+# detail et les raisons. Ce fichier est volontairement minimal : le parseur
+# de cPanel est plus strict que celui de PyYAML, donc pas de commentaire
+# dans la liste des taches, pas de substitution $(...), pas de || ni de
+# tube, et surtout jamais de deux-points suivi d'une espace.
 #
-# Contexte : sur le domaine principal, cPanel n'autorise pas à changer la racine
-# du document, figée sur public_html (vérifié le 31/08/2026 : « No configuration
-# options currently exist for the cleartrack.ma domain »). L'application vit donc
-# dans /home/cleartra/cleartrack, hors du web, et seuls ses fichiers publics sont
-# recopiés dans public_html, dont l'index.php est réécrit en chemins absolus.
+# php sans chemin absolu : sous CloudLinux, le PHP Selector fait pointer le
+# php de l'utilisateur sur la version choisie pour le compte, ici 8.3.
 #
-# JAMAIS touché ici, parce que ça ne vient pas du dépôt :
-#   vendor/        installé une fois depuis l'archive — pas de Composer en mutualisé
-#   .env           identifiants de production
-#   storage/       journaux, sessions, fichiers patients
-#   public/build   assets Vite compilés (listés dans .gitignore)
+# Jamais touche ici, parce que ca ne vient pas du depot : vendor/, .env,
+# storage/ et public/build.
 deployment:
   tasks:
     - export APP=/home/cleartra/cleartrack
     - export WEB=/home/cleartra/public_html
-    # Le binaire PHP 8.3 n'est pas au même endroit selon la pile : EasyApache
-    # (cPanel) le met dans /opt/cpanel, le PHP Selector (CloudLinux) dans
-    # /opt/alt. Heberjahiz tourne sous CloudLinux, mais on sonde les deux et on
-    # retombe sur le php du PATH en dernier recours.
-    - export PHP=$(command -v ea-php83 || command -v /opt/cpanel/ea-php83/root/usr/bin/php || command -v /opt/alt/php83/usr/bin/php || command -v php)
-    # Pas de « : » suivi d'une espace dans une tache : YAML y verrait un
-    # separateur cle/valeur, le fichier deviendrait invalide et cPanel
-    # desactiverait le deploiement sans message d'erreur explicite.
-    - echo "PHP retenu = $PHP" && $PHP -v | head -1
-
-    # 1 — Code applicatif
+    - php -v
     - /bin/cp -Rf app bootstrap config database resources routes $APP/
     - /bin/cp -f artisan composer.json composer.lock $APP/
-
-    # 2 — Fichiers publics. On fusionne d'abord dans $APP/public, ce qui préserve
-    #     build/ (absent du dépôt), puis on recopie l'ensemble dans la racine web.
-    #     Recopier directement depuis le dépôt priverait public_html des assets
-    #     Vite et le site s'afficherait sans aucun style.
     - /bin/cp -Rf public $APP/
     - /bin/cp -Rf $APP/public/. $WEB/
-
-    # 3 — index.php de la racine web : __DIR__.'/../ ne pointe plus au bon endroit,
-    #     puisque public_html n'est pas le dossier public/ de Laravel.
     - /bin/sed -i "s@__DIR__\.'/\.\./@'$APP/@g" $WEB/index.php
-
-    # 4 — Base de données. Les trois seeders utilisent updateOrCreate : ils sont
-    #     réexécutables à chaque déploiement sans créer de doublons (vérifié).
-    - $PHP $APP/artisan migrate --force
-    - $PHP $APP/artisan db:seed --force
-
-    # 5 — Caches de production
-    - $PHP $APP/artisan config:clear
-    - $PHP $APP/artisan config:cache
-    - $PHP $APP/artisan route:cache
-    - $PHP $APP/artisan view:cache
+    - php $APP/artisan migrate --force
+    - php $APP/artisan db:seed --force
+    - php $APP/artisan config:clear
+    - php $APP/artisan config:cache
+    - php $APP/artisan route:cache
+    - php $APP/artisan view:cache
