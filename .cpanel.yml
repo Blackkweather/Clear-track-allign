@@ -1,0 +1,45 @@
+---
+# Déploiement cPanel (Heberjahiz) — cPanel → Git™ Version Control → « Deploy ».
+#
+# Contexte : sur le domaine principal, cPanel n'autorise pas à changer la racine
+# du document, figée sur public_html (vérifié le 31/08/2026 : « No configuration
+# options currently exist for the cleartrack.ma domain »). L'application vit donc
+# dans /home/cleartra/cleartrack, hors du web, et seuls ses fichiers publics sont
+# recopiés dans public_html, dont l'index.php est réécrit en chemins absolus.
+#
+# JAMAIS touché ici, parce que ça ne vient pas du dépôt :
+#   vendor/        installé une fois depuis l'archive — pas de Composer en mutualisé
+#   .env           identifiants de production
+#   storage/       journaux, sessions, fichiers patients
+#   public/build   assets Vite compilés (listés dans .gitignore)
+deployment:
+  tasks:
+    - export APP=/home/cleartra/cleartrack
+    - export WEB=/home/cleartra/public_html
+    - export PHP=$(command -v ea-php83 || echo /opt/cpanel/ea-php83/root/usr/bin/php)
+
+    # 1 — Code applicatif
+    - /bin/cp -Rf app bootstrap config database resources routes $APP/
+    - /bin/cp -f artisan composer.json composer.lock $APP/
+
+    # 2 — Fichiers publics. On fusionne d'abord dans $APP/public, ce qui préserve
+    #     build/ (absent du dépôt), puis on recopie l'ensemble dans la racine web.
+    #     Recopier directement depuis le dépôt priverait public_html des assets
+    #     Vite et le site s'afficherait sans aucun style.
+    - /bin/cp -Rf public $APP/
+    - /bin/cp -Rf $APP/public/. $WEB/
+
+    # 3 — index.php de la racine web : __DIR__.'/../ ne pointe plus au bon endroit,
+    #     puisque public_html n'est pas le dossier public/ de Laravel.
+    - /bin/sed -i "s@__DIR__\.'/\.\./@'$APP/@g" $WEB/index.php
+
+    # 4 — Base de données. Les trois seeders utilisent updateOrCreate : ils sont
+    #     réexécutables à chaque déploiement sans créer de doublons (vérifié).
+    - $PHP $APP/artisan migrate --force
+    - $PHP $APP/artisan db:seed --force
+
+    # 5 — Caches de production
+    - $PHP $APP/artisan config:clear
+    - $PHP $APP/artisan config:cache
+    - $PHP $APP/artisan route:cache
+    - $PHP $APP/artisan view:cache
