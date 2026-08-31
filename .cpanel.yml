@@ -16,7 +16,12 @@ deployment:
   tasks:
     - export APP=/home/cleartra/cleartrack
     - export WEB=/home/cleartra/public_html
-    - export PHP=$(command -v ea-php83 || echo /opt/cpanel/ea-php83/root/usr/bin/php)
+    # Le binaire PHP 8.3 n'est pas au même endroit selon la pile : EasyApache
+    # (cPanel) le met dans /opt/cpanel, le PHP Selector (CloudLinux) dans
+    # /opt/alt. Heberjahiz tourne sous CloudLinux, mais on sonde les deux et on
+    # retombe sur le php du PATH en dernier recours.
+    - export PHP=$(command -v ea-php83 || command -v /opt/cpanel/ea-php83/root/usr/bin/php || command -v /opt/alt/php83/usr/bin/php || command -v php)
+    - echo "PHP utilise : $PHP" && $PHP -v | head -1
 
     # 1 — Code applicatif
     - /bin/cp -Rf app bootstrap config database resources routes $APP/
