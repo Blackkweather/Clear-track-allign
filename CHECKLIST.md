@@ -287,7 +287,7 @@ Procédure complète : **[DEPLOIEMENT-HEBERJAHIZ.md](DEPLOIEMENT-HEBERJAHIZ.md)*
 - [x] **Compatibilité vérifiée** — Laravel 13.8 + Filament 5.6 exigent PHP `^8.3` ; Heberjahiz propose 8.0 à 8.4 sur les trois offres mutualisées. C'était le seul point susceptible de tout bloquer
 - [ ] Régler PHP sur **8.3** dans cPanel → *MultiPHP Manager*
 - [ ] Créer la base MySQL + l'utilisateur, et **associer les deux** (ALL PRIVILEGES)
-- [ ] Préparer le paquet : `composer install --no-dev --optimize-autoloader`, `npm run build`, `php artisan filament:assets` (**absent aujourd'hui** — sans lui `/admin` s'affiche sans styles)
+- [ ] Préparer le paquet : `composer install --no-dev --optimize-autoloader`, `npm run build`, `php artisan filament:assets` (par sécurité — les 29 fichiers sont déjà versionnés dans `public/js/filament` et `public/css/filament`)
 - [ ] `.env` de production : `mysql`, `APP_DEBUG=false`, `APP_KEY`, et **`QUEUE_CONNECTION=sync`** (aucun démon `queue:work` sur du mutualisé : une file `database` ne s'exécuterait jamais, sans erreur visible)
 - [ ] Envoyer l'application **au-dessus** de `public_html`, domaine pointé sur son `public/` (sinon `.env` et `storage/app/private` — radios et photos patients — deviennent téléchargeables)
 - [ ] Migrations + `storage:link` + caches, par tâche cron ponctuelle si l'offre n'ouvre pas SSH

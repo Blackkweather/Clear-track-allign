@@ -45,7 +45,7 @@ le site se déploie **sans erreur visible** mais ne fonctionne pas correctement.
 cd cleartrack-website
 composer install --no-dev --optimize-autoloader   # vendor/ sans les outils de dev
 npm run build                                     # assets Vite dans public/build
-php artisan filament:assets                       # assets du panneau admin (absents aujourd'hui)
+php artisan filament:assets                       # assets du panneau admin (par sécurité)
 ```
 
 Puis créer le `.env` de production (voir §4) et compresser **tout le projet
@@ -55,6 +55,26 @@ sauf** : `node_modules/`, `.git/`, `tests/`, `database/database.sqlite`,
 
 `vendor/` **doit** être dans l'archive : sans SSH, Composer ne peut pas tourner
 sur le serveur.
+
+### Archive déjà prête
+
+Le paquet a été construit le 31/08/2026 et se trouve **hors du dépôt** :
+
+```
+ClearTrack Align/paquet-heberjahiz/cleartrack-heberjahiz.zip   (70,9 Mo, 14 138 fichiers)
+ClearTrack Align/paquet-heberjahiz/.env                        (copie lisible du .env embarqué)
+```
+
+Il se décompresse en un dossier `cleartrack/` et contient déjà `vendor/`
+(sans les paquets de développement), les assets Vite compilés, ceux de
+Filament, et un `.env` de production. Contrôles passés à la construction :
+ni `database.sqlite`, ni `node_modules`, ni `.git`, ni `tests/`, ni PHPUnit,
+ni les extraits PPT non publiables (D15/D20), ni les fichiers patients
+déposés pendant les essais (`storage/app/private` est envoyé **vide**).
+
+Neuf valeurs restent à compléter dans le `.env` — elles sont toutes marquées
+`À REMPLIR` : l'URL du domaine, les trois identifiants MySQL et les cinq
+paramètres SMTP. L'`APP_KEY` est déjà générée.
 
 ## 4. Base de données et `.env`
 
@@ -165,7 +185,9 @@ avant de communiquer l'adresse au client.
 
 - Les 15 pages publiques répondent en 200 (`/sitemap.xml` les liste toutes).
 - Les trois formulaires enregistrent **et** envoient un e-mail.
-- `/admin` s'ouvre et affiche bien les styles (sinon `filament:assets` a été
-  oublié, ou `public/vendor` n'a pas été envoyé).
+- `/admin` s'ouvre et affiche bien les styles (les assets vivent dans
+  `public/js/filament` et `public/css/filament` — 29 fichiers, déjà versionnés
+  dans le dépôt et présents dans l'archive ; ce n'est pas `public/vendor`, qui
+  n'existe pas ici).
 - `https://LE-DOMAINE/.env` renvoie 404 ou 403, **jamais** le contenu du fichier.
 - La vidéo de l'accueil s'affiche sur téléphone (D86) et se lance au clic.
