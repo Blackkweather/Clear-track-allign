@@ -1,28 +1,44 @@
 ---
-# Deploiement cPanel (Heberjahiz). Voir DEPLOIEMENT-HEBERJAHIZ.md pour le
-# detail et les raisons. Ce fichier est volontairement minimal : le parseur
-# de cPanel est plus strict que celui de PyYAML, donc pas de commentaire
-# dans la liste des taches, pas de substitution $(...), pas de || ni de
-# tube, et surtout jamais de deux-points suivi d'une espace.
+# Deploiement cPanel (Heberjahiz). Detail et justifications dans
+# DEPLOIEMENT-HEBERJAHIZ.md.
 #
-# php sans chemin absolu : sous CloudLinux, le PHP Selector fait pointer le
-# php de l'utilisateur sur la version choisie pour le compte, ici 8.3.
+# Chaque tache ecrit sa sortie dans /home/cleartra/deploiement.log, parce que
+# cPanel n'expose son journal que dans l'interface : ce fichier permet de le
+# relire par FTP et de diagnostiquer sans avoir a recopier l'ecran.
 #
-# Jamais touche ici, parce que ca ne vient pas du depot : vendor/, .env,
-# storage/ et public/build.
+# On essaie plusieurs binaires PHP successivement. Sur cPanel, le php du shell
+# de deploiement n'est pas forcement celui qui sert le site : il pointe souvent
+# vers le PHP systeme, sans pdo_mysql et parfois en 7.x. Les commandes qui
+# echouent laissent simplement une trace dans le journal.
+#
+# Jamais touche ici : vendor/, .env, storage/ et public/build.
 deployment:
   tasks:
     - export APP=/home/cleartra/cleartrack
     - export WEB=/home/cleartra/public_html
-    - php -v
+    - export LOG=/home/cleartra/deploiement.log
+    - date > $LOG
+    - echo "--- which php ---" >> $LOG
+    - which php >> $LOG 2>&1
+    - php -v >> $LOG 2>&1
+    - echo "--- alt-php 8.3 ---" >> $LOG
+    - /opt/alt/php83/usr/bin/php -v >> $LOG 2>&1
+    - echo "--- ea-php83 ---" >> $LOG
+    - /opt/cpanel/ea-php83/root/usr/bin/php -v >> $LOG 2>&1
+    - echo "--- copie ---" >> $LOG
     - /bin/cp -Rf app bootstrap config database resources routes $APP/
     - /bin/cp -f artisan composer.json composer.lock $APP/
     - /bin/cp -Rf public $APP/
     - /bin/cp -Rf $APP/public/. $WEB/
     - /bin/sed -i "s@__DIR__\.'/\.\./@'$APP/@g" $WEB/index.php
-    - php $APP/artisan migrate --force
-    - php $APP/artisan db:seed --force
-    - php $APP/artisan config:clear
-    - php $APP/artisan config:cache
-    - php $APP/artisan route:cache
-    - php $APP/artisan view:cache
+    - echo "--- migrate via alt-php ---" >> $LOG
+    - /opt/alt/php83/usr/bin/php $APP/artisan migrate --force >> $LOG 2>&1
+    - echo "--- migrate via php ---" >> $LOG
+    - php $APP/artisan migrate --force >> $LOG 2>&1
+    - echo "--- seed ---" >> $LOG
+    - /opt/alt/php83/usr/bin/php $APP/artisan db:seed --force >> $LOG 2>&1
+    - php $APP/artisan db:seed --force >> $LOG 2>&1
+    - echo "--- caches ---" >> $LOG
+    - /opt/alt/php83/usr/bin/php $APP/artisan config:clear >> $LOG 2>&1
+    - php $APP/artisan config:clear >> $LOG 2>&1
+    - echo "--- fin ---" >> $LOG
