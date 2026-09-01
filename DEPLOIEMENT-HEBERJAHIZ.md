@@ -4,6 +4,60 @@ Cible de production décidée avec le client (31/08/2026) : le site part sur le
 compte Heberjahiz `cleartra`, et non plus sur l'aperçu Vercel — celui-ci reste
 utile comme lien de relecture tant que le domaine n'est pas basculé.
 
+## 0. État au 01/09/2026 — il reste UNE commande
+
+Le site est déployé sur `cleartrack.ma` et répond, mais en **erreur 500** : les
+tables de la base n'ont jamais été créées. Tout le reste est fait.
+
+| Étape | État |
+| --- | --- |
+| WordPress archivé dans `/home/cleartra/wordpress-ancien` | OK |
+| Application dans `/home/cleartra/cleartrack`, hors du web | OK |
+| Fichiers publics copiés dans `public_html`, `index.php` réécrit | OK |
+| PHP 8.3 + `pdo_mysql` + `mysqlnd` | OK |
+| Base `cleartra_cleartrack` + utilisateur + ALL PRIVILEGES | OK |
+| `.env` de production (Laravel lit bien le bon nom de base) | OK |
+| Déploiement Git branché (`.cpanel.yml`) | OK |
+| **Migrations et seeders** | **RESTE À FAIRE** |
+
+La preuve que tout le reste fonctionne : l'erreur dans `storage/logs/` est passée
+de `could not find driver` (pilote MySQL absent) à `Table
+'cleartra_cleartrack.sessions' doesn't exist`. PHP parle donc à MySQL avec les
+bons identifiants — il ne manque que les tables.
+
+**La commande à lancer, une seule fois :**
+
+```
+cd /home/cleartra/cleartrack && php artisan migrate --force && php artisan db:seed --force
+```
+
+Trois moyens, par ordre de simplicité :
+
+1. **cPanel → Terminal** (section Avancé) — coller la commande. Reste à vérifier
+   que l'outil existe sur ce compte : l'information n'a jamais pu être obtenue.
+2. **cPanel → Git Version Control → Deploy HEAD Commit** — `.cpanel.yml` lance
+   déjà `migrate` et `db:seed`. Ce bouton a fonctionné une fois (c'est lui qui a
+   rempli `public_html`), mais les relances suivantes n'ont rien produit.
+3. **cPanel → Tâches cron** — une tâche a été créée mais ne s'est jamais
+   déclenchée : cPanel l'avait enregistrée en `1 0 * * *` (une fois par jour à
+   minuit) au lieu de `* * * * *`. Vérifier les cinq colonnes du tableau.
+
+**SSH n'est pas une option** : les ports 22, 2222 et 22222 sont filtrés sur
+`serveur104.heberjahiz.com`, seul 2083 (cPanel) répond. L'offre mutualisée ne
+propose pas SSH — il faudrait le demander au support d'Heberjahiz.
+
+### Ménage à faire une fois le site en ligne
+
+- Supprimer la tâche cron si elle a servi, sinon elle rejoue les migrations en
+  boucle (sans dégât, les seeders utilisant `updateOrCreate`, mais inutilement).
+- Supprimer les comptes FTP `deploy@cleartrack.ma` et `blackkweather@cleartrack.ma`.
+- Changer le mot de passe de l'espace client Heberjahiz et celui de la base :
+  tous deux ont circulé en clair pendant l'installation.
+- Créer la boîte `contact@cleartrack.ma` et renseigner `MAIL_PASSWORD` dans le
+  `.env`, sinon les trois formulaires enregistrent sans alerter personne (D10).
+
+---
+
 ## 1. Prérequis — vérifiés
 
 | Besoin de l'application | Offre Heberjahiz | État |
