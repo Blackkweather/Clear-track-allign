@@ -2,43 +2,32 @@
 # Deploiement cPanel (Heberjahiz). Detail et justifications dans
 # DEPLOIEMENT-HEBERJAHIZ.md.
 #
-# Chaque tache ecrit sa sortie dans /home/cleartra/deploiement.log, parce que
-# cPanel n'expose son journal que dans l'interface : ce fichier permet de le
-# relire par FTP et de diagnostiquer sans avoir a recopier l'ecran.
+# NE PAS COMPLIQUER CE FICHIER. Cette forme exacte est la seule qui ait
+# reellement deploye. Une version enrichie de redirections (>> et 2>&1) pour
+# ecrire un journal de diagnostic a fait repondre a cPanel « The system cannot
+# deploy », alors que le YAML parsait sans probleme cote PyYAML : le parseur de
+# cPanel est en Perl et nettement plus strict. Donc pas de redirection, pas de
+# substitution $(...), pas de || ni de tube, aucun commentaire a l'interieur de
+# la liste des taches, et jamais de deux-points suivi d'une espace.
 #
-# On essaie plusieurs binaires PHP successivement. Sur cPanel, le php du shell
-# de deploiement n'est pas forcement celui qui sert le site : il pointe souvent
-# vers le PHP systeme, sans pdo_mysql et parfois en 7.x. Les commandes qui
-# echouent laissent simplement une trace dans le journal.
+# /usr/local/bin/php est le chemin recommande par cPanel lui-meme sur la page
+# des taches cron, et une execution reelle a confirme qu'il s'agit bien de
+# PHP 8.3.33 avec pdo_mysql.
 #
-# Jamais touche ici : vendor/, .env, storage/ et public/build.
+# Jamais touche ici, parce que ca ne vient pas du depot : vendor/, .env,
+# storage/ et public/build.
 deployment:
   tasks:
     - export APP=/home/cleartra/cleartrack
     - export WEB=/home/cleartra/public_html
-    - export LOG=/home/cleartra/deploiement.log
-    - date > $LOG
-    - echo "--- which php ---" >> $LOG
-    - which php >> $LOG 2>&1
-    - php -v >> $LOG 2>&1
-    - echo "--- alt-php 8.3 ---" >> $LOG
-    - /opt/alt/php83/usr/bin/php -v >> $LOG 2>&1
-    - echo "--- ea-php83 ---" >> $LOG
-    - /opt/cpanel/ea-php83/root/usr/bin/php -v >> $LOG 2>&1
-    - echo "--- copie ---" >> $LOG
     - /bin/cp -Rf app bootstrap config database resources routes $APP/
     - /bin/cp -f artisan composer.json composer.lock $APP/
     - /bin/cp -Rf public $APP/
     - /bin/cp -Rf $APP/public/. $WEB/
     - /bin/sed -i "s@__DIR__\.'/\.\./@'$APP/@g" $WEB/index.php
-    - echo "--- migrate via alt-php ---" >> $LOG
-    - /opt/alt/php83/usr/bin/php $APP/artisan migrate --force >> $LOG 2>&1
-    - echo "--- migrate via php ---" >> $LOG
-    - php $APP/artisan migrate --force >> $LOG 2>&1
-    - echo "--- seed ---" >> $LOG
-    - /opt/alt/php83/usr/bin/php $APP/artisan db:seed --force >> $LOG 2>&1
-    - php $APP/artisan db:seed --force >> $LOG 2>&1
-    - echo "--- caches ---" >> $LOG
-    - /opt/alt/php83/usr/bin/php $APP/artisan config:clear >> $LOG 2>&1
-    - php $APP/artisan config:clear >> $LOG 2>&1
-    - echo "--- fin ---" >> $LOG
+    - /usr/local/bin/php $APP/artisan migrate --force
+    - /usr/local/bin/php $APP/artisan db:seed --force
+    - /usr/local/bin/php $APP/artisan config:clear
+    - /usr/local/bin/php $APP/artisan config:cache
+    - /usr/local/bin/php $APP/artisan route:cache
+    - /usr/local/bin/php $APP/artisan view:cache
